@@ -19,7 +19,8 @@ class CreateEventsTable extends Migration
             $table->date('date');
             $table->string('name');
             $table->text('description');
-            $table->integer('number_of_people');
+            $table->integer('headcount');
+            $table->integer('reserved_headcount')->default(0);
             $table->string('location');
             
 

@@ -17,7 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/events', [App\Http\Controllers\EventController::class, 'listing' ]);
+Route::get('/events', [App\Http\Controllers\EventsController::class, 'index' ]);
+Route::get('/events/create', [App\Http\Controllers\EventsController::class, 'create' ]);
+Route::post('/events', [App\Http\Controllers\EventsController::class, 'store' ]);
 
 Auth::routes();
 
