@@ -69,7 +69,7 @@ class EventsController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('events.edit', compact('event'));
     }
 
     /**
@@ -81,7 +81,15 @@ class EventsController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        //
+        $event->name=request('name');
+        $event->date=request('date');
+        $event->description=request('description');
+        $event->headcount=request('headcount');
+        $event->location=request('location');
+        $event->save();
+
+        return 'frissítve';
+
     }
 
     /**
