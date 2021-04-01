@@ -23,6 +23,7 @@ Route::get('/events/{event}/edit', [App\Http\Controllers\EventsController::class
 Route::get('/events/{event}', [App\Http\Controllers\EventsController::class, 'show' ]);
 Route::put('/events/{event}', [App\Http\Controllers\EventsController::class, 'update' ]);
 Route::post('/events', [App\Http\Controllers\EventsController::class, 'store' ]);
+Route::delete('/events/{event}', [App\Http\Controllers\EventsController::class, 'destroy' ]);
 
 Auth::routes();
 

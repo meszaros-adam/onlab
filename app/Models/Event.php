@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+
+    public function registrations()
+    {
+        return $this->hasMany(Registrations::class);
+    }
+    /*public function user()
+    {
+        return $this->belongsTo(User::class);
+    }*/
 }

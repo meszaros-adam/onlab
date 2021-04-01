@@ -23,7 +23,12 @@
   <input type="text" id="location" name="location" value="{{$event->location}}"><br>
 </div>
 <div>
-<input type="submit">
+<button type="submit">Mentés</button>
 </div>
+</form>
 
+<form method="post" action="/events/{{$event->id}}"> 
+    @csrf
+    @method('DELETE')
+    <button type="submit">Törlés</button>
 </form>
