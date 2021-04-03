@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
+use App\Models\User;
+use App\Models\Registration;
 
-class RegsitrationsController extends Controller
+class RegistrationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,9 +24,9 @@ class RegsitrationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Event $event)
     {
-        //
+        return view('registrations.create', compact('event'));
     }
 
     /**
@@ -34,7 +37,15 @@ class RegsitrationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $registration = new Registration();
+        $registration->user_id=request('user');
+        $registration->event_id=request('event');
+        $registration->adult_headcount=request('adult_headcount');
+        $registration->child_headcount=request('child_headcount');
+
+        $registration->save();
+
+        return 'sikeres regisztráció';
     }
 
     /**

@@ -11,7 +11,7 @@ class Event extends Model
 
     public function registrations()
     {
-        return $this->hasMany(Registrations::class);
+        return $this->hasMany(Registration::class);
     }
     /*public function user()
     {
