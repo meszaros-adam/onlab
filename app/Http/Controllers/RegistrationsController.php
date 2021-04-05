@@ -65,9 +65,9 @@ class RegistrationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Registration $registration)
     {
-        //
+        return view('registrations.edit', compact('registration'));
     }
 
     /**
@@ -77,9 +77,12 @@ class RegistrationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Registration $registration)
     {
-        //
+        $registration->adult_headcount=request('adult_headcount');
+        $registration->child_headcount=request('child_headcount');
+        $registration->save();
+        return 'módosítva';
     }
 
     /**
