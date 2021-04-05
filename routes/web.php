@@ -27,6 +27,7 @@ Route::delete('/events/{event}', [App\Http\Controllers\EventsController::class, 
 
 Route::get('/registrations/{event}', [App\Http\Controllers\RegistrationsController::class, 'create' ]);
 Route::post('/registrations/{event}/{user}', [App\Http\Controllers\RegistrationsController::class, 'store' ]);
+Route::get('/registrations/show/{registration}', [App\Http\Controllers\RegistrationsController::class, 'show' ]);
 
 Auth::routes();
 
