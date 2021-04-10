@@ -25,6 +25,7 @@ Route::put('/events/{event}', [App\Http\Controllers\EventsController::class, 'up
 Route::post('/events', [App\Http\Controllers\EventsController::class, 'store' ]);
 Route::delete('/events/{event}', [App\Http\Controllers\EventsController::class, 'destroy' ]);
 
+Route::get('/registrations', [App\Http\Controllers\RegistrationsController::class, 'index' ]);
 Route::get('/registrations/create/{event}', [App\Http\Controllers\RegistrationsController::class, 'create' ]);
 Route::post('/registrations/{event}/{user}', [App\Http\Controllers\RegistrationsController::class, 'store' ]);
 Route::get('/registrations/{registration}', [App\Http\Controllers\RegistrationsController::class, 'show' ]);

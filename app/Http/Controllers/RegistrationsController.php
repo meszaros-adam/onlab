@@ -16,7 +16,7 @@ class RegistrationsController extends Controller
      */
     public function index()
     {
-        //
+        return view('registrations.index', ['registrations' => Registration::all()]);
     }
 
     /**
