@@ -4,7 +4,7 @@
 <div> Időpont: {{$event->date}} </div>
 <div> Helyszín: {{$event->location}} </div>
 <div>  
-    <form action="/registrations/{{$event->id}}">
+    <form action="/registrations/create/{{$event->id}}">
         <input type="submit" value="Regisztráció" />
     </form>  
 </div>

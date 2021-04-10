@@ -19,10 +19,10 @@ Route::get('/', function () {
 
 Route::get('/events', [App\Http\Controllers\EventsController::class, 'index' ]);
 Route::get('/events/create', [App\Http\Controllers\EventsController::class, 'create' ]);
-Route::get('/events/{event}/edit', [App\Http\Controllers\EventsController::class, 'edit' ]);
-Route::get('/events/{event}', [App\Http\Controllers\EventsController::class, 'show' ]);
-Route::put('/events/{event}', [App\Http\Controllers\EventsController::class, 'update' ]);
 Route::post('/events', [App\Http\Controllers\EventsController::class, 'store' ]);
+Route::get('/events/{event}', [App\Http\Controllers\EventsController::class, 'show' ]);
+Route::get('/events/{event}/edit', [App\Http\Controllers\EventsController::class, 'edit' ]);
+Route::put('/events/{event}', [App\Http\Controllers\EventsController::class, 'update' ]);
 Route::delete('/events/{event}', [App\Http\Controllers\EventsController::class, 'destroy' ]);
 
 Route::get('/registrations', [App\Http\Controllers\RegistrationsController::class, 'index' ]);

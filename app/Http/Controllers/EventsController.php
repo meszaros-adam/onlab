@@ -103,7 +103,15 @@ class EventsController extends Controller
      */
     public function destroy(Event $event)
     {
+        $registrations=$event->registrations;
+
+        foreach ($registrations as $registration)
+        {
+        $registration->delete();
+        }       
+        
         $event->delete();
+        
         return ('destroyed');
     }
 }
