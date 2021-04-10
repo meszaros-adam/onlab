@@ -91,8 +91,9 @@ class RegistrationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Registration $registration)
     {
-        //
+        $registration->delete();
+        return ('destroyed');
     }
 }

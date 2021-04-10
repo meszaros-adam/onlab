@@ -30,6 +30,7 @@ Route::post('/registrations/{event}/{user}', [App\Http\Controllers\Registrations
 Route::get('/registrations/{registration}', [App\Http\Controllers\RegistrationsController::class, 'show' ]);
 Route::get('/registrations/{registration}/edit', [App\Http\Controllers\RegistrationsController::class, 'edit' ]);
 Route::put('/registrations/{registration}', [App\Http\Controllers\RegistrationsController::class, 'update' ]);
+Route::delete('/registrations/{registration}', [App\Http\Controllers\RegistrationsController::class, 'destroy' ]);
 
 Auth::routes();
 

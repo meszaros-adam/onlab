@@ -17,5 +17,10 @@
 <div>
 <button type="submit">Módosítás</button>
 </div>
+</form>
 
+<form method="post" action="/registrations/{{$registration->id}}"> 
+    @csrf
+    @method('DELETE')
+    <button type="submit">Törlés</button>
 </form>
