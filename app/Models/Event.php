@@ -13,8 +13,31 @@ class Event extends Model
     {
         return $this->hasMany(Registration::class);
     }
-    /*public function user()
-    {
-        return $this->belongsTo(User::class);
-    }*/
+    public function reserved_childs(){
+
+        $registrations=$this->registrations;
+
+        $reserved_childs=0;
+
+        foreach ($registrations as $registration)
+        {
+        $reserved_childs+=$registration->child_headcount;
+        }
+        return $reserved_childs;
+    }
+    public function reserved_adults(){
+
+        $registrations=$this->registrations;
+
+        $reserved_adults=0;
+
+        foreach ($registrations as $registration)
+        {
+        $reserved_adults+=$registration->adult_headcount;
+        }
+        return $reserved_adults;
+    }
+    public function reserved_total(){
+        return $this->reserved_adults+$this->reserved_childs;
+    }
 }
