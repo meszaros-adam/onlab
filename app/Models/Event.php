@@ -38,6 +38,9 @@ class Event extends Model
         return $reserved_adults;
     }
     public function reserved_total(){
-        return $this->reserved_adults+$this->reserved_childs;
+        return $this->reserved_adults()+$this->reserved_childs();
+    }
+    public function free_places(){
+        return $this->headcount-$this->reserved_total();
     }
 }
