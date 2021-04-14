@@ -10,7 +10,7 @@
   <input type="text" id="name" name="name"><br>
 
   <label for="date">Időpontja:</label><br>
-  <input type="date" id="date" name="date"><br>
+  <input type="datetime-local" id="date" name="date"><br>
 
   <label for="description">Leírás:</label><br>
   <input type="text" id="description" name="description"><br>

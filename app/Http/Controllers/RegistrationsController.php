@@ -35,11 +35,24 @@ class RegistrationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Event $event) 
     {
+        request()->validate([
+            'adult_headcount' => 'required|integer|between:0,10',
+            'child_headcount' => 'required|integer|between:0,10',
+        ]);
+ 
+         if(request('adult_headcount')+request('child_headcount')==0){
+             return 'Nulla fővel nem lehet regisztrálni';
+         }
+ 
+         if(request('adult_headcount')+request('child_headcount')>$event->free_places()){
+             return 'Sajnos nincs ennyi szabad hely, kérem próbáljon meg kevesebb fővel regisztrálni!';
+         }
+        
         $registration = new Registration();
         $registration->user_id=request('user');
-        $registration->event_id=request('event');
+        $registration->event_id=$event->id;
         $registration->adult_headcount=request('adult_headcount');
         $registration->child_headcount=request('child_headcount');
 
@@ -79,9 +92,24 @@ class RegistrationsController extends Controller
      */
     public function update(Request $request, Registration $registration)
     {
+        request()->validate([
+            'adult_headcount' => 'required|integer|between:0,10',
+            'child_headcount' => 'required|integer|between:0,10',
+        ]);
+ 
+         if(request('adult_headcount')+request('child_headcount')==0){
+             return 'Nulla fővel nem lehet regisztrálni';
+         }
+ 
+         if(request('adult_headcount')+request('child_headcount')>$event->free_places()){
+             return 'Sajnos nincs ennyi szabad hely, kérem próbáljon meg kevesebb fővel regisztrálni!';
+         }
+
         $registration->adult_headcount=request('adult_headcount');
         $registration->child_headcount=request('child_headcount');
+        
         $registration->save();
+
         return 'módosítva';
     }
 

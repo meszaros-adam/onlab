@@ -11,7 +11,7 @@
   <input type="text" id="name" name="name" value="{{$event->name}}"><br>
 
   <label for="date">Időpontja:</label><br>
-  <input type="date" id="date" name="date" value="{{$event->date}}"><br>
+  <input type="datetime" id="date" name="date" value="{{$event->date}}"><br>
 
   <label for="description">Leírás:</label><br>
   <input type="text" id="description" name="description" value="{{$event->description}}"><br>

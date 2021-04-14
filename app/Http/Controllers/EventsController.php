@@ -38,7 +38,13 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(request()->all()); kiíratás
+        request()->validate([
+            'name' => 'required',
+            'date' => 'required',
+            'description' => 'required',
+            'headcount' => 'required|integer|min:1',
+            'location' => 'required',
+        ]);
 
         $event = new Event();
 
@@ -84,6 +90,18 @@ class EventsController extends Controller
      */
     public function update(Request $request, Event $event)
     {
+        request()->validate([
+            'name' => 'required',
+            'date' => 'required',
+            'description' => 'required',
+            'headcount' => 'required|integer|min:1',
+            'location' => 'required',
+        ]);
+
+        if(request('headcount')<$event->reserved_total()){
+            return('A létszám nem lehet kisebb mint a már lefoglalt helyek száma!');
+        }
+        
         $event->name=request('name');
         $event->date=request('date');
         $event->description=request('description');

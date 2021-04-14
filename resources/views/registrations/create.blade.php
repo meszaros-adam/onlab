@@ -6,9 +6,8 @@
     </div>
 
 <div>
-  <label for="aduld_headcount">Hány felnőttel érkezik?</label><br>
+  <label for="adult_headcount">Hány felnőttel érkezik?</label><br>
   <input type="number" id="headcount" name="adult_headcount"><br>
-
   <label for="child_headcount">Hány gyermekkel érkezik?</label><br>
   <input type="number" id="headcount" name="child_headcount"><br>
 
