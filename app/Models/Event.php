@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Event extends Model
 {
@@ -42,5 +43,20 @@ class Event extends Model
     }
     public function free_places(){
         return $this->headcount-$this->reserved_total();
+    }
+    public function check_registration(User $user){
+        $registrations=$this->registrations;
+        $users = array();
+
+        foreach($registrations as $registration){
+            $users[]=$registration->user_id;
+        }
+        
+        if(in_array($user->id, $users)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
