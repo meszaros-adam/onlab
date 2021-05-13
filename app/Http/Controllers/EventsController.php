@@ -56,7 +56,8 @@ class EventsController extends Controller
 
         $event->save();
 
-        return 'saved';
+        $response= 'Sikeresen mentve!';
+        return view('response', compact('response'));
     }
 
     /**
@@ -109,7 +110,8 @@ class EventsController extends Controller
         $event->location=request('location');
         $event->save();
 
-        return 'frissítve';
+        $response= 'Sikeresen frissítve!';
+        return view('response', compact('response'));
 
     }
 
@@ -130,6 +132,7 @@ class EventsController extends Controller
         
         $event->delete();
         
-        return ('destroyed');
+        $response= 'Sikeresen törölve!';
+        return view('response', compact('response'));
     }
 }

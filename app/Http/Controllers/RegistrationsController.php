@@ -65,7 +65,8 @@ class RegistrationsController extends Controller
 
         $registration->save();
 
-        return 'sikeres regisztráció';
+        $response= 'Sikeresen mentve!';
+        return view('response', compact('response'));
     }
 
     /**
@@ -117,7 +118,8 @@ class RegistrationsController extends Controller
         
         $registration->save();
 
-        return 'módosítva';
+        $response= 'Sikeresen módosítva!';
+        return view('response', compact('response'));
     }
 
     /**
@@ -129,6 +131,8 @@ class RegistrationsController extends Controller
     public function destroy(Registration $registration)
     {
         $registration->delete();
-        return ('destroyed');
+        
+        $response= 'Sikeresen törölve!';
+        return view('response', compact('response'));
     }
 }
