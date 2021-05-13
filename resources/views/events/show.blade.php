@@ -1,3 +1,6 @@
+@extends('layouts.layout')
+
+@section('content')
 <h1> {{$event->name}} </h1>
 <div> Leírás: {{$event->description}} </div>
 <div> Létszám: {{$event->headcount}} fő </div>
@@ -25,3 +28,4 @@
 </form>
 @endcan
 </div>
+@endsection

@@ -1,3 +1,6 @@
+@extends('layouts.layout')
+
+@section('content')
 <form method="post" action="/registrations/{{$registration->id}}">
     @csrf
     @method('PUT')
@@ -18,4 +21,5 @@
 <button type="submit">Módosítás</button>
 </div>
 </form>
+@endsection
 

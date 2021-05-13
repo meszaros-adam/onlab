@@ -1,3 +1,6 @@
+@extends('layouts.layout')
+
+@section('content')
 <h1> Regisztrációhoz tartozó esemény: {{$registration->event->name}}</h1>
 <div> Esemény leírása: {{$registration->event->description}} </div>
 <div> Esemény helyszíne: {{$registration->event->location}} </div>
@@ -16,5 +19,5 @@
     <button type="submit">Törlés</button>
 </form>
 </div>
-
+@endsection
 

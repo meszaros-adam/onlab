@@ -1,3 +1,6 @@
+@extends('layouts.layout')
+
+@section('content')
 <ul> 
     @foreach($events as $event)
         <li> <a href= 'events/{{$event->id}}'>
@@ -6,3 +9,4 @@
         </li>
     @endforeach
 </ul>
+@endsection

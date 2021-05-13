@@ -1,3 +1,6 @@
+@extends('layouts.layout')
+
+@section('content')
 <ul> 
     @foreach($registrations as $registration)
         <li> <a href= 'registrations/{{$registration->id}}'>
@@ -8,3 +11,4 @@
         </li>
     @endforeach
 </ul>
+@endsection

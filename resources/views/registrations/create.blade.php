@@ -1,3 +1,6 @@
+@extends('layouts.layout')
+
+@section('content')
 <form method="post" action="/registrations/{{$event->id}}">
     @csrf
 
@@ -16,3 +19,4 @@
 </div>
 
 </form>
+@endsection

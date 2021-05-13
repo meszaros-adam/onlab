@@ -1,3 +1,6 @@
+@extends('layouts.layout')
+
+@section('content')
 <form method="post" action="/events">
     @csrf
 
@@ -26,3 +29,4 @@
 </div>
 
 </form>
+@endsection

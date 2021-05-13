@@ -1,3 +1,6 @@
+@extends('layouts.layout')
+
+@section('content')
 <form method="post" action="/events/{{$event->id}}">
     @csrf
     @method('PUT')
@@ -26,5 +29,6 @@
 <button type="submit">Mentés</button>
 </div>
 </form>
+@endsection
 
 
