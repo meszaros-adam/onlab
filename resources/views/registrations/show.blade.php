@@ -9,5 +9,12 @@
         <input type="submit" value="Szerkesztés" />
     </form>  
 </div>
+<div>
+<form method="post" action="/registrations/{{$registration->id}}"> 
+    @csrf
+    @method('DELETE')
+    <button type="submit">Törlés</button>
+</form>
+</div>
 
 

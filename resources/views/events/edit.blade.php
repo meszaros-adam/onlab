@@ -27,8 +27,4 @@
 </div>
 </form>
 
-<form method="post" action="/events/{{$event->id}}"> 
-    @csrf
-    @method('DELETE')
-    <button type="submit">Törlés</button>
-</form>
+

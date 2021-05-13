@@ -7,5 +7,21 @@
 <div>  
     <form action="/registrations/create/{{$event->id}}">
         <input type="submit" value="Regisztráció" />
-    </form>  
+    </form> 
+</div>
+<div>
+    @can('update', $event)
+    <form action="/events/{{$event->id}}/edit">
+        <input type="submit" value="Szerkesztés" />
+    </form>
+    @endcan
+</div>
+<div>
+@can('delete', $event)
+<form method="post" action="/events/{{$event->id}}"> 
+    @csrf
+    @method('DELETE')
+    <button type="submit">Törlés</button>
+</form>
+@endcan
 </div>

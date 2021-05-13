@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\Registration;
+use Auth;
 
 class RegistrationsController extends Controller
 {
@@ -35,8 +36,11 @@ class RegistrationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Event $event, User $user) 
+    public function store(Request $request, Event $event) 
     {
+
+        $user = Auth::user();
+        
         request()->validate([
             'adult_headcount' => 'required|integer|between:0,10',
             'child_headcount' => 'required|integer|between:0,10',
@@ -104,7 +108,7 @@ class RegistrationsController extends Controller
              return 'Nulla fővel nem lehet regisztrálni';
          }
  
-         if(request('adult_headcount')+request('child_headcount')>$event->free_places()){
+         if(request('adult_headcount')+request('child_headcount')>$registration->event->free_places()){
              return 'Sajnos nincs ennyi szabad hely, kérem próbáljon meg kevesebb fővel regisztrálni!';
          }
 

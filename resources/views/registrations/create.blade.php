@@ -1,4 +1,4 @@
-<form method="post" action="/registrations/{{$event->id}}/{{Auth::user()->id}}">
+<form method="post" action="/registrations/{{$event->id}}">
     @csrf
 
     <div>
