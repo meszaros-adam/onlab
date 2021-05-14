@@ -47,14 +47,17 @@ class RegistrationsController extends Controller
         ]);
  
          if(request('adult_headcount')+request('child_headcount')==0){
-             return 'Nulla fővel nem lehet regisztrálni';
+             $response = 'Nulla fővel nem lehet regisztrálni';
+             return view('response', compact('response'));
          }
  
          if(request('adult_headcount')+request('child_headcount')>$event->free_places()){
-             return 'Sajnos nincs ennyi szabad hely, kérem próbáljon meg kevesebb fővel regisztrálni!';
+             $response = 'Sajnos nincs ennyi szabad hely, kérem próbáljon meg kevesebb fővel regisztrálni!';
+             return view('response', compact('response'));
          }
          if($event->check_registration($user)==true){
-             return 'Csak egyszer regisztrálhat egy eseményre';
+             $response = 'Csak egyszer regisztrálhat egy eseményre';
+             return view('response', compact('response'));
          }
         
         $registration = new Registration();
