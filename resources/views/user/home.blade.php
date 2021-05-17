@@ -11,8 +11,7 @@
                 <ul> 
                     @foreach($registrations as $registration)
                         <li> <a href= 'registrations/{{$registration->id}}'>
-                            <h2>Felhasználó: {{$registration->user->name}}</h2>
-                            <div>Esemény neve: {{$registration->event->name}}</div>
+                            <h2>Esemény: {{$registration->event->name}}</h2>
                             <div>Esemény időpontja: {{$registration->event->date}}</div>
                             <div>Felnőttek száma: {{$registration->adult_headcount}}</div>
                             <div>Gyermekek száma: {{$registration->child_headcount}}</div>

@@ -34,6 +34,9 @@ Released   : 20140225
 			<ul>
 				<li class="{{Request::path() === '/' ? 'current_page_item' : ''}}"> <a href="/" accesskey="1" title="">Kezdőlap</a></li>
 				<li class="{{Request::path() === 'events' ? 'current_page_item' : ''}}"> <a href="/events" accesskey="2" title="">Események</a></li>
+				@can('viewAny', 'App/Models/User')
+				<li class="{{Request::path() === 'users' ? 'current_page_item' : ''}}"> <a href="/users" accesskey="2" title="">Felhasználók</a></li>
+				@endcan
 				@can('viewAny', 'App/Models/Registration')
 				<li class="{{Request::path() === 'registrations' ? 'current_page_item' : ''}}"> <a href="/registrations" accesskey="2" title="">Regisztrációk</a></li>
 				@endcan
