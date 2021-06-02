@@ -20,6 +20,14 @@ class UsersController extends Controller
         return view('user.index', ['users' => User::all()]);
     }
 
+    public function eventsIndex()
+    {
+        $user = Auth::user();
+
+        $registrations=$user->registrations;
+        return view('user.home', compact('registrations'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
