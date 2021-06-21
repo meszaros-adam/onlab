@@ -1,73 +1,47 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by TEMPLATED
-http://templated.co
-Released for free under the Creative Commons Attribution License
+<!DOCTYPE html>
+<html lang="hu">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Eseménynaptár">
+        <meta name="keywords" content="Eseménynaptár, Erdei iskola, Sopron">
+        <title>Eseménynaptár</title>
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+    </head>
+    <body>
+        <div class="page-container">
+            <div class="header">
+            <a href="/" title="Főoldal"><h1>Erdei Iskola Eseménynaptár</h1></a>
+                <div class="menu">
+                    <ul class="menu-list">
+                        <li><a href="/events" title="Események"> Események</a></li>
+                        @can('viewAny', 'App/Models/User')
+                        <li><a href="/users" title="Felhasználók">Felhasználók</a></li>
+                        @endcan
+                        @can('viewAny', 'App/Models/Registration')
+                        <li><a href="/registrations" title="Regisztrációk">Regisztrációk</a></li>
+                        @endcan
+                        @if (Route::has('login'))
+                            @auth
+                            <li><a href="/home" title="Fiókom">Fiókom</a></li>
+                            @else		
+                            <li><a href="{{ route('login') }}" title="Bejelntkezés">Bejelentkezés</a></li>
+                                @if (Route::has('register'))
+                                <li><a href="{{ route('register') }}" title="Regisztráció">Regisztráció</a></li>
+                                @endif
+                            @endauth
+                        @endif
+                    </ul>
+                </div>
+            </div>
+            
+            <section class="content">
+            @yield('content')
+            </section>
 
-Name       : SimpleWork 
-Description: A two-column, fixed-width design with dark color scheme.
-Version    : 1.0
-Released   : 20140225
-
--->
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
-
-<link href="{{ asset('css/default.css') }}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{ asset('css/fonts.css') }}" rel="stylesheet" type="text/css" media="all" />
-
-<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
-
-</head>
-<body>
-<div id="header-wrapper">
-	<div id="header" class="container">
-		<div id="logo">
-			<h1><a href="/">Eseménynaptár</a></h1>
-		</div>
-		<div id="menu">
-			<ul>
-				<li class="{{Request::path() === '/' ? 'current_page_item' : ''}}"> <a href="/" accesskey="1" title="">Kezdőlap</a></li>
-				<li class="{{Request::path() === 'events' ? 'current_page_item' : ''}}"> <a href="/events" accesskey="2" title="">Események</a></li>
-				@can('viewAny', 'App/Models/User')
-				<li class="{{Request::path() === 'users' ? 'current_page_item' : ''}}"> <a href="/users" accesskey="2" title="">Felhasználók</a></li>
-				@endcan
-				@can('viewAny', 'App/Models/Registration')
-				<li class="{{Request::path() === 'registrations' ? 'current_page_item' : ''}}"> <a href="/registrations" accesskey="2" title="">Regisztrációk</a></li>
-				@endcan
-				@if (Route::has('login'))
-					@auth
-						<li><a href="{{ url('/home') }}" accesskey="3" title="">Fiókom</a></li>
-					@else			
-							<li><a href="{{ route('login') }}" accesskey="4" title="">Bejelentkezés</a></li>
-						@if (Route::has('register'))
-								<li><a href="{{ route('register') }}" accesskey="5" title="">Regisztráció</a></li>
-						@endif
-					@endauth
-				@endif
-			</ul>
-		</div>
-	</div>
-	<div id="header-featured">
-		<div id="banner-wrapper">
-			@yield('banner')
-		</div>
-	</div>
-</div>
-<div id="wrapper">
-	<div id="page" class="container">
-		<div id="content">
-		@yield('content')
-		</div>
-	</div>
-</div>
-<div id="copyright" class="container">
-	<p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
-</div>
-</body>
+            <div class="footer" >
+                <div>Minden jog védve!</div>
+                <a href="https://taegrt.hu">Tanulmányi Erdőgazdaság Zrt.</a>
+            </div>
+        </div>
+    </body>
 </html>

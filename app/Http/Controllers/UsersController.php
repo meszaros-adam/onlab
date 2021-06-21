@@ -20,7 +20,7 @@ class UsersController extends Controller
         return view('user.index', ['users' => User::all()]);
     }
 
-    public function eventsIndex()
+    public function events()
     {
         $user = Auth::user();
 
