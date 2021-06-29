@@ -4,19 +4,16 @@
 <form method="post" action="/registrations/{{$event->id}}">
     @csrf
 
-    <div>
-    <label> Regisztráció {{$event->name}}  eseményre</label>
-    </div>
+  <h1> Regisztráció {{$event->name}}  eseményre</h1>    
 
-<div>
-  <label for="adult_headcount">Hány felnőttel érkezik?</label><br>
-  <input type="number" id="headcount" name="adult_headcount" value=0><br>
-  <label for="child_headcount">Hány gyermekkel érkezik?</label><br>
-  <input type="number" id="headcount" name="child_headcount" value =0><br>
-</div>
-<div>
-<input type="submit">
-</div>
+  <div class="form">
+    <label for="adult_headcount">Hány felnőttel érkezik?</label><br>
+    <input type="number" id="headcount" name="adult_headcount" value=0><br>
+    <label for="child_headcount">Hány gyermekkel érkezik?</label><br>
+    <input type="number" id="headcount" name="child_headcount" value =0><br>
+  </div>
+  
+  <input class="button" type="submit">
 
 </form>
 @endsection

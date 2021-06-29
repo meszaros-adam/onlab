@@ -10,10 +10,13 @@
     <body>
         <div class="page-container">
             <div class="header">
-            <a href="/" title="Főoldal"><h1>Erdei Iskola Eseménynaptár</h1></a>
+            <a href="/" class="main-page" title="Főoldal"><h1>Erdei Iskola Eseménynaptár</h1></a>
                 <div class="menu">
                     <ul class="menu-list">
                         <li><a href="/events" title="Események"> Események</a></li>
+                        @can('create', 'App/Models/Event')
+                        <li><a href="/events/create" title="Esemény létrehozása"> Esemény létrehozása</a></li>
+                        @endcan
                         @can('viewAny', 'App/Models/User')
                         <li><a href="/users" title="Felhasználók">Felhasználók</a></li>
                         @endcan

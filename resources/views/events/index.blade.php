@@ -1,17 +1,7 @@
 @extends('layouts.layout')
 
-
-@section('banner')
-@can('create', 'App/Models/Event')
-<div id="banner" class="container">
-				<a href="events/create" class="button">Esemény létrehozása</a> 
-</div>
-@endcan
-@endsection
-
-
 @section('content')
-<ul> 
+<ul class="event"> 
     @foreach($events as $event)
         <li> 
             <a href= 'events/{{$event->id}}'>
