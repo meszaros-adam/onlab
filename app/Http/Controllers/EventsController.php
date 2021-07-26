@@ -15,14 +15,12 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $currentDate=carbon::Now()->format('Y-m-d');
-
-        $events =Event::all();
+        $events=Event::all();
 
         $filtered_events=array();
 
         foreach($events as $event){
-            if((new Carbon($event->date))->format('Y-m-d')>$currentDate){
+            if((new Carbon($event->date))->format('Y-m-d')>carbon::Now()->format('Y-m-d')){
                 array_push($filtered_events, $event);
             }
         }      
