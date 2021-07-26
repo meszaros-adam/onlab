@@ -2,7 +2,7 @@
 
 @section('content')
 <ul class="event"> 
-    @foreach($events as $event)
+    @foreach($filtered_events as $event)
         <li> 
             <a href= 'events/{{$event->id}}'>
             <h1>Esemény: {{$event->name}}</h1>

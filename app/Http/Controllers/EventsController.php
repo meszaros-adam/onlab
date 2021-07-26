@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class EventsController extends Controller
 {
@@ -14,10 +15,19 @@ class EventsController extends Controller
      */
     public function index()
     {
+        $currentDate=carbon::Now()->format('Y-m-d');
 
-        return view('events.index', ['events' => Event::all()]);
+        $events =Event::all();
 
+        $filtered_events=array();
 
+        foreach($events as $event){
+            if((new Carbon($event->date))->format('Y-m-d')>$currentDate){
+                array_push($filtered_events, $event);
+            }
+        }      
+
+        return view('events.index', compact('filtered_events'));
     }
 
     /**
@@ -66,8 +76,7 @@ class EventsController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
-    {
+    public function show(Event $event){
         return view('events.show', compact('event'));
     }
 
