@@ -9,32 +9,48 @@
     </head>
     <body>
         <div class="page-container">
-            <div class="header">
-            <a href="/" class="main-page" title="Főoldal"><h1>Erdei Iskola Eseménynaptár</h1></a>
-                <div class="menu">
-                    <ul class="menu-list">
-                        <li><a href="/events" title="Események"> Események</a></li>
-                        @can('create', 'App/Models/Event')
-                        <li><a href="/events/create" title="Esemény létrehozása"> Esemény létrehozása</a></li>
-                        @endcan
-                        @can('viewAny', 'App/Models/User')
-                        <li><a href="/users" title="Felhasználók">Felhasználók</a></li>
-                        @endcan
-                        @can('viewAny', 'App/Models/Registration')
-                        <li><a href="/registrations" title="Regisztrációk">Regisztrációk</a></li>
-                        @endcan
-                        @if (Route::has('login'))
-                            @auth
-                            <li><a href="/home" title="Fiókom">Fiókom</a></li>
-                            @else		
-                            <li><a href="{{ route('login') }}" title="Bejelntkezés">Bejelentkezés</a></li>
+            <div class="header">                    
+                    <ul class="nav">
+                        @guest
                                 @if (Route::has('register'))
-                                <li><a href="{{ route('register') }}" title="Regisztráció">Regisztráció</a></li>
+                                    <li><a class="nav-link" href="{{ route('register') }}">Regisztráció</a></li>
                                 @endif
-                            @endauth
-                        @endif
+
+                                @if (Route::has('login'))
+                                    <li><a class="nav-link" href="{{ route('login') }}">Bejelentkezés</a></li>
+                                @endif
+                                
+                                
+                            @else
+                                <li> 
+                                    <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                        Kijelentkezés
+                                    </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                        </form>
+                                </li>
+                                <li><a href="home">{{ Auth::user()->name }}</a></li>
+                        @endguest
+
+                        @can('viewAny', 'App/Models/Registration')
+                            <li><a href="/registrations" title="Regisztrációk">Regisztrációk</a></li>
+                        @endcan
+
+                        @can('viewAny', 'App/Models/User')
+                            <li><a href="/users" title="Felhasználók">Felhasználók</a></li>
+                        @endcan
+
+                        @can('create', 'App/Models/Event')
+                            <li><a href="/events/create" title="Esemény létrehozása">Esemény létrehozása</a></li>
+                        @endcan
+
+                        <li><a href="/events" title="Események">Események</a></li>
+                        <li class="title"><a href="/" title="Kezdőlap">Erdei Iskola Eseménynaptár</a></li> 
                     </ul>
-                </div>
             </div>
             
             <section class="content">

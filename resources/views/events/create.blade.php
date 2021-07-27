@@ -8,19 +8,19 @@
 
   <div class="form">
     <label for="name">Esemény neve:</label><br>
-    <input type="text" id="name" name="name"><br>
+    <textarea type="text" id="name" name="name"> </textarea><br>
 
     <label for="date">Időpontja:</label><br>
     <input type="datetime-local" id="date" name="date"><br>
 
     <label for="description">Leírás:</label><br>
-    <input type="text" id="description" name="description"><br>
+    <textarea type="text" id="description" name="description" rows="4"> </textarea><br>
 
     <label for="headcount">Létszám:</label><br>
     <input type="number" id="headcount" name="headcount"><br>
 
     <label for="location">Helyszín:</label><br>
-    <input type="text" id="location" name="location"><br>
+    <textarea type="text" id="location" name="location"></textarea><br>
   </div>
 
   <input class="button" type="submit" >

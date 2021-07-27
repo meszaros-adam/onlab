@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-<ul> 
+<ul class="registration"> 
     @foreach($registrations as $registration)
         <li> 
             <a href= '/registrations/{{$registration->id}}'>

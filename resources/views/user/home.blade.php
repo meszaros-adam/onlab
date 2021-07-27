@@ -1,14 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.layout')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Regisztrációim:') }}</div>
 
-                <div class="card-body">
-                <ul> 
+                <h1>Regisztrációim:</h1>               
+                <ul class= "registration"> 
                     @foreach($registrations as $registration)
                         <li> 
                             <a href= 'registrations/{{$registration->id}}'>
@@ -20,9 +15,4 @@
                         </li>
                     @endforeach
                 </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

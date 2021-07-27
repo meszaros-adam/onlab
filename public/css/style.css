@@ -1,10 +1,34 @@
 .header{
-    padding: 20px;
-    background: green;
+    background: #352a1b;
     color: white;
     font-size: 20px;
     position: sticky;
     top: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.nav{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.nav li{
+    float:right;
+    text-align: center;
+}
+.nav li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+.nav li a:hover{
+    background-color: grey;
+}
+.nav .title{
+    float: left;
 }
 body{
     margin: 0px;
@@ -16,56 +40,33 @@ body{
     text-align: center;
 }
 .footer{
-    background-color: green;
+    background-color: #352a1b;
     text-align: center;
+    color: white;
     position: absolute;
     bottom: 0;
     width: 100%;    
     padding-top: 20px;
     padding-bottom: 20px;
 }
-.menu li{
-    float: left;
-    margin: 5px;
-}
-.menu{
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: 15px;
-}
-.menu-list{
-    list-style-type: none;
-}
-.menu-list a:hover{
-    background-color: rgb(0, 75, 0);
-}
-.menu-list a {
-    display: block;
+.footer a{
     color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
 }
 .page-container{
     position: relative;
     min-height: 100vh;
     margin: 0px;
 }
-.main-page{
-    color: white;
-    text-decoration: none;
-}
 .event li, .registration li, .user li{
     list-style-type: none;
     list-style-position:inside;
     width: 50%;
     display:inline-block;
-    border-bottom: solid rgb(167, 0, 0);
+    border-bottom: solid #352a1b;
     border-width: 3px;
     padding: 30px;
 }
- .event li:hover, .registration li:hover, .user li:hover{
+.event li:hover, .registration li:hover, .user li:hover{
     background-color: grey;
 }
 .event a , .registration a, .user a{
@@ -77,19 +78,24 @@ body{
 margin: 10px;
 }
 .form{
-    margin: 20px;;
+    margin: 20px;
 }
-.form input{
+.form input, textarea{
+    margin-top: 5px;
     margin-bottom: 10px;
+    width: 400px;
+    padding: 10px;
 }
 .button{
     margin: 5px;
     width: 200px;
     height: 40px;
-    background-color: black;
+    background-color: #352a1b;
     color: aliceblue;
 }
 .button:hover{
-    border: solid red;
+    background-color: grey;
     border-width: 3px;
+    border-color: black;
 }
+
