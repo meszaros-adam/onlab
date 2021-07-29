@@ -26,6 +26,7 @@
 }
 .nav li a:hover{
     background-color: grey;
+    text-decoration: underline;
 }
 .nav .title{
     float: left;
@@ -36,7 +37,7 @@ body{
     background-color: rgb(204, 204, 204);
 }
 .content{
-    padding: 100px; 
+    padding: 100px;
     text-align: center;
 }
 .footer{
@@ -88,7 +89,7 @@ margin: 10px;
 }
 .button{
     margin: 5px;
-    width: 200px;
+    min-width: 100px;
     height: 40px;
     background-color: #352a1b;
     color: aliceblue;
@@ -97,5 +98,16 @@ margin: 10px;
     background-color: grey;
     border-width: 3px;
     border-color: black;
+}
+.button-row{
+    text-align: center;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+.button-row li{
+    display: inline-block;
+    margin: 10px;
+    
 }
 

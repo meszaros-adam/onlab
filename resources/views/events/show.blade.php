@@ -10,25 +10,28 @@
     <div> Helyszín: {{$event->location}} </div>
 <div>
     
-</div>
-    <form action="/registrations/create/{{$event->id}}">
-    <button class="button" type="submit">Regisztráció</button>
-    </form> 
-</div>
-<div>
-    @can('update', $event)
-    <form action="/events/{{$event->id}}/edit">
-        <button class="button" type="submit">Szerkesztés</button>
-    </form>
-    @endcan
-</div>
-<div>
-    @can('delete', $event)
-    <form method="post" action="/events/{{$event->id}}"> 
-        @csrf
-        @method('DELETE')
-        <button class="button" type="submit">Törlés</button>
-    </form>
-    @endcan
-</div>
+    <ul class="button-row">
+        <li>
+            <form action="/registrations/create/{{$event->id}}">
+            <button class="button" type="submit">Regisztráció</button>
+            </form>
+        </li> 
+        <li>
+            @can('update', $event)
+            <form action="/events/{{$event->id}}/edit">
+                <button class="button" type="submit">Szerkesztés</button>
+            </form>
+            @endcan
+        </li>
+        <li>
+            @can('delete', $event)
+            <form method="post" action="/events/{{$event->id}}"> 
+                @csrf
+                @method('DELETE')
+                <button class="button" type="submit">Törlés</button>
+            </form>
+            @endcan
+        </li>
+    </ul>
+
 @endsection

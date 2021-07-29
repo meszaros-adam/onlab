@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" class="form">
                         @csrf
 
                         <div class="form-group row">
