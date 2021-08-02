@@ -1,8 +1,9 @@
 @extends('layouts.layout')
 
 @section('content')
-<ul class="event"> 
-    @foreach($filtered_events as $event)
+<ul class="event">
+    @if(count($active_events)>0)
+    @foreach($active_events as $event)
         <li> 
             <a href= 'events/{{$event->id}}'>            
             <h1>Esemény: {{$event->name}}</h1>
@@ -10,5 +11,8 @@
             </a>
         </li>
     @endforeach
+    @else
+        <h1>Jelenleg nincs kiírva esemény</h1>
+    @endif
 </ul>
 @endsection

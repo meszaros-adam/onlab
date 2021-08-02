@@ -17,15 +17,15 @@ class EventsController extends Controller
     {
         $events=Event::all();
 
-        $filtered_events=array();
+        $active_events=array();
 
         foreach($events as $event){
-            if((new Carbon($event->date))->format('Y-m-d')>carbon::Now()->format('Y-m-d')){
-                array_push($filtered_events, $event);
+            if($event->isActive()==true){
+                array_push($active_events, $event);
             }
         }      
 
-        return view('events.index', compact('filtered_events'));
+        return view('events.index', compact('active_events'));
     }
 
     /**

@@ -48,7 +48,7 @@
                         @endcan
 
                         <li><a class="nav-button" href="/events" title="Események">Események</a></li>
-                        <li class="title"><a href="/" title="Kezdőlap"><img src="images/logo.webp"></a></li>
+                        <li class="title"><a href="/" title="Kezdőlap"><img src="{{ asset('images/logo.webp') }}"></a></li>
                         <!--<li class="title"><a href="/" title="Kezdőlap"><h1>Erdei Iskola Eseménynaptár<h1></a></li>-->
                     </ul>
             </div>

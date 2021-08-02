@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Carbon\Carbon;
 
 class Event extends Model
 {
@@ -53,6 +54,13 @@ class Event extends Model
         }
         
         if(in_array($user->id, $users)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }public function isActive(){
+        if((new Carbon($this->date))->format('Y-m-d')>carbon::Now()->format('Y-m-d')){
             return true;
         }
         else{
