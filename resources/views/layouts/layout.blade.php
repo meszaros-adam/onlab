@@ -13,43 +13,43 @@
                     <ul class="nav">
                         @guest
                                 @if (Route::has('register'))
-                                    <li><a class="nav-link" href="{{ route('register') }}">Regisztráció</a></li>
+                                    <li><a class="nav-button" href="{{ route('register') }}">Regisztráció</a></li>
                                 @endif
 
                                 @if (Route::has('login'))
-                                    <li><a class="nav-link" href="{{ route('login') }}">Bejelentkezés</a></li>
+                                    <li><a class="nav-button" href="{{ route('login') }}">Bejelentkezés</a></li>
                                 @endif
                                 
                                 
                             @else
                                 <li> 
-                                    <a href="{{ route('logout') }}"
+                                    <a class="nav-button" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                                         Kijelentkezés
                                     </a>
-
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                             @csrf
                                         </form>
                                 </li>
-                                <li><a href="home">{{ Auth::user()->name }}</a></li>
+                                <li><a class="nav-button" href="/home">{{ Auth::user()->name }}</a></li>
                         @endguest
 
                         @can('viewAny', 'App/Models/Registration')
-                            <li><a href="/registrations" title="Regisztrációk">Regisztrációk</a></li>
+                            <li><a class="nav-button" href="/registrations" title="Regisztrációk">Regisztrációk</a></li>
                         @endcan
 
                         @can('viewAny', 'App/Models/User')
-                            <li><a href="/users" title="Felhasználók">Felhasználók</a></li>
+                            <li><a class="nav-button" href="/users" title="Felhasználók">Felhasználók</a></li>
                         @endcan
 
                         @can('create', 'App/Models/Event')
-                            <li><a href="/events/create" title="Esemény létrehozása">Esemény létrehozása</a></li>
+                            <li><a class="nav-button" href="/events/create" title="Esemény létrehozása">Esemény létrehozása</a></li>
                         @endcan
 
-                        <li><a href="/events" title="Események">Események</a></li>
-                        <li class="title"><a href="/" title="Kezdőlap">Erdei Iskola Eseménynaptár</a></li> 
+                        <li><a class="nav-button" href="/events" title="Események">Események</a></li>
+                        <li class="title"><a href="/" title="Kezdőlap"><img src="images/logo.webp"></a></li>
+                        <!--<li class="title"><a href="/" title="Kezdőlap"><h1>Erdei Iskola Eseménynaptár<h1></a></li>-->
                     </ul>
             </div>
             

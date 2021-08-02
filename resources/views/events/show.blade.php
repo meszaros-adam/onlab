@@ -16,22 +16,22 @@
             <button class="button" type="submit">Regisztráció</button>
             </form>
         </li> 
+        @can('update', $event)
         <li>
-            @can('update', $event)
             <form action="/events/{{$event->id}}/edit">
                 <button class="button" type="submit">Szerkesztés</button>
             </form>
-            @endcan
         </li>
+        @endcan
+        @can('delete', $event)
         <li>
-            @can('delete', $event)
             <form method="post" action="/events/{{$event->id}}"> 
                 @csrf
                 @method('DELETE')
                 <button class="button" type="submit">Törlés</button>
             </form>
-            @endcan
         </li>
+        @endcan
     </ul>
 
 @endsection
