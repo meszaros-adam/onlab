@@ -5,7 +5,7 @@
     @foreach($users as $user)
         <a href= 'users/{{$user->id}}'>
             <li>
-                <h2>Email cím: {{$user->email}}</h2>
+                <h1>Email cím: {{$user->email}}</h1>
                 <div>Felhasználó neve: {{$user->name}}</div>
             </li>
         </a>

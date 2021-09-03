@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-<h1>Aktív események:</h1>
+<h1 class="body-title">Aktív események:</h1>
 <ul class="event">
     @if(count($active_events)>0)
     @foreach($active_events as $event)
@@ -17,7 +17,7 @@
     @endif
 </ul>
 <hr>
-<h1>Korábbi események:</h1>
+<h1 class="body-title">Korábbi események:</h1>
 <ul class="event">
     @foreach($earlier_events as $event)
         <a href= 'events/{{$event->id}}'>

@@ -4,7 +4,7 @@
 <form method="post" action="/events">
     @csrf
 
-  <h1> Esemény létrehozása: </h1>   
+  <h1 class="body-title"> Esemény létrehozása: </h1>   
 
   <div class="form">
     <label for="name">Esemény neve:</label><br>

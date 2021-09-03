@@ -122,9 +122,7 @@ body{
     display: inline-block;
     margin: 10px;    
 }
-h1{
-    margin: 0px;
-    padding: 0px;
+.body-title{
     text-align: left;
 }
 label{
