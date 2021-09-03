@@ -11,11 +11,13 @@
 <div>
     
     <ul class="button-row">
+        @if($event->isActive()==true)
         <li>
             <form action="/registrations/create/{{$event->id}}">
             <button class="button" type="submit">Regisztráció</button>
             </form>
-        </li> 
+        </li>
+        @endif
         @can('update', $event)
         <li>
             <form action="/events/{{$event->id}}/edit">

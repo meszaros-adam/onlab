@@ -59,7 +59,8 @@ class Event extends Model
         else{
             return false;
         }
-    }public function isActive(){
+    }
+    public function isActive(){
         if((new Carbon($this->date))->format('Y-m-d')>carbon::Now()->format('Y-m-d')){
             return true;
         }

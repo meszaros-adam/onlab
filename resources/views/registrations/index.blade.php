@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
+<h1>Az összes regisztráció: </h1>
 <ul class="registration"> 
     @foreach($registrations as $registration)
         <li> 

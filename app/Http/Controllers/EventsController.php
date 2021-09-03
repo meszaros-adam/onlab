@@ -19,13 +19,18 @@ class EventsController extends Controller
 
         $active_events=array();
 
+        $earlier_events=array();
+
         foreach($events as $event){
             if($event->isActive()==true){
                 array_push($active_events, $event);
             }
+            else{
+                array_push($earlier_events, $event);
+            }
         }      
 
-        return view('events.index', compact('active_events'));
+        return view('events.index', compact('active_events', 'earlier_events'));
     }
 
     /**
@@ -64,7 +69,7 @@ class EventsController extends Controller
 
         $event->save();
 
-        $response= 'Sikeresen mentve!';
+        $response = 'Sikeresen mentve!';
         return view('response', compact('response'));
     }
 

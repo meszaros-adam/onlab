@@ -7,7 +7,6 @@ use App\Models\Event;
 use App\Models\User;
 use App\Models\Registration;
 use Auth;
-use Carbon\Carbon;
 
 class RegistrationsController extends Controller
 {
@@ -60,7 +59,7 @@ class RegistrationsController extends Controller
              $response = 'Csak egyszer regisztrálhat egy eseményre';
              return view('response', compact('response'));
          }
-         if((new Carbon($event->date))->format('Y-m-d')<=carbon::Now()->format('Y-m-d')){
+         if($event->isActive()==false){
             $response = 'Erre az eseményre már nem lehet regisztrálni.';
             return view('response', compact('response'));
          }
