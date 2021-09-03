@@ -3,12 +3,12 @@
 @section('content')
 <ul class="user"> 
     @foreach($users as $user)
-        <li> 
-            <a href= 'users/{{$user->id}}'>
-            <h2>Email cím: {{$user->email}}</h2>
-            <div>Felhasználó neve: {{$user->name}}</div>
-            </a>
-        </li>
+        <a href= 'users/{{$user->id}}'>
+            <li>
+                <h2>Email cím: {{$user->email}}</h2>
+                <div>Felhasználó neve: {{$user->name}}</div>
+            </li>
+        </a>
     @endforeach
 </ul>
 @endsection

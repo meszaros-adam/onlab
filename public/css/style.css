@@ -86,7 +86,7 @@ body{
     
 }
 .event-show div, .registration-show div, .user-show div{
-margin: 10px;
+    margin: 10px;
 }
 .form{
     margin: 20px;

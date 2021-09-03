@@ -5,12 +5,12 @@
 <ul class="event">
     @if(count($active_events)>0)
     @foreach($active_events as $event)
-        <li> 
-            <a href= 'events/{{$event->id}}'>            
-            <h1>Esemény: {{$event->name}}</h1>
-            <div>Leírás: {{$event->description}}</div>
-            </a>
-        </li>
+        <a href= 'events/{{$event->id}}'> 
+            <li>                        
+                <h1>Esemény: {{$event->name}}</h1>
+                <div>Leírás: {{$event->description}}</div>
+            </li>
+        </a>
     @endforeach
     @else
         <h1>Jelenleg nincs kiírva esemény</h1>
@@ -20,12 +20,12 @@
 <h1>Korábbi események:</h1>
 <ul class="event">
     @foreach($earlier_events as $event)
-        <li> 
-            <a href= 'events/{{$event->id}}'>            
-            <h1>Esemény: {{$event->name}}</h1>
-            <div>Leírás: {{$event->description}}</div>
-            </a>
-        </li>
+        <a href= 'events/{{$event->id}}'>
+            <li>                        
+                <h1>Esemény: {{$event->name}}</h1>
+                <div>Leírás: {{$event->description}}</div>
+            </li>
+        </a>
     @endforeach
 </ul>
 @endsection
