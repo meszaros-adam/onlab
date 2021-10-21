@@ -25,6 +25,7 @@
     align-items: center;    
 }
 .nav-button{
+    border-radius: 5px;
     display: block;
     color: white;
     text-align: center;
@@ -110,8 +111,6 @@ body{
 }
 .button:hover{
     background-color: grey;
-    border-width: 3px;
-    border-color: black;
 }
 .button-row{
     text-align: center;

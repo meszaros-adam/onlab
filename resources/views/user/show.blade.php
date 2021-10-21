@@ -4,7 +4,7 @@
 <div class="user-show">
     <h2>Email cím: {{$user->email}}</h2>
     <div>Felhasználó neve: {{$user->name}}</div>
-    <div>Regisztráció időpontja: {{$user->name}}</div>
+    <div>Regisztráció időpontja: {{$user->created_at}}</div>
 </div>
 <ul class="button-row">
     <li>
