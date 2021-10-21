@@ -34,7 +34,7 @@ Route::put('/registrations/{registration}', [App\Http\Controllers\RegistrationsC
 Route::delete('/registrations/{registration}', [App\Http\Controllers\RegistrationsController::class, 'destroy' ])->middleware('can:create,registration');
 
 Route::get('/users', [App\Http\Controllers\UsersController::class, 'index' ])->middleware('can:viewAny, App\Models\User');
-Route::get('/home', [App\Http\Controllers\UsersController::class, 'events'])->name('home');
+Route::get('/home', [App\Http\Controllers\UsersController::class, 'home'])->name('home');
 Route::get('/users/{user}', [App\Http\Controllers\UsersController::class, 'show' ])->middleware('can:view, App\Models\User');
 Route::get('/users/{user}/registrations', [App\Http\Controllers\UsersController::class, 'registrations' ])->middleware('can:view, App\Models\User');
 Route::delete('/users/{user}', [App\Http\Controllers\UsersController::class, 'destroy' ])->middleware('can:delete, App\Models\User');

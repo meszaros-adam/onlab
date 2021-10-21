@@ -4,14 +4,14 @@
                 <h1 class="body-title">Aktív regisztrációim:</h1>               
                 <ul class= "registration"> 
                     @foreach($registrations as $registration)
-                        <li> 
-                            <a href= 'registrations/{{$registration->id}}'>
+                    <a href= 'registrations/{{$registration->id}}'>
+                            <li> 
                             <h2>Esemény: {{$registration->event->name}}</h2>
                             <div>Esemény időpontja: {{$registration->event->date}}</div>
                             <div>Felnőttek száma: {{$registration->adult_headcount}}</div>
                             <div>Gyermekek száma: {{$registration->child_headcount}}</div>
-                            </a>
-                        </li>
+                            </li>
+                    </a>
                     @endforeach
                 </ul>
 @endsection
