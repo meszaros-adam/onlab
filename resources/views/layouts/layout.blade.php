@@ -22,17 +22,22 @@
                                 
                                 
                             @else
-                                <li> 
-                                    <a class="nav-button" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                        Kijelentkezés
-                                    </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                                            @csrf
-                                        </form>
-                                </li>
-                                <li><a class="nav-button" href="/home">{{ Auth::user()->name }}</a></li>
+                                <li>
+                                    <div class="dropdown">
+                                        <a class="nav-button">{{ Auth::user()->name }}</a>
+                                            <div class="dropdown-content">
+                                                <a href="/home">Regisztrációim</a>
+                                                <a class="nav-button" href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                                        Kijelentkezés
+                                                </a>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                                        @csrf
+                                                    </form>
+                                            </div>
+                                    </div>
+                            </li>
                         @endguest
 
                         @can('viewAny', 'App/Models/Registration')
