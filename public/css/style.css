@@ -3,6 +3,7 @@
     color: white;
     font-size: 20px;
     position: sticky;
+    top: 0;
 }
 .title a{
     text-decoration: none;
