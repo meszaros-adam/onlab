@@ -24,20 +24,26 @@
                             @else
                                 <li>
                                     <div class="dropdown">
-                                        <a class="nav-button">{{ Auth::user()->name }}</a>
-                                            <div class="dropdown-content">
-                                                <a href="/home">Regisztrációim</a>
-                                                <a class="nav-button" href="{{ route('logout') }}"
+                                        <a class="nav-button">                                            
+                                            {{ Auth::user()->name }}
+                                            @if(Auth::user()->admin==1)
+                                                (Admin) 
+                                            @endif
+                                            <i class="arrow down"></i>
+                                        </a>                                        
+                                        <div class="dropdown-content">
+                                            <a href="/home">Regisztrációim</a>
+                                            <a href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                                         Kijelentkezés
-                                                </a>
+                                            </a>
                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                                         @csrf
                                                     </form>
-                                            </div>
+                                        </div>
                                     </div>
-                            </li>
+                                </li>
                         @endguest
 
                         @can('viewAny', 'App/Models/Registration')
