@@ -9,7 +9,10 @@
     </head>
     <body>
         <div class="page-container">
-            <div class="header">                    
+            <div class="header">
+
+                <a href="/" class="logo" title="Kezdőlap">Eseménynaptár</a>
+
                     <ul class="nav">
                         @guest
                                 @if (Route::has('register'))
@@ -59,8 +62,6 @@
                         @endcan
 
                         <li><a class="nav-button" href="/events" title="Események">Események</a></li>
-                        <li class="title"><a href="/" title="Kezdőlap"><h1>Eseménynaptár</h1></a></li>
-                        <!--<li class="title"><a href="/" title="Kezdőlap"><h1>Erdei Iskola Eseménynaptár<h1></a></li>-->
                     </ul>
             </div>
             
