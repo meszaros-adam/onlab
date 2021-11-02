@@ -31,7 +31,6 @@
 }
 .nav-button:hover, .logo:hover{
     background-color: grey;
-    text-decoration: underline;
 }
 body{
     margin: 0px;
@@ -137,7 +136,7 @@ p{
     position: absolute;
     right: 30px;
     background-color: #f1f1f1;
-    min-width: 160px;
+    min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
@@ -167,9 +166,4 @@ p{
   .down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
-  }
-  /*Hamburger menu on mobile*/
-  @media (max-width: 520px) {
-    .nav{
-    }
   }

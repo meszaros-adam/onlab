@@ -7,6 +7,8 @@ use App\Models\Event;
 use App\Models\User;
 use App\Models\Registration;
 use Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResponseMail;
 
 class RegistrationsController extends Controller
 {
@@ -73,6 +75,8 @@ class RegistrationsController extends Controller
         $registration->save();
 
         $response= 'Sikeresen mentve!';
+        Mail::to($user)->send(new ResponseMail($user, $registration));          
+
         return view('response', compact('response'));
     }
 
