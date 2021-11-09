@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +39,9 @@ Route::get('/home', [App\Http\Controllers\UsersController::class, 'home'])->name
 Route::get('/users/{user}', [App\Http\Controllers\UsersController::class, 'show' ])->middleware('can:view, App\Models\User');
 Route::get('/users/{user}/registrations', [App\Http\Controllers\UsersController::class, 'registrations' ])->middleware('can:view, App\Models\User');
 Route::delete('/users/{user}', [App\Http\Controllers\UsersController::class, 'destroy' ])->middleware('can:delete, App\Models\User');
+
+Route::get('auth/facebook', [App\Http\Controllers\SocialController::class, 'facebookRedirect']);
+Route::get('auth/facebook/callback', [App\Http\Controllers\SocialController::class, 'loginWithFacebook']);
 
 Auth::routes();
 

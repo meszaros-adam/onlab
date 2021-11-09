@@ -54,4 +54,8 @@
                             </div>
                         </div>
                     </form>
+                    {{-- Login with Facebook --}}
+                                <a class="fb-button" href="{{ url('auth/facebook') }}">
+                                    Facebook bejelentkezés
+                                </a>
 @endsection

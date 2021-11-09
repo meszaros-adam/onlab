@@ -36,4 +36,6 @@
         @endcan
     </ul>
 
+    {{!!$event->google_maps_link!!}}
+
 @endsection
