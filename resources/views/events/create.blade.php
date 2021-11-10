@@ -22,8 +22,8 @@
     <label for="location">Helyszín:</label><br>
     <textarea type="text" id="location" name="location"></textarea><br>
 
-    <label for="google_maps_link">Google Maps Link:</label><br>
-    <input type="text" id="google_maps_link" name="google_maps_link"></input><br>
+    <label for="google_maps">Google Maps (iframe):</label><br>
+    <input type="text" id="google_maps" name="google_maps"></input><br>
   </div>
 
   <input class="button" type="submit" >

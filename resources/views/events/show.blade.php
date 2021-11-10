@@ -36,6 +36,9 @@
         @endcan
     </ul>
 
-    {{!!$event->google_maps_link!!}}
+    @if($event->google_maps)
+        <h2>Térkép:</h2>
+        {!!$event->google_maps!!}
+    @endif
 
 @endsection

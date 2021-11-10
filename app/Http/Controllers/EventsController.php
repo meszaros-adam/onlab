@@ -66,7 +66,7 @@ class EventsController extends Controller
         $event->description = request('description');
         $event->headcount = request('headcount');
         $event->location = request('location');
-        $event->google_maps_link = request('google_maps_link');
+        $event->google_maps = request('google_maps');
 
         $event->save();
 
@@ -121,7 +121,7 @@ class EventsController extends Controller
         $event->description=request('description');
         $event->headcount=request('headcount');
         $event->location=request('location');
-        $event->google_maps_link=request('google_maps_link');
+        $event->google_maps=request('google_maps');
         $event->save();
 
         $response= 'Sikeresen frissítve!';
