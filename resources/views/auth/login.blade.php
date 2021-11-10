@@ -1,5 +1,8 @@
 @extends('layouts.layout')
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 @section('content')
                     <form method="POST" action="{{ route('login') }}" class="form">
                         @csrf
@@ -54,8 +57,8 @@
                             </div>
                         </div>
                     </form>
-                    {{-- Login with Facebook --}}
-                                <a class="fb-button" href="{{ url('auth/facebook') }}">
-                                    Facebook bejelentkezés
-                                </a>
+                        <div>Bejelentkezés Facebook vagy Google fiókkal:</div>
+                        <a href="{{ url('auth/facebook') }}" class="fa fa-facebook"></a>
+                        <a href="{{ url('auth/google') }}" class="fa fa-google"></a>
+
 @endsection

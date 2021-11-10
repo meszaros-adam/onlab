@@ -40,8 +40,8 @@ Route::get('/users/{user}', [App\Http\Controllers\UsersController::class, 'show'
 Route::get('/users/{user}/registrations', [App\Http\Controllers\UsersController::class, 'registrations' ])->middleware('can:view, App\Models\User');
 Route::delete('/users/{user}', [App\Http\Controllers\UsersController::class, 'destroy' ])->middleware('can:delete, App\Models\User');
 
-Route::get('auth/facebook', [App\Http\Controllers\SocialController::class, 'facebookRedirect']);
-Route::get('auth/facebook/callback', [App\Http\Controllers\SocialController::class, 'loginWithFacebook']);
+Route::get('auth/{provider}', [App\Http\Controllers\SocialController::class, 'redirect']);
+Route::get('auth/{provider}/callback', [App\Http\Controllers\SocialController::class, 'callback']);
 
 Auth::routes();
 

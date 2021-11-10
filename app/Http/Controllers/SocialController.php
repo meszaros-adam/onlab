@@ -11,35 +11,26 @@ namespace App\Http\Controllers;
 class SocialController extends Controller
  {
 
-  public function facebookRedirect()
+  public function redirect($provider)
   {
-      return Socialite::driver('facebook')->redirect(); 
+      return Socialite::driver($provider)->redirect(); 
   }
 
-  public function loginWithFacebook(){
-    $user = Socialite::driver('facebook')->stateless()->user();
-    $finduser = User::where('facebook_id', $user->id)->first();
-
-            if($finduser){
-                Auth::login($finduser);
-                return redirect('/');
-            }
-            else{
-                $finduser_by_email = User::where('email', $user->email)->first();
-                if($finduser_by_email){
-                    $finduser_by_email->facebook_id = $user->id;
-                    Auth::login($finduser_by_email);
-                    return redirect('/');
-                }else{
-                    $newUser = new User();
-                    $newUser->name = $user->name;
-                    $newUser->email = $user->email;
-                    $newUser->facebook_id = $user->id;
-                    $newUser->password = bcrypt('12345678');
-                    $newUser->save();
-                    Auth::login($newUser);
-                    return redirect('/');
-                }
-            }
+  public function callback($provider){
+    $userSocial =   Socialite::driver($provider)->stateless()->user();
+    $users       =   User::where(['email' => $userSocial->getEmail()])->first();
+    if($users){
+        Auth::login($users);
+        return redirect('/');
+    }else{
+        $user = User::create([
+            'name'          => $userSocial->getName(),
+            'email'         => $userSocial->getEmail(),
+            'provider_id'   => $userSocial->getId(),
+            'provider'      => $provider,
+            'password'      => bcrypt('1234567'),
+        ]);
+     return redirect()->route('/');
     }
-} 
+}
+}
