@@ -4,6 +4,7 @@
 
 
 @section('content')
+                <div class="login">
                     <form method="POST" action="{{ route('login') }}" class="form">
                         @csrf
 
@@ -35,8 +36,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
+                                    <input class="checkbox" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                     <label for="remember">
                                         Maradjak bejelentkezve
                                     </label>
@@ -50,9 +50,9 @@
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <button class="button" href="{{ route('password.request') }}">
                                         Eljelejtette a jelszavát?
-                                    </a>
+                                    </button>
                                 @endif
                             </div>
                         </div>
@@ -60,5 +60,5 @@
                         <div>Bejelentkezés Facebook vagy Google fiókkal:</div>
                         <a href="{{ url('auth/facebook') }}" class="fa fa-facebook"></a>
                         <a href="{{ url('auth/google') }}" class="fa fa-google"></a>
-
+                </div>
 @endsection

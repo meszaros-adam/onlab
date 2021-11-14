@@ -6,27 +6,35 @@
         <meta name="keywords" content="Eseménynaptár, Erdei iskola, Sopron">
         <title>Eseménynaptár</title>
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <div class="page-container">
-            <div class="header">
+            <div class="topnav" id="myTopnav">
 
                 <a href="/" class="logo" title="Kezdőlap">Eseménynaptár</a>
+                <a class="nav-button" href="/events" title="Események">Események</a>
 
-                    <ul class="nav">
                         @guest
                                 @if (Route::has('register'))
-                                    <li><a class="nav-button" href="{{ route('register') }}">Regisztráció</a></li>
+                                    <a class="nav-button" href="{{ route('register') }}">Regisztráció</a>
                                 @endif
 
                                 @if (Route::has('login'))
-                                    <li><a class="nav-button" href="{{ route('login') }}">Bejelentkezés</a></li>
+                                    <a class="nav-button" href="{{ route('login') }}">Bejelentkezés</a>
                                 @endif
-                                
-                                
-                            @else
-                                <li>
-                                    <div class="dropdown">
+
+                        @else
+                                    <a href="/home">Regisztrációim</a>
+                                    <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                            Kijelentkezés
+                                    </a>  
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                                        @csrf
+                                        </form>                               
+                                    <!-- <div class="dropdown">
                                         <a class="nav-button">                                            
                                             {{ Auth::user()->name }}
                                             @if(Auth::user()->admin==1)
@@ -45,24 +53,23 @@
                                                         @csrf
                                                     </form>
                                         </div>
-                                    </div>
-                                </li>
+                                    </div> -->
                         @endguest
 
                         @can('viewAny', 'App/Models/Registration')
-                            <li><a class="nav-button" href="/registrations" title="Regisztrációk">Regisztrációk</a></li>
+                            <a class="nav-button" href="/registrations" title="Regisztrációk">Regisztrációk</a>
                         @endcan
 
                         @can('viewAny', 'App/Models/User')
-                            <li><a class="nav-button" href="/users" title="Felhasználók">Felhasználók</a></li>
+                            <a class="nav-button" href="/users" title="Felhasználók">Felhasználók</a>
                         @endcan
 
                         @can('create', 'App/Models/Event')
-                            <li><a class="nav-button" href="/events/create" title="Esemény létrehozása">Esemény létrehozása</a></li>
+                            <a class="nav-button" href="/events/create" title="Esemény létrehozása">Esemény létrehozása</a>
                         @endcan
-
-                        <li><a class="nav-button" href="/events" title="Események">Események</a></li>
-                    </ul>
+                            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                                <i class="fa fa-bars"></i>
+                            </a>
             </div>
             
             <section class="content">
@@ -76,3 +83,14 @@
         </div>
     </body>
 </html>
+
+<script>
+    function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>

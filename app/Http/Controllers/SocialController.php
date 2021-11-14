@@ -18,9 +18,9 @@ class SocialController extends Controller
 
   public function callback($provider){
     $userSocial =   Socialite::driver($provider)->stateless()->user();
-    $users       =   User::where(['email' => $userSocial->getEmail()])->first();
-    if($users){
-        Auth::login($users);
+    $find_user       =   User::where(['email' => $userSocial->getEmail()])->first();
+    if($find_user){
+        Auth::login($find_user);
         return redirect('/');
     }else{
         $user = User::create([
@@ -30,7 +30,8 @@ class SocialController extends Controller
             'provider'      => $provider,
             'password'      => bcrypt('1234567'),
         ]);
-     return redirect()->route('/');
+        Auth::login($user);
+     return redirect('/');
     }
 }
 }
