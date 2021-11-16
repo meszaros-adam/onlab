@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="page-container">
-            <div class="topnav" id="myTopnav">
+            <div class="topnav" id="Topnav">
 
                 <a href="/" class="logo" title="Kezdőlap">Eseménynaptár</a>
                 <a class="nav-button" href="/events" title="Események">Események</a>
@@ -23,8 +23,17 @@
                                 @if (Route::has('login'))
                                     <a class="nav-button" href="{{ route('login') }}">Bejelentkezés</a>
                                 @endif
-
                         @else
+                                @can('create', 'App/Models/Event')
+                                    <a class="nav-button" href="/events/create" title="Esemény létrehozása">Esemény létrehozása</a>
+                                @endcan
+                                @can('viewAny', 'App/Models/User')
+                                    <a class="nav-button" href="/users" title="Felhasználók">Felhasználók</a>
+                                @endcan
+                                @can('viewAny', 'App/Models/Registration')
+                                    <a class="nav-button" href="/registrations" title="Regisztrációk">Regisztrációk</a>
+                                @endcan
+
                                     <a href="/home">Regisztrációim</a>
                                     <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -54,21 +63,9 @@
                                                     </form>
                                         </div>
                                     </div> -->
-                        @endguest
-
-                        @can('viewAny', 'App/Models/Registration')
-                            <a class="nav-button" href="/registrations" title="Regisztrációk">Regisztrációk</a>
-                        @endcan
-
-                        @can('viewAny', 'App/Models/User')
-                            <a class="nav-button" href="/users" title="Felhasználók">Felhasználók</a>
-                        @endcan
-
-                        @can('create', 'App/Models/Event')
-                            <a class="nav-button" href="/events/create" title="Esemény létrehozása">Esemény létrehozása</a>
-                        @endcan
-                            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                                <i class="fa fa-bars"></i>
+                        @endguest                        
+                            <a href="javascript:void(0);" class="icon" onclick="Responsivity()">
+                                <i class="fa fa-bars fa-lg"></i>
                             </a>
             </div>
             
@@ -85,8 +82,8 @@
 </html>
 
 <script>
-    function myFunction() {
-  var x = document.getElementById("myTopnav");
+    function Responsivity() {
+  var x = document.getElementById("Topnav");
   if (x.className === "topnav") {
     x.className += " responsive";
   } else {
