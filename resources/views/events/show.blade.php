@@ -6,6 +6,12 @@
     <div> Leírás: {{$event->description}} </div>
     <div> Létszám: {{$event->headcount}} fő </div>
     <div> Szabad helyek: {{$event->free_places()}}</div>
+    @can('update', $event)
+    <div> Jelenlévő gyerekek: {{$event->reserved_childs()}}</div>
+    @endcan
+    @can('update', $event)
+    <div> Jelenlévő felnőttek: {{$event->reserved_adults()}}</div>
+    @endcan
     <div> Időpont: {{$event->date}} </div>
     <div> Helyszín: {{$event->location}} </div>
 <div>
