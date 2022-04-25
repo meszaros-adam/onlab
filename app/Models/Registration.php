@@ -15,12 +15,5 @@ class Registration extends Model
     public function event(){
         return $this->belongsTo(Event::class);
     }
-    public function isActive(){
-        if((new Carbon($this->event()->date))->format('Y-m-d')>carbon::Now()->format('Y-m-d')){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+
 }

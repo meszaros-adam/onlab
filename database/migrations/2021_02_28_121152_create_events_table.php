@@ -15,13 +15,15 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->dateTime('date');
             $table->string('name');
             $table->text('description');
             $table->integer('headcount');
             $table->string('location');
             $table->text('google_maps_iframe')->nullable();
+            $table->timestamps();
         });
     }
 

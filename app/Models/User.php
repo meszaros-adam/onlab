@@ -59,12 +59,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Registration::class);
     }
-    public function isAdmin(){
-        if($this->admin==1){
-            return true;
-        }
-        else{
-            return false;
-        }
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+    public function events(){
+        return $this->hasMany(Event::class);
     }
 }
