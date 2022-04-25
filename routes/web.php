@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/mainapp', function () {
+    return view('mainapp');
+});
+
 Route::get('/events', [App\Http\Controllers\EventsController::class, 'index' ]);
 Route::get('/events/create', [App\Http\Controllers\EventsController::class, 'create' ])->middleware('can:create,App\Models\Event');
 Route::post('/events', [App\Http\Controllers\EventsController::class, 'store' ])->middleware('can:create,App\Models\Event');
@@ -44,5 +48,7 @@ Route::get('auth/{provider}', [App\Http\Controllers\SocialController::class, 're
 Route::get('auth/{provider}/callback', [App\Http\Controllers\SocialController::class, 'callback']);
 
 Auth::routes();
+
+
 
 
