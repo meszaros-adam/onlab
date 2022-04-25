@@ -21,7 +21,7 @@ class CreateEventsTable extends Migration
             $table->text('description');
             $table->integer('headcount');
             $table->string('location');
-            $table->text('google_maps')->nullable();
+            $table->text('google_maps_iframe')->nullable();
         });
     }
 
