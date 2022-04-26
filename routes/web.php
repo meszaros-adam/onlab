@@ -14,14 +14,12 @@ use App\Http\Controllers\SocialController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/mainapp', function () {
+Route::get('/', function () {
     return view('mainapp');
 });
 
+/*
 Route::get('/events', [App\Http\Controllers\EventsController::class, 'index' ]);
 Route::get('/events/create', [App\Http\Controllers\EventsController::class, 'create' ])->middleware('can:create,App\Models\Event');
 Route::post('/events', [App\Http\Controllers\EventsController::class, 'store' ])->middleware('can:create,App\Models\Event');
@@ -46,8 +44,15 @@ Route::delete('/users/{user}', [App\Http\Controllers\UsersController::class, 'de
 
 Route::get('auth/{provider}', [App\Http\Controllers\SocialController::class, 'redirect']);
 Route::get('auth/{provider}/callback', [App\Http\Controllers\SocialController::class, 'callback']);
-
 Auth::routes();
+*/
+
+Route::any('{slug}',function () {
+    return view('mainapp');
+});
+
+
+
 
 
 

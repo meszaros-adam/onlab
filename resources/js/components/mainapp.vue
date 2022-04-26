@@ -26,11 +26,12 @@
             <li class="nav-item active">
               <a class="nav-link" href="#">Címkék</a>
             </li>
-            <li class="nav-item" v-if="$store.state.user">
-              <a class="nav-link" href="#">Regisztráció</a>
+            <li class="nav-item" v-if="getUser == false">
+              <router-link to="/registration" class="nav-link">Regisztráció</router-link>
             </li>
-            <li class="nav-item" v-if="$store.state.user">
-              <a class="nav-link" href="#">Bejelentkezés</a>
+            <li class="nav-item" v-if="getUser == false">
+              <router-link to="/login" class="nav-link">Bejelentkezés</router-link>
+        
             </li>
             <li class="nav-item" v-else>
               <a class="nav-link" href="#">Kijelentkezés</a>
@@ -41,6 +42,10 @@
     </nav>
     <!-- NAV -->
 
+    <!-- ROUTER -->
+    <router-view> </router-view>
+    <!-- ROUTER -->
+
     <!-- FOOTER -->
     <footer class="p-3 bg-dark text-light text-center mt-auto">
       Minden Jog Fenntartva
@@ -50,13 +55,18 @@
 </template>
 
 <script>
-export default {
-  props:['user'],
-  data(){
+import { mapGetters } from "vuex";
 
+export default {
+  props: ["user"],
+  data() {
+    return {};
   },
-  created(){
-    this.$store.commit('setUser', this.user)
-  }
-}
+  created() {
+    this.$store.commit("setUser", this.user);
+  },
+  computed: {
+    ...mapGetters(["getUser"]),
+  },
+};
 </script>
