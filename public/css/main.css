@@ -9,5 +9,10 @@
     color: #17A9FD;
 }
 .google-color:hover,  .facebook-color:hover{
-    color:rgb(223, 223, 223);
+    color: #f8fafc;
+}
+.form-check-input[type=checkbox] {
+    border-radius: .25em;
+    height: 25px;
+    width: 25px;
 }

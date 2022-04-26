@@ -3,11 +3,11 @@
     <h1>Bejlentkezés:</h1>
     <div class="mb-3">
       <label class="form-label">Email cím:</label>
-      <input type="email" class="form-control" placeholder="name@example.com" />
+      <input type="email" class="form-control" placeholder="name@example.com" v-model="data.email"/>
     </div>
     <div class="mb-3">
       <label class="form-label">Jelszó: </label>
-      <input class="form-control" type="password" />
+      <input class="form-control" type="password" v-model="data.password" />
     </div>
     <div class="d-flex justify-content-end">
       <div class="mb3">
@@ -18,10 +18,10 @@
           aria-label="Checkbox for following text input"
         />
       </div>
-      <button type="button" @click="toastTest" class="btn btn-success ms-5">Bejelentkezés</button>
+      <button type="button" class="btn btn-success ms-5" @click="login">Bejelentkezés</button>
     </div>
     <div class="text-center">
-      <div>Bejeletkezés egyéb fiókkal:</div>
+      <div>Bejelentkezés egyéb fiókkal:</div>
       <div>
         <a href="" class="bi bi-facebook social-login-button facebook-color"></a>
         <a href="" class="bi bi-google social-login-button google-color"></a>
@@ -32,10 +32,18 @@
 
 <script>
 export default {
-
+  data(){
+    return{
+      data:{
+        email: '',
+        password: '',
+      }
+    }
+  },
   methods:{
-    toastTest(){
-      this.$toast.error('Hibás adatokat adott meg')
+    login(){
+      if(this.data.email.trim()=='') return this.$toast.warning('Email cím nincs megadva!')
+      if(this.data.password.trim()=='') return this.$toast.warning('Jelszó  nincs megadva!')
     },
   }
 };
