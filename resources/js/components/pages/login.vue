@@ -18,7 +18,7 @@
           aria-label="Checkbox for following text input"
         />
       </div>
-      <button type="button" class="btn btn-success ms-5">Bejelentkezés</button>
+      <button type="button" @click="toastTest" class="btn btn-success ms-5">Bejelentkezés</button>
     </div>
     <div class="text-center">
       <div>Bejeletkezés egyéb fiókkal:</div>
@@ -31,5 +31,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+
+  methods:{
+    toastTest(){
+      this.$toast.error('Hibás adatokat adott meg')
+    },
+  }
+};
 </script>
