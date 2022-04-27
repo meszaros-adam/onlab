@@ -34,7 +34,7 @@
         
             </li>
             <li class="nav-item" v-else>
-              <a class="nav-link" href="#">Kijelentkezés</a>
+              <a class="nav-link" href="/logout">Kijelentkezés</a>
             </li>
           </ul>
         </div>

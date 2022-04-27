@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('mainapp');
 });
 
+Route::post('/registration', [App\Http\Controllers\UserController::class, 'registration']);
+Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
+Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout']);
+
 /*
 Route::get('/events', [App\Http\Controllers\EventsController::class, 'index' ]);
 Route::get('/events/create', [App\Http\Controllers\EventsController::class, 'create' ])->middleware('can:create,App\Models\Event');

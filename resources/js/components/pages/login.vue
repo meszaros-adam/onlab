@@ -1,6 +1,6 @@
 <template>
   <div class="container bg-dark ms-auto my-5 text-light p-5 rounded">
-    <h1>Bejlentkezés:</h1>
+    <h1>Bejelentkezés:</h1>
     <div class="mb-3">
       <label class="form-label">Email cím:</label>
       <input type="email" class="form-control" placeholder="name@example.com" v-model="data.email"/>
@@ -16,6 +16,7 @@
           type="checkbox"
           class="form-check-input"
           aria-label="Checkbox for following text input"
+          v-model="data.remember"
         />
       </div>
       <button type="button" class="btn btn-success ms-5" @click="login">Bejelentkezés</button>
@@ -37,13 +38,23 @@ export default {
       data:{
         email: '',
         password: '',
+        remember: false,
       }
     }
   },
   methods:{
-    login(){
+    async login(){
       if(this.data.email.trim()=='') return this.$toast.warning('Email cím nincs megadva!')
       if(this.data.password.trim()=='') return this.$toast.warning('Jelszó  nincs megadva!')
+
+      const res = await this.callApi('post', '/login', this.data)
+      if(res.status == 200){
+        this.$toast.success(res.data)
+        window.location='/'
+      }
+      else{
+        this.$toast.error(res.data)
+      }
     },
   }
 };

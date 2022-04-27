@@ -36,12 +36,24 @@ export default {
     }
   },
   methods:{
-    register(){
+     async register(){
       if(this.data.name.trim() == '') return this.$toast.warning('Név nincs megadva!')
       if(this.data.name.trim().length < 4) return this.$toast.warning('A név legalább három betű!')
       if(this.data.email.trim()=='') return this.$toast.warning('Email cím nincs megadva!')
       if(this.data.password.trim()=='') return this.$toast.warning('Jelszó nincs megadva!')
       if(this.data.password_confirmation.trim()=='') return this.$toast.warning('Jelszó megerősítő nincs megadva!')
+      if(this.data.password.trim().length<6 || this.data.password_confirmation.trim().length <6 ) return this.$toast.warning('A jelszó legalább 6 karakter legyen!')
+      if(this.data.password != this.data.password_confirmation) return this.$toast.warning('A jelszavaknak egyezniük kell!')
+
+      const res = await this.callApi('post', '/registration', this.data)
+
+      if(res.status == 201){
+        this.$toast.success('Sikeres regisztráció!')
+        this.$router.push('/login')
+      }
+      else{
+        this.$toast.error(res.data.message)
+      }
     },
   }
 };

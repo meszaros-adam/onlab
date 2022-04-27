@@ -20,7 +20,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'facebook_id',
         'provider', 
         'provider_id', 
     ];
@@ -51,10 +50,6 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = [
-        'profile_photo_url',
-    ];
-
     public function registrations()
     {
         return $this->hasMany(Registration::class);
