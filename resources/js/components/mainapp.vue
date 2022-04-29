@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Események</a>
+              <router-link to="/events-admin" class="nav-link">Események</router-link>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">Felhasználók</a>
@@ -31,7 +31,6 @@
             </li>
             <li class="nav-item" v-if="getUser == false">
               <router-link to="/login" class="nav-link">Bejelentkezés</router-link>
-        
             </li>
             <li class="nav-item" v-else>
               <a class="nav-link" href="/logout">Kijelentkezés</a>

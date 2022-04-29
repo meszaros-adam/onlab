@@ -23,6 +23,11 @@ Route::post('/registration', [App\Http\Controllers\UserController::class, 'regis
 Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
 Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout']);
 
+Route::any('{slug}',function () {
+    return view('mainapp');
+});
+
+
 /*
 Route::get('/events', [App\Http\Controllers\EventsController::class, 'index' ]);
 Route::get('/events/create', [App\Http\Controllers\EventsController::class, 'create' ])->middleware('can:create,App\Models\Event');
@@ -51,9 +56,6 @@ Route::get('auth/{provider}/callback', [App\Http\Controllers\SocialController::c
 Auth::routes();
 */
 
-Route::any('{slug}',function () {
-    return view('mainapp');
-});
 
 
 

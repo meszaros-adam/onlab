@@ -19,7 +19,10 @@
           v-model="data.remember"
         />
       </div>
-      <button type="button" class="btn btn-success ms-5" @click="login">Bejelentkezés</button>
+      <button type="button"  :disabled="loading" class="btn btn-success ms-5" @click="login">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-show="loading"></span>
+        <span class="sr-only">Bejelentkezés</span>
+        </button>
     </div>
     <div class="text-center">
       <div>Bejelentkezés egyéb fiókkal:</div>
@@ -39,13 +42,16 @@ export default {
         email: '',
         password: '',
         remember: false,
-      }
+      },
+      loading: false,
     }
   },
   methods:{
     async login(){
       if(this.data.email.trim()=='') return this.$toast.warning('Email cím nincs megadva!')
       if(this.data.password.trim()=='') return this.$toast.warning('Jelszó  nincs megadva!')
+
+      this.loading=true
 
       const res = await this.callApi('post', '/login', this.data)
       if(res.status == 200){
@@ -55,6 +61,7 @@ export default {
       else{
         this.$toast.error(res.data)
       }
+      this.loading=false
     },
   }
 };

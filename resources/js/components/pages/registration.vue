@@ -18,7 +18,10 @@
       <input class="form-control" type="password" v-model="data.password_confirmation"/>
     </div>
     <div class="text-end">
-      <button type="button" class="btn btn-success" @click="register" >Regisztráció</button>
+      <button type="button" class="btn btn-success" @click="register" :disabled="loading" >
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-show="loading"></span>
+        <span class="sr-only">Regisztráció</span>
+      </button>
     </div>
   </div>
 </template>
@@ -33,6 +36,7 @@ export default {
         password: '',
         password_confirmation: '',
       },
+      loading: false,
     }
   },
   methods:{
@@ -45,6 +49,8 @@ export default {
       if(this.data.password.trim().length<6 || this.data.password_confirmation.trim().length <6 ) return this.$toast.warning('A jelszó legalább 6 karakter legyen!')
       if(this.data.password != this.data.password_confirmation) return this.$toast.warning('A jelszavaknak egyezniük kell!')
 
+      this.loading=true
+
       const res = await this.callApi('post', '/registration', this.data)
 
       if(res.status == 201){
@@ -54,6 +60,8 @@ export default {
       else{
         this.$toast.error(res.data.message)
       }
+
+      this.loading=false
     },
   }
 };

@@ -1,6 +1,7 @@
 require('./bootstrap')
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import Toast from "vue-toastification";
@@ -11,6 +12,7 @@ import common from './common'
 
 Vue.use(Toast)
 Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 Vue.mixin(common)
 Vue.component('mainapp', require('./components/mainapp.vue').default)
 
