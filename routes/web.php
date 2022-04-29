@@ -14,14 +14,18 @@ use App\Http\Controllers\SocialController;
 |
 */
 
-
+//Mainapp
 Route::get('/', function () {
     return view('mainapp');
 });
 
+//Auth
 Route::post('/registration', [App\Http\Controllers\UserController::class, 'registration']);
 Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
 Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout']);
+
+//Events
+Route::post('/create_event',  [App\Http\Controllers\EventController::class, 'add']);
 
 Route::any('{slug}',function () {
     return view('mainapp');

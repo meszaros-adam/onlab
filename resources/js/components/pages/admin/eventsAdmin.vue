@@ -13,31 +13,36 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
+            <th scope="col">Időpont</th>
             <th scope="col">Név</th>
             <th scope="col">Leírás</th>
-            <th scope="col">Időpont</th>
             <th scope="col">Létszám</th>
             <th scope="col">Térkép</th>
-            <th scope="col">Létrehozva</th>
+            <th scope="col">Funkciók</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th>1</th>
+            <td>2023.12.18 18:40</td>
             <td>Mark dsad asdasdas</td>
             <td>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
               Necessitatibus culpa quae est voluptatibus magnam debitis
               corrupti, unde sunt quidem at.
             </td>
-            <td>2023.12.18 18:40</td>
             <td>30</td>
             <td>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim
               optio voluptatibus dolorum nemo laboriosam facilis voluptatem
               quisquam mollitia aut vero?
             </td>
-            <td>2023.12.18 18:40</td>
+            <td>
+              <div class="d-flex justify-content-around">
+                <i class="bi bi-pencil-fill edit-icon" title="Szerkesztés"></i>
+                <i class="bi bi-trash3-fill delete-icon" title="Törlés"></i>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -49,7 +54,7 @@
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
-      data-bs-keyboard="false" 
+      data-bs-keyboard="false"
       data-bs-backdrop="static"
     >
       <div class="modal-dialog modal-lg">
@@ -65,30 +70,50 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body"> 
+          <div class="modal-body">
             <div class="mb-3">
               <label class="form-label">Név: </label>
-              <input class="form-control" type="text"  v-model="data.name" />
+              <input class="form-control" type="text" v-model="data.name" />
             </div>
             <div class="mb-3">
               <label class="form-label">Időpont: </label>
-              <input class="form-control" type="datetime-local" v-model="data.dateTime"/>
+              <input
+                class="form-control"
+                type="datetime-local"
+                v-model="data.dateTime"
+              />
             </div>
             <div class="mb-3">
               <label class="form-label">Leírás: </label>
-              <textarea class="form-control" rows="3" v-model="data.description"></textarea>
+              <textarea
+                class="form-control"
+                rows="3"
+                v-model="data.description"
+              ></textarea>
             </div>
-             <div class="mb-3">
+            <div class="mb-3">
               <label class="form-label">Létszám: </label>
-              <input class="form-control" type="number" min="1"  v-model="data.headcount"/>
+              <input
+                class="form-control"
+                type="number"
+                min="1"
+                v-model="data.headcount"
+              />
             </div>
-             <div class="mb-3">
+            <div class="mb-3">
               <label class="form-label">Helyszín: </label>
               <input class="form-control" type="text" v-model="data.location" />
             </div>
             <div class="mb-3">
-              <label class="form-label">Google Maps iframe: <span class="not-required">Nem kötelező!</span></label>
-              <input class="form-control" type="text" v-model="data.googleMaps"/>
+              <label class="form-label"
+                >Google Maps iframe:
+                <span class="not-required">Nem kötelező!</span></label
+              >
+              <input
+                class="form-control"
+                type="text"
+                v-model="data.googleMaps"
+              />
             </div>
           </div>
           <div class="modal-footer">
@@ -99,7 +124,10 @@
             >
               Bezárás
             </button>
-            <button type="button" class="btn btn-primary" @click="add">Mentés</button>
+            <button type="button" class="btn btn-success" @click="add" :disabled="adding">
+               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-show="adding"></span>
+                <span class="sr-only">Mentés</span>
+            </button>
           </div>
         </div>
       </div>
@@ -109,40 +137,55 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
       data: {
-        name: '',
-        dateTime: '',
-        description: '',
-        headcount: '',
-        location: '',
-        googleMaps: '', 
+        name: "",
+        dateTime: "",
+        description: "",
+        headcount: "",
+        location: "",
+        googleMaps: "",
+        userId: "",
       },
       events: [],
-      addModal: false,
-      loading: false,
+      adding: false,
     };
   },
   methods: {
-    async add(){
-        if(this.data.name.trim() == '') return this.$toast.warning('Név megadása kötelező!')
-        if(this.data.dateTime.trim() == '') return this.$toast.warning('Időpont megadása kötelező!')
-        if(this.data.description.trim() == '') return this.$toast.warning('Leírás megadása kötelező!')
-        if(this.data.headcount.trim() == '') return this.$toast.warning('Létszám megadása kötelező!')
-        if(this.data.location.trim() == '') return this.$toast.warning('Helyszín megadása kötelező!')
+    async add() {
+      if (this.data.name.trim() == "")
+        return this.$toast.warning("Név megadása kötelező!");
+      if (this.data.dateTime.trim() == "")
+        return this.$toast.warning("Időpont megadása kötelező!");
+      if (this.data.description.trim() == "")
+        return this.$toast.warning("Leírás megadása kötelező!");
+      if (this.data.headcount.trim() == "")
+        return this.$toast.warning("Létszám megadása kötelező!");
+      if (this.data.location.trim() == "")
+        return this.$toast.warning("Helyszín megadása kötelező!");
 
-        this.loading = true
+      this.adding = true;
 
-        const res = await this.callApi('post', '/create_event', this.data)
+      this.data.userId = this.getUser.id;
 
-        if(res.status == 201){
-          this.$toast.success('Esemény sikeresen létrehozva!')
-        }else{
-          this.$toast.error('Esemény létrehozása sikertelen!')
-        }
+      console.log(this.data);
+
+      const res = await this.callApi("post", "/create_event", this.data);
+
+      if (res.status == 201) {
+        this.$toast.success("Esemény sikeresen létrehozva!");
+      } else {
+        this.$toast.error("Esemény létrehozása sikertelen!");
+      }
+      this.adding = false;
     },
+  },
+  computed: {
+    ...mapGetters(["getUser"]),
   },
 };
 </script>

@@ -19,3 +19,9 @@
 .not-required{
     color: #6BCB77;
 }
+.edit-icon:hover, .delete-icon:hover{
+    color: grey;
+}
+i{
+    cursor: pointer;
+}

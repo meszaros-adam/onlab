@@ -11,6 +11,8 @@ class Event extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id','date','name','description','headcount','location','google_maps_iframe'];
+
    public function registrations(){
        return $this->hasMany(Registration::class);
    }

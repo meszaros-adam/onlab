@@ -27,8 +27,8 @@
     <div class="text-center">
       <div>Bejelentkezés egyéb fiókkal:</div>
       <div>
-        <a href="" class="bi bi-facebook social-login-button facebook-color"></a>
-        <a href="" class="bi bi-google social-login-button google-color"></a>
+        <i class="bi bi-facebook social-login-button facebook-color"></i>
+        <i class="bi bi-google social-login-button google-color"></i>
       </div>
     </div>
   </div>
