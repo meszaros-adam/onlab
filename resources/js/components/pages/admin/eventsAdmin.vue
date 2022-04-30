@@ -4,10 +4,9 @@
       <button
         type="button"
         class="btn btn-success mb-3"
-        data-bs-toggle="modal"
-        data-bs-target="#addModal"
+        @click="addModal = !addModal"
       >
-        Esemény létrehozása:
+        Esemény létrehozása
       </button>
       <table class="table table-striped table-light table-hover">
         <thead>
@@ -22,116 +21,103 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>1</th>
-            <td>2023.12.18 18:40</td>
-            <td>Mark dsad asdasdas</td>
+          <tr v-for="(event, e) in events" :key="e">
+            <th>{{ event.id }}</th>
+            <td>{{ event.date }}</td>
+            <td>{{ event.name }}</td>
+            <td>{{ event.description }}</td>
+            <td>{{ event.headcount }}</td>
+            <td>{{ event.google_maps_iframe }}</td>
             <td>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Necessitatibus culpa quae est voluptatibus magnam debitis
-              corrupti, unde sunt quidem at.
-            </td>
-            <td>30</td>
-            <td>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim
-              optio voluptatibus dolorum nemo laboriosam facilis voluptatem
-              quisquam mollitia aut vero?
-            </td>
-            <td>
-              <div class="d-flex justify-content-around">
-                <i class="bi bi-pencil-fill edit-icon" title="Szerkesztés"></i>
-                <i class="bi bi-trash3-fill delete-icon" title="Törlés"></i>
+              <div class="d-flex justify-content-start">
+                <i
+                  class="bi bi-pencil-fill edit-icon mx-2"
+                  title="Szerkesztés"
+                ></i>
+                <i
+                  class="bi bi-trash3-fill delete-icon mx-2"
+                  title="Törlés"
+                ></i>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="total"
+        :per-page="itemPerPage"
+        @change="handlePageChange"
+      ></b-pagination>
     </div>
     <!-- Modal -->
-    <div
-      class="modal fade"
-      id="addModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      data-bs-keyboard="false"
-      data-bs-backdrop="static"
+    <b-modal
+      v-model="addModal"
+      size="xl"
+      title="Esemény létrehozása: "
+      hide-header-close
+      hide-footer
     >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Esemény létrehozása:
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Név: </label>
-              <input class="form-control" type="text" v-model="data.name" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Időpont: </label>
-              <input
-                class="form-control"
-                type="datetime-local"
-                v-model="data.dateTime"
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Leírás: </label>
-              <textarea
-                class="form-control"
-                rows="3"
-                v-model="data.description"
-              ></textarea>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Létszám: </label>
-              <input
-                class="form-control"
-                type="number"
-                min="1"
-                v-model="data.headcount"
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Helyszín: </label>
-              <input class="form-control" type="text" v-model="data.location" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label"
-                >Google Maps iframe:
-                <span class="not-required">Nem kötelező!</span></label
-              >
-              <input
-                class="form-control"
-                type="text"
-                v-model="data.googleMaps"
-              />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Bezárás
-            </button>
-            <button type="button" class="btn btn-success" @click="add" :disabled="adding">
-               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-show="adding"></span>
-                <span class="sr-only">Mentés</span>
-            </button>
-          </div>
-        </div>
+      <div class="mb-3">
+        <label class="form-label">Név: </label>
+        <input class="form-control" type="text" v-model="data.name" />
       </div>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Időpont: </label>
+        <input
+          class="form-control"
+          type="datetime-local"
+          v-model="data.dateTime"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Leírás: </label>
+        <textarea
+          class="form-control"
+          rows="3"
+          v-model="data.description"
+        ></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Létszám: </label>
+        <input
+          class="form-control"
+          type="number"
+          min="1"
+          v-model="data.headcount"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Helyszín: </label>
+        <input class="form-control" type="text" v-model="data.location" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label"
+          >Google Maps iframe:
+          <span class="not-required">Nem kötelező!</span></label
+        >
+        <input class="form-control" type="text" v-model="data.googleMaps" />
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-danger mx-2" @click="addModal = false">
+          Bezárás
+        </button>
+        <button
+          type="button"
+          :disabled="adding"
+          class="btn btn-success mx-2"
+          @click="add"
+        >
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+            v-show="adding"
+          ></span>
+          <span class="sr-only">Mentés</span>
+        </button>
+      </div>
+    </b-modal>
     <!-- Modal -->
   </div>
 </template>
@@ -152,7 +138,13 @@ export default {
         userId: "",
       },
       events: [],
+      addModal: false,
       adding: false,
+      //pagination
+      itemPerPage: 10,
+      currentPage: 1,
+      total: 0,
+      //
     };
   },
   methods: {
@@ -177,15 +169,38 @@ export default {
       const res = await this.callApi("post", "/create_event", this.data);
 
       if (res.status == 201) {
+        this.events.unshift(res.data);
         this.$toast.success("Esemény sikeresen létrehozva!");
       } else {
         this.$toast.error("Esemény létrehozása sikertelen!");
       }
+      this.addModal = false;
       this.adding = false;
+    },
+    async getEvents() {
+      const res = await this.callApi(
+        "get",
+        `/get_event?page=${this.currentPage}&itemPerPage=${this.itemPerPage}`
+      );
+      if (res.status == 200) {
+        this.events = res.data.data;
+        this.currentPage = res.data.current_page;
+        this.total = res.data.total;
+        console.log(this.total);
+      } else {
+        this.$toast.error("Események betöltése sikertelen!");
+      }
+    },
+    handlePageChange(value) {
+      this.currentPage = value;
+      this.getEvents();
     },
   },
   computed: {
     ...mapGetters(["getUser"]),
+  },
+  created() {
+    this.getEvents();
   },
 };
 </script>

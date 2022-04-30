@@ -30,4 +30,7 @@ class EventController extends Controller
             'google_maps_iframe' => $request->googleMaps,
         ]);
     }
+    public function get(Request $request){
+        return Event::orderBy('id', 'desc')->paginate($request->itemPerPage);
+    }
 }

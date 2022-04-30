@@ -26,6 +26,8 @@ Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout']);
 
 //Events
 Route::post('/create_event',  [App\Http\Controllers\EventController::class, 'add']);
+Route::get('/get_event',  [App\Http\Controllers\EventController::class, 'get']);
+
 
 Route::any('{slug}',function () {
     return view('mainapp');
