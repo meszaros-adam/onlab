@@ -33,4 +33,12 @@ class EventController extends Controller
     public function get(Request $request){
         return Event::orderBy('id', 'desc')->paginate($request->itemPerPage);
     }
+    public function delete(Request $request){
+
+        $this->validate($request,[
+            'id' => 'required',
+        ]);
+
+        return Event::where('id', $request->id)->delete();
+    }
 }

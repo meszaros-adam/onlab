@@ -25,3 +25,7 @@
 i{
     cursor: pointer;
 }
+.delete-warning{
+    color: #D82148;
+    font-size: 100px;
+}

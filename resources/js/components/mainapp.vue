@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column min-vh-100">
+  <div class="d-flex flex-column bg-black min-vh-100">
     <!-- NAV -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
