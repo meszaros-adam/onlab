@@ -34,6 +34,7 @@
                 <i
                   class="bi bi-pencil-fill edit-icon mx-2"
                   title="Szerkesztés"
+                  @click="showEditModal(event)"
                 ></i>
                 <i
                   class="bi bi-trash3-fill delete-icon mx-2"
@@ -130,7 +131,79 @@
       </div>
     </b-modal>
     <!-- Adding Modal -->
-
+    <b-modal
+      v-model="addModal"
+      size="xl"
+      title="Esemény létrehozása: "
+      hide-header-close
+      hide-footer
+      no-close-on-esc
+      no-close-on-backdrop
+    >
+      <div class="mb-3">
+        <label class="form-label">Név: </label>
+        <input class="form-control" type="text" v-model="data.name" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Időpont: </label>
+        <input
+          class="form-control"
+          type="datetime-local"
+          v-model="data.dateTime"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Leírás: </label>
+        <textarea
+          class="form-control"
+          rows="3"
+          v-model="data.description"
+        ></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Létszám: </label>
+        <input
+          class="form-control"
+          type="number"
+          min="1"
+          v-model="data.headcount"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Helyszín: </label>
+        <input class="form-control" type="text" v-model="data.location" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label"
+          >Google Maps iframe:
+          <span class="not-required">Nem kötelező!</span></label
+        >
+        <input class="form-control" type="text" v-model="data.googleMaps" />
+      </div>
+      <div class="d-flex justify-content-end">
+        <button
+          type="button"
+          class="btn btn-danger mx-2"
+          @click="addModal = false"
+        >
+          Bezárás
+        </button>
+        <button
+          type="button"
+          :disabled="adding"
+          class="btn btn-success mx-2"
+          @click="add"
+        >
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+            v-show="adding"
+          ></span>
+          <span class="sr-only">Mentés</span>
+        </button>
+      </div>
+    </b-modal>
     <!-- Delete Modal -->
     <b-modal
       v-model="deleteModal"
@@ -159,6 +232,76 @@
       </div>
     </b-modal>
     <!-- Delete Modal -->
+    <!-- Edit Modal -->
+    <b-modal
+      v-model="editModal"
+      size="xl"
+      title="Esemény szerkesztése: "
+      hide-header-close
+      hide-footer
+      no-close-on-esc
+      no-close-on-backdrop
+    >
+      <div class="mb-3">
+        <label class="form-label">Név: </label>
+        <input class="form-control" type="text" v-model="editData.name" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Időpont: </label>
+        <input
+          class="form-control"
+          type="datetime-local"
+          v-model="editData.dateTime"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Leírás: </label>
+        <textarea
+          class="form-control"
+          rows="3"
+          v-model="editData.description"
+        ></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Létszám: </label>
+        <input
+          class="form-control"
+          type="number"
+          min="1"
+          v-model="editData.headcount"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Helyszín: </label>
+        <input class="form-control" type="text" v-model="editData.location" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label"
+          >Google Maps iframe:
+          <span class="not-required">Nem kötelező!</span></label
+        >
+        <input class="form-control" type="text" v-model="editData.googleMaps" />
+      </div>
+      <div class="d-flex justify-content-end">
+        <button
+          type="button"
+          class="btn btn-danger mx-2"
+          @click="editModal = false"
+        >
+          Bezárás
+        </button>
+        <button type="button" :disabled="editing" class="btn btn-success mx-2">
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+            v-show="editing"
+          ></span>
+          <span class="sr-only">Mentés</span>
+        </button>
+      </div>
+    </b-modal>
+    <!-- Edit Modal -->
   </div>
 </template>
 
@@ -185,10 +328,13 @@ export default {
       currentPage: 1,
       total: 0,
 
-      deleteId: 0,
+      deleteId: null,
       deleteModal: false,
-
       deleting: false,
+
+      editModal: false,
+      editData: {},
+      editing: false,
     };
   },
   methods: {
@@ -240,19 +386,41 @@ export default {
       this.deleteModal = true;
       this.deleteId = id;
     },
-    async deleteEvent(){
-      this.deleting = true
-      const res = await this.callApi('post', '/delete_event', {id: this.deleteId})
+    async deleteEvent() {
+      this.deleting = true;
+      const res = await this.callApi("post", "/delete_event", {
+        id: this.deleteId,
+      });
 
-      if(res.status == 200){
-        this.$toast.success('Esemény sikeresen törölve!')
-        this.events.splice(this.events.findIndex(item => item.id == this.deleteId), 1)
-      }else{
-        this.$toast.error(res.data.message)
+      if (res.status == 200) {
+        this.$toast.success("Esemény sikeresen törölve!");
+        this.events.splice(
+          this.events.findIndex((item) => item.id == this.deleteId),
+          1
+        );
+      } else {
+        this.$toast.error(res.data.message);
       }
-      this.deleteModal = false
-      this.deleting = false
-      
+      this.deleteModal = false;
+      this.deleteId = null;
+      this.deleting = false;
+    },
+    showEditModal(event) {
+
+      const obj = {
+        name: event.name,
+        dateTime: event.date.replace(" ", "T"),
+        description: event.description,
+        headcount: event.headcount,
+        location: event.location,
+        googleMaps: event.google_maps_iframe,
+      };
+      this.editData = obj;
+      console.log(this.editData);
+      this.editModal = true;
+    },
+    async edit(){
+      const res = await this.callApi('post', 'edit_event', this.editData )
     }
   },
   computed: {
