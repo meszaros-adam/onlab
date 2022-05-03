@@ -41,4 +41,26 @@ class EventController extends Controller
 
         return Event::where('id', $request->id)->delete();
     }
+    public function edit(Request $request){
+        
+        $this->validate($request, [
+            'id' => 'required',
+            'userId' => 'required',
+            'date' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'headcount' => 'required|integer',
+            'location' => 'required',
+        ]);
+
+        return Event::where('id',$request->id)->update([
+            'user_id' => $request->userId,
+            'date' => $request->date,
+            'name' => $request->name,
+            'description' => $request->description,
+            'headcount' => $request->headcount,
+            'location' => $request->location,
+            'google_maps_iframe' => $request->google_maps_iframe,
+        ]);
+    }
 }

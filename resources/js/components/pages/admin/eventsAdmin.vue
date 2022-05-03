@@ -34,7 +34,7 @@
                 <i
                   class="bi bi-pencil-fill edit-icon mx-2"
                   title="Szerkesztés"
-                  @click="showEditModal(event)"
+                  @click="showEditModal(event, e)"
                 ></i>
                 <i
                   class="bi bi-trash3-fill delete-icon mx-2"
@@ -290,7 +290,12 @@
         >
           Bezárás
         </button>
-        <button type="button" :disabled="editing" class="btn btn-success mx-2">
+        <button
+          type="button"
+          :disabled="editing"
+          @click="edit"
+          class="btn btn-success mx-2"
+        >
           <span
             class="spinner-border spinner-border-sm"
             role="status"
@@ -335,6 +340,7 @@ export default {
       editModal: false,
       editData: {},
       editing: false,
+      editIndex: "",
     };
   },
   methods: {
@@ -405,23 +411,48 @@ export default {
       this.deleteId = null;
       this.deleting = false;
     },
-    showEditModal(event) {
-
+    showEditModal(event, index) {
       const obj = {
+        id: event.id,
         name: event.name,
-        dateTime: event.date.replace(" ", "T"),
+        date: event.date.replace(" ", "T"),
         description: event.description,
         headcount: event.headcount,
         location: event.location,
-        googleMaps: event.google_maps_iframe,
+        google_maps_iframe: event.google_maps_iframe,
       };
       this.editData = obj;
-      console.log(this.editData);
       this.editModal = true;
+      this.editIndex = index;
     },
-    async edit(){
-      const res = await this.callApi('post', 'edit_event', this.editData )
-    }
+    async edit() {
+      if (this.editData.name.trim() == "")
+        return this.$toast.warning("Név megadása kötelező!");
+      if (this.editData.date.trim() == "")
+        return this.$toast.warning("Időpont megadása kötelező!");
+      if (this.editData.description.trim() == "")
+        return this.$toast.warning("Leírás megadása kötelező!");
+      if (this.editData.headcount.length == 0)
+        return this.$toast.warning("Létszám megadása kötelező!");
+      if (this.editData.location.trim() == "")
+        return this.$toast.warning("Helyszín megadása kötelező!");
+
+      this.editing = true;
+
+      this.editData.userId = this.getUser.id;
+
+      const res = await this.callApi("post", "edit_event", this.editData);
+
+      if (res.status == 200) {
+        this.events[this.editIndex] = this.editData;
+        this.$toast.success("Esemény sikeresen szerkesztve!");
+      } else {
+        this.$toast.error("Esemény szerkesztése sikertelen!");
+      }
+
+      this.editing = false;
+      this.editModal = false;
+    },
   },
   computed: {
     ...mapGetters(["getUser"]),
