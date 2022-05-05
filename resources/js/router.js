@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import login from './components/pages/login'
 import registration from './components/pages/registration'
-import eventAdmin from './components/pages/admin/eventsAdmin'
+import eventsAdmin from './components/pages/admin/eventsAdmin'
+import events from './components/pages/events'
 
 
 Vue.use(Router)
@@ -18,7 +19,11 @@ const routes = [
     },
     {
         path:'/events-admin',
-        component: eventAdmin,
+        component: eventsAdmin,
+    },
+    {
+        path:'/',
+        component: events,
     },
 
 ]

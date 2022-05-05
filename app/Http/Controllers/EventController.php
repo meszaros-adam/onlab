@@ -16,7 +16,7 @@ class EventController extends Controller
             'dateTime' => 'required',
             'name' => 'required',
             'description' => 'required',
-            'headcount' => 'required|integer',
+            'headcount' => 'required|integer|min:1',
             'location' => 'required',
         ]);
 
@@ -49,7 +49,7 @@ class EventController extends Controller
             'date' => 'required',
             'name' => 'required',
             'description' => 'required',
-            'headcount' => 'required|integer',
+            'headcount' => 'required|integer|min:1',
             'location' => 'required',
         ]);
 

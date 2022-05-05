@@ -55,7 +55,6 @@ export default {
 
       const res = await this.callApi('post', '/login', this.data)
       if(res.status == 200){
-        this.$toast.success(res.data)
         window.location='/'
       }
       else{
