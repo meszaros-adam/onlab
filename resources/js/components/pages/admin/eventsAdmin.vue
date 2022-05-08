@@ -371,19 +371,6 @@ export default {
       this.addModal = false;
       this.adding = false;
     },
-    async getEvents() {
-      const res = await this.callApi(
-        "get",
-        `/get_event?page=${this.currentPage}&itemPerPage=${this.itemPerPage}`
-      );
-      if (res.status == 200) {
-        this.events = res.data.data;
-        this.currentPage = res.data.current_page;
-        this.total = res.data.total;
-      } else {
-        this.$toast.error("Események betöltése sikertelen!");
-      }
-    },
     handlePageChange(value) {
       this.currentPage = value;
       this.getEvents();
@@ -452,6 +439,19 @@ export default {
 
       this.editing = false;
       this.editModal = false;
+    },
+    async getEvents() {
+      const res = await this.callApi(
+        "get",
+        `/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}`
+      );
+      if (res.status == 200) {
+        this.events = res.data.data;
+        this.currentPage = res.data.current_page;
+        this.total = res.data.total;
+      } else {
+        this.$toast.error("Események betöltése sikertelen!");
+      }
     },
   },
   computed: {

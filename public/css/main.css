@@ -1,31 +1,57 @@
-.social-login-button{
+.social-login-button {
     font-size: 40px;
     margin: 10px;
 }
-.google-color{
+
+.google-color {
     color: #DB4437;
 }
-.facebook-color{
+
+.facebook-color {
     color: #17A9FD;
 }
-.google-color:hover,  .facebook-color:hover{
+
+.google-color:hover,
+.facebook-color:hover {
     color: #f8fafc;
 }
+
 .form-check-input[type=checkbox] {
     border-radius: .25em;
     height: 25px;
     width: 25px;
 }
-.not-required{
+
+.not-required {
     color: #6BCB77;
 }
-.edit-icon:hover, .delete-icon:hover{
+
+.edit-icon:hover,
+.delete-icon:hover {
     color: grey;
 }
-i{
+
+i {
     cursor: pointer;
 }
-.delete-warning{
+
+.delete-warning {
     color: #D82148;
     font-size: 100px;
+}
+
+/*scrollbar*/
+::-webkit-scrollbar {
+    width: 10px;
+  }
+::-webkit-scrollbar-track {
+    background: black;
+}
+::-webkit-scrollbar-thumb {
+    background: grey; 
+    border-radius: 15px;
+    
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }

@@ -33,6 +33,9 @@ class EventController extends Controller
     public function get(Request $request){
         return Event::orderBy('id', 'desc')->paginate($request->itemPerPage);
     }
+    public function getByDate(Request $request){
+        return Event::orderBy('date', 'desc')->paginate($request->itemPerPage);
+    }
     public function delete(Request $request){
 
         $this->validate($request,[

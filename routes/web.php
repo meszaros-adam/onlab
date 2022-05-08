@@ -26,7 +26,8 @@ Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout']);
 
 //Events
 Route::post('/create_event',  [App\Http\Controllers\EventController::class, 'add']);
-Route::get('/get_event',  [App\Http\Controllers\EventController::class, 'get']);
+Route::get('/get_events',  [App\Http\Controllers\EventController::class, 'get']);
+Route::get('/get_events_by_date',  [App\Http\Controllers\EventController::class, 'getByDate']);
 Route::post('/delete_event',  [App\Http\Controllers\EventController::class, 'delete']);
 Route::post('/edit_event',  [App\Http\Controllers\EventController::class, 'edit']);
 

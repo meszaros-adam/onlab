@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column bg-black min-vh-100">
     <!-- NAV -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-success">
       <div class="container">
         <router-link to="/" class="navbar-brand">Eseménynaptár</router-link>
         <button

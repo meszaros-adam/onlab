@@ -11,15 +11,27 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','date','name','description','headcount','location','google_maps_iframe'];
+    protected $fillable = ['user_id', 'date', 'name', 'description', 'headcount', 'location', 'google_maps_iframe'];
 
-   public function registrations(){
-       return $this->hasMany(Registration::class);
-   }
-   public function tags(){
-       return $this->hasMany(Tag::class, 'blogtag');
-   }
-   public function creator(){
-       return $this->belongsTo(User::class);
-   }
+    protected $appends = ['free_seats'];
+
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
+    }
+    public function tags()
+    {
+        return $this->hasMany(Tag::class, 'blogtag');
+    }
+    public function creator()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function getFreeSeatsAttribute()
+    {
+        $reservedSeats = $this->registrations->sum('headcount');
+
+        return $this->headcount-$reservedSeats;
+
+    }
 }
