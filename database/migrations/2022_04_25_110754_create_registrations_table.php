@@ -20,7 +20,6 @@ class CreateRegistrationsTable  extends Migration
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->integer('headcount');
-            $table->integer('max_group_headcount')->nullable();
             $table->timestamps();
         });
     }

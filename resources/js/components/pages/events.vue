@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       data: {
-        headcount: "",
+        headcount: 1,
         userId: null,
         eventId: null,
       },
@@ -129,6 +129,7 @@ export default {
     showRegModal(event) {
       this.data.userId = this.getUser.id;
       this.regEvent = event;
+      this.data.eventId = this.regEvent.id;
       this.regModal = true;
     },
     closeRegModal() {
@@ -142,7 +143,7 @@ export default {
 
       this.registrating = true;
 
-      const res = await this.callApi("post", "create_registration", this.data);
+      const res = await this.callApi("post", "/create_registration", this.data);
 
       if (res.status == 201) {
         this.$toast.success("Sikeres registráció!");

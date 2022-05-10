@@ -31,6 +31,9 @@ Route::get('/get_events_by_date',  [App\Http\Controllers\EventController::class,
 Route::post('/delete_event',  [App\Http\Controllers\EventController::class, 'delete']);
 Route::post('/edit_event',  [App\Http\Controllers\EventController::class, 'edit']);
 
+//Registration
+Route::post('/create_registration',  [App\Http\Controllers\RegistrationController::class, 'add']);
+
 
 
 
