@@ -14,10 +14,12 @@ class RegistrationController extends Controller
 {
     public function add(Request $request){
 
+        $event = Event::where('id', $request->eventId)->first();
+
         $this->validate($request, [
             'userId' => 'required',
             'eventId' => 'required',
-            'headcount' => 'required',
+            'headcount' => "required|max:$event->free_seats",
         ]);
 
         return Registration::create([

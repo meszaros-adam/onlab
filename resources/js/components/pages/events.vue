@@ -152,6 +152,7 @@ export default {
       }
 
       this.registrating = false;
+      this.regModal = false;
     },
   },
   created() {
