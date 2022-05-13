@@ -50,6 +50,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+
     public function registrations()
     {
         return $this->hasMany(Registration::class);

@@ -17,7 +17,12 @@
               <strong>Szabad helyek: {{ event.free_seats }}</strong>
             </li>
           </ul>
-          <div class="card-body text-end">
+          <div  class="card-body text-end" v-if="checkIfRegistered(event.id)">
+            <button class="button btn btn-success" disabled>
+              Regisztrálva
+            </button>
+          </div>
+          <div class="card-body text-end" v-else>
             <button class="button btn btn-success" @click="showRegModal(event)">
               Regisztrálás
             </button>
@@ -134,7 +139,7 @@ export default {
     },
     closeRegModal() {
       this.registrating = false;
-      this.data.headcount = "";
+      this.data.headcount = 1;
       this.regModal = false;
     },
     async register() {
@@ -146,6 +151,7 @@ export default {
       const res = await this.callApi("post", "/create_registration", this.data);
 
       if (res.status == 201) {
+        this.$store.commit('registrating', res.data)
         this.$toast.success("Sikeres registráció!");
       } else {
         this.$toast.error("A regisztráció nem sikerült!");
@@ -154,6 +160,9 @@ export default {
       this.registrating = false;
       this.regModal = false;
     },
+    checkIfRegistered(eventId){
+      return this.getUser.registrations.some(reg => reg['event_id'] === eventId)
+    }
   },
   created() {
     this.getEvents();

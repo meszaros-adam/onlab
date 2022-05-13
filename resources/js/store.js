@@ -15,6 +15,9 @@ export default new vuex.Store({
     mutations: {
         setUser(state, data){
             state.user = data
+        },
+        registrating(state, registration){
+            state.user.registrations.push(registration)
         }
     },
 })

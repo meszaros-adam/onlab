@@ -10,7 +10,7 @@
 <body>
     <div id="app">
         @if(Auth::check())
-        <mainapp :user="{{Auth::user()}}"> </mainapp>
+        <mainapp :user="{{Auth::user()->load(['registrations'])}}"> </mainapp>
         @else
         <mainapp :user="false"> </mainapp>
         @endif
