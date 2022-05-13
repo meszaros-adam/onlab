@@ -154,7 +154,7 @@ export default {
         this.$store.commit('registrating', res.data)
         this.$toast.success("Sikeres registráció!");
       } else {
-        this.$toast.error("A regisztráció nem sikerült!");
+        this.$toast.error(res.data.message);
       }
 
       this.registrating = false;

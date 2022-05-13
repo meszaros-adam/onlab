@@ -15,6 +15,7 @@ class CreateRegistrationsTable  extends Migration
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
+            $table->unique(['event_id', 'user_id']);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('event_id');
