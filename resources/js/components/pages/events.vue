@@ -145,6 +145,10 @@ export default {
     async register() {
       if (this.data.headcount.length == 0)
         return this.$toast.warning("Létszám megadása kötelező!");
+      if(this.data.headcount > this.regEvent.free_seats) 
+        return this.$toast.warning("Nincs ennyi szabad hely!");
+      if(this.data.headcount > 5)
+        return this.$toast.warning('Legfejebb öt fővel regisztrálhat!')
 
       this.registrating = true;
 

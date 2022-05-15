@@ -19,7 +19,7 @@ class RegistrationController extends Controller
         $this->validate($request, [
             'userId' => 'required',
             'eventId' => 'required',
-            'headcount' => "required|max:$event->free_seats",
+            'headcount' => "required|numeric|min:1|max:$event->free_seats|max:5",
         ]);
 
         return Registration::create([
