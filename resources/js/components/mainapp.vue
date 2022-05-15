@@ -43,7 +43,7 @@
                 class="nav-link dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
-                >{{ getUser.name }} <span v-if="getUser.admin === 1">(Admin)</span></a
+                >{{ getUser.name }} <span v-if="getUser.is_admin">(Admin)</span></a
               >
               <div class="dropdown-menu dropdown-menu-end">
                 <a class="dropdown-item" href="">Példa</a>

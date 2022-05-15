@@ -34,6 +34,7 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'admin'
     ];
 
     /**
@@ -51,6 +52,8 @@ class User extends Authenticatable
      * @var array
      */
 
+    protected $appends = ['is_admin'];
+
     public function registrations()
     {
         return $this->hasMany(Registration::class);
@@ -60,5 +63,13 @@ class User extends Authenticatable
     }
     public function events(){
         return $this->hasMany(Event::class);
+    }
+    public function getIsAdminAttribute(){
+        if($this->admin == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
