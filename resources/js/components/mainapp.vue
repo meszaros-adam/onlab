@@ -18,7 +18,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item active">
-              <router-link to="/events-admin" class="nav-link">Események</router-link>
+              <router-link to="/events-admin" class="nav-link"
+                >Események</router-link
+              >
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">Felhasználók</a>
@@ -27,13 +29,28 @@
               <a class="nav-link" href="#">Címkék</a>
             </li>
             <li class="nav-item" v-if="getUser == false">
-              <router-link to="/registration" class="nav-link">Regisztráció</router-link>
+              <router-link to="/registration" class="nav-link"
+                >Regisztráció</router-link
+              >
             </li>
             <li class="nav-item" v-if="getUser == false">
-              <router-link to="/login" class="nav-link">Bejelentkezés</router-link>
+              <router-link to="/login" class="nav-link"
+                >Bejelentkezés </router-link
+              >
             </li>
-            <li class="nav-item" v-else>
-              <a class="nav-link" href="/logout">Kijelentkezés</a>
+            <li class="nav-item dropdown" v-else>
+              <a
+                class="nav-link dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                >{{ getUser.name }} <span v-if="getUser.admin === 1">(Admin)</span></a
+              >
+              <div class="dropdown-menu dropdown-menu-end">
+                <a class="dropdown-item" href="">Példa</a>
+                <a class="dropdown-item" href="">Példa</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/logout">Kijelentkezés</a>
+              </div>
             </li>
           </ul>
         </div>
