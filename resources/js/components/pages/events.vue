@@ -165,7 +165,11 @@ export default {
       this.regModal = false;
     },
     checkIfRegistered(eventId){
-      return this.getUser.registrations.some(reg => reg['event_id'] === eventId)
+      if(this.getUser){
+        return this.getUser.registrations.some(reg => reg['event_id'] === eventId)
+      }else{
+        true
+      }
     }
   },
   created() {

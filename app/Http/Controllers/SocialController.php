@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
     use Illuminate\Http\Request;    
     use App\Models\User;
     use Validator;
-    use Socialite;
-    use Auth;
+    use Laravel\Socialite\Facades\Socialite;
+    use Illuminate\Support\Facades\Auth;
 
 
 class SocialController extends Controller
@@ -17,7 +17,7 @@ class SocialController extends Controller
   }
 
   public function callback($provider){
-    $userSocial =   Socialite::driver($provider)->stateless()->user();
+    $userSocial =   Socialite::driver($provider)->user();
     $find_user       =   User::where(['email' => $userSocial->getEmail()])->first();
     if($find_user){
         Auth::login($find_user);
