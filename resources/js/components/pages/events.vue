@@ -116,7 +116,7 @@ export default {
     async getEvents() {
       const res = await this.callApi(
         "get",
-        `/get_events_by_date?page=${this.currentPage}&itemPerPage=${this.itemPerPage}`
+        `/app/get_events_by_date?page=${this.currentPage}&itemPerPage=${this.itemPerPage}`
       );
       if (res.status == 200) {
         this.events = res.data.data;
@@ -152,7 +152,7 @@ export default {
 
       this.registrating = true;
 
-      const res = await this.callApi("post", "/create_registration", this.data);
+      const res = await this.callApi("post", "/app/create_registration", this.data);
 
       if (res.status == 201) {
         this.$store.commit('registrating', res.data)

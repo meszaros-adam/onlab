@@ -24,21 +24,26 @@ Route::post('/registration', [App\Http\Controllers\UserController::class, 'regis
 Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
 Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout']);
 
-//Events
-Route::post('/create_event',  [App\Http\Controllers\EventController::class, 'add']);
-Route::get('/get_events',  [App\Http\Controllers\EventController::class, 'get']);
-Route::get('/get_events_by_date',  [App\Http\Controllers\EventController::class, 'getByDate']);
-Route::post('/delete_event',  [App\Http\Controllers\EventController::class, 'delete']);
-Route::post('/edit_event',  [App\Http\Controllers\EventController::class, 'edit']);
+Route::prefix('app')->group(function () {
 
-//Registration
-Route::post('/create_registration',  [App\Http\Controllers\RegistrationController::class, 'add']);
+    //Events
+    Route::post('/create_event',  [App\Http\Controllers\EventController::class, 'add']);
+    Route::get('/get_events',  [App\Http\Controllers\EventController::class, 'get']);
+    Route::get('/get_events_by_date',  [App\Http\Controllers\EventController::class, 'getByDate']);
+    Route::post('/delete_event',  [App\Http\Controllers\EventController::class, 'delete']);
+    Route::post('/edit_event',  [App\Http\Controllers\EventController::class, 'edit']);
+
+    //Registration
+    Route::post('/create_registration',  [App\Http\Controllers\RegistrationController::class, 'add']);
+});
 
 
 
 
 
-Route::any('{slug}',function () {
+
+
+Route::any('{slug}', function () {
     return view('mainapp');
 });
 
@@ -70,11 +75,3 @@ Route::get('auth/{provider}', [App\Http\Controllers\SocialController::class, 're
 Route::get('auth/{provider}/callback', [App\Http\Controllers\SocialController::class, 'callback']);
 Auth::routes();
 */
-
-
-
-
-
-
-
-

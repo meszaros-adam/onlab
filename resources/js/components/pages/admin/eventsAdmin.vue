@@ -360,7 +360,7 @@ export default {
 
       this.data.userId = this.getUser.id;
 
-      const res = await this.callApi("post", "/create_event", this.data);
+      const res = await this.callApi("post", "/app/create_event", this.data);
 
       if (res.status == 201) {
         this.events.unshift(res.data);
@@ -381,7 +381,7 @@ export default {
     },
     async deleteEvent() {
       this.deleting = true;
-      const res = await this.callApi("post", "/delete_event", {
+      const res = await this.callApi("post", "/app/delete_event", {
         id: this.deleteId,
       });
 
@@ -428,7 +428,7 @@ export default {
 
       this.editData.userId = this.getUser.id;
 
-      const res = await this.callApi("post", "edit_event", this.editData);
+      const res = await this.callApi("post", "/app/edit_event", this.editData);
 
       if (res.status == 200) {
         this.events[this.editIndex] = this.editData;
@@ -443,7 +443,7 @@ export default {
     async getEvents() {
       const res = await this.callApi(
         "get",
-        `/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}`
+        `/app/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}`
       );
       if (res.status == 200) {
         this.events = res.data.data;
