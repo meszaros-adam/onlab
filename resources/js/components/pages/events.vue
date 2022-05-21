@@ -14,7 +14,7 @@
               <strong>Létszám: {{ event.headcount }}</strong>
             </li>
             <li class="list-group-item">
-              <strong>Szabad helyek: {{ event.free_seats }}</strong>
+              <strong :style="[event.free_seats == 0 ? {'color': 'red'} : {'color': 'black'} ]" >Szabad helyek: {{ event.free_seats }}</strong>
             </li>
           </ul>
           <div  class="card-body text-end" v-if="checkIfRegistered(event.id)">
