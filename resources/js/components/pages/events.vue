@@ -23,7 +23,7 @@
             </button>
           </div>
           <div class="card-body text-end" v-else>
-            <button class="button btn btn-success" @click="showRegModal(event)">
+            <button class="button btn btn-success" :disabled="event.free_seats == 0" @click="showRegModal(event)">
               Regisztrálás
             </button>
           </div>

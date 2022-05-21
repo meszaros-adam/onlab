@@ -19,7 +19,7 @@ class LoginCheck
     {
         if(!Auth::check()){
             return response()->json([
-                'msg' => 'Ehhez az útvonalhoz be kell jelenkezni!'
+                'message' => 'Ehhez az útvonalhoz be kell jelenkezni!'
             ]);
         }
 

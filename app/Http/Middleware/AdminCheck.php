@@ -19,7 +19,7 @@ class AdminCheck
     {
         if(!Auth::user()->is_admin){
             return response()->json([
-                'msg' => 'Ehhez az útvonalhoz csak Admin jogosultságú felhasználó férhet hozzá!'
+                'message' => 'Ehhez az útvonalhoz csak Admin jogosultságú felhasználó férhet hozzá!'
             ]);
         }
         return $next($request);
