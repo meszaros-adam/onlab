@@ -77,7 +77,7 @@ export default {
 
       const res = await this.callApi("post", "/login", this.data);
       if (res.status == 200) {
-        window.location = "/";
+        this.$router.push('/')
       } else {
         this.$toast.error(res.data);
       }
