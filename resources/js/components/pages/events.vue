@@ -97,7 +97,6 @@ export default {
     return {
       data: {
         headcount: 1,
-        userId: null,
         eventId: null,
       },
       events: [],
@@ -132,7 +131,6 @@ export default {
       this.getEvents();
     },
     showRegModal(event) {
-      this.data.userId = this.getUser.id;
       this.regEvent = event;
       this.data.eventId = this.regEvent.id;
       this.regModal = true;
