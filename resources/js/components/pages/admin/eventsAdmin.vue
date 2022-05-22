@@ -443,7 +443,7 @@ export default {
     async getEvents() {
       const res = await this.callApi(
         "get",
-        `/app/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}`
+        `/app/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=id`
       );
       if (res.status == 200) {
         this.events = res.data.data;
