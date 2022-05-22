@@ -18,15 +18,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item active">
-              <router-link to="/events-admin" class="nav-link"
-                >Események</router-link
-              >
-            </li>
-            <li class="nav-item active">
               <a class="nav-link" href="#">Felhasználók</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">Címkék</a>
+              <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">Admin Panel</a>
             </li>
             <li class="nav-item" v-if="getUser == false">
               <router-link to="/registration" class="nav-link"
@@ -35,21 +30,37 @@
             </li>
             <li class="nav-item" v-if="getUser == false">
               <router-link to="/login" class="nav-link"
-                >Bejelentkezés </router-link
-              >
+                >Bejelentkezés
+              </router-link>
             </li>
             <li class="nav-item dropdown" v-else>
               <a
                 class="nav-link dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
-                >{{ getUser.name }} <span v-if="getUser.is_admin">(Admin)</span></a
+                >{{ getUser.name }}
+                <span v-if="getUser.is_admin">(Admin)</span></a
               >
               <div class="dropdown-menu dropdown-menu-end">
                 <a class="dropdown-item" href="">Példa</a>
                 <a class="dropdown-item" href="">Példa</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/logout">Kijelentkezés</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown" v-if="getUser.is_admin">
+              <a
+                class="nav-link dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                >Admin Panel</a
+              >
+              <div class="dropdown-menu dropdown-menu-end">
+               <router-link class="dropdown-item" to='/events-admin'>Események</router-link>
+                <router-link class="dropdown-item" to='/events-admin'>Címkék</router-link>
+                <router-link class="dropdown-item" to='/events-admin'>Felhasználók</router-link>
+                <router-link class="dropdown-item" to='/events-admin'>Regisztrációk</router-link>
+                <router-link class="dropdown-item" to='/events-admin'>Kommentek</router-link>  
               </div>
             </li>
           </ul>
