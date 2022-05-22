@@ -30,8 +30,11 @@ class EventController extends Controller
             'google_maps_iframe' => $request->googleMaps,
         ]);
     }
-    public function get(Request $request){
+    public function getAll(Request $request){
         return Event::orderBy($request->orderBy, 'desc')->paginate($request->itemPerPage);
+    }
+    public function getActual(Request $request){
+        return Event::where('date' ,'>', Carbon::now() )->orderBy($request->orderBy, 'desc')->paginate($request->itemPerPage);
     }
     public function delete(Request $request){
 

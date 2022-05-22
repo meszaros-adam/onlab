@@ -125,7 +125,7 @@ export default {
     async getEvents() {
       const res = await this.callApi(
         "get",
-        `/app/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
+        `/app/get_actual_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
       );
       if (res.status == 200) {
         this.events = res.data.data;
