@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -12,7 +13,6 @@ class EventController extends Controller
     public function add(Request $request){
         
         $this->validate($request,[
-            'userId' => 'required',
             'dateTime' => 'required',
             'name' => 'required',
             'description' => 'required',
@@ -21,7 +21,7 @@ class EventController extends Controller
         ]);
 
         return Event::create([
-            'user_id' => $request->userId,
+            'user_id' => Auth::user()->id,
             'date' =>  $request->dateTime,
             'name' => $request->name,
             'description' => $request->description,

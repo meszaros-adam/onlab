@@ -14,16 +14,25 @@
               <strong>Létszám: {{ event.headcount }}</strong>
             </li>
             <li class="list-group-item">
-              <strong :style="[event.free_seats == 0 ? {'color': 'red'} : {'color': 'black'} ]" >Szabad helyek: {{ event.free_seats }}</strong>
+              <strong
+                :style="[
+                  event.free_seats == 0 ? { color: 'red' } : { color: 'black' },
+                ]"
+                >Szabad helyek: {{ event.free_seats }}</strong
+              >
             </li>
           </ul>
-          <div  class="card-body text-end" v-if="checkIfRegistered(event.id)">
+          <div class="card-body text-end" v-if="checkIfRegistered(event.id)">
             <button class="button btn btn-success" disabled>
               Regisztrálva
             </button>
           </div>
           <div class="card-body text-end" v-else>
-            <button class="button btn btn-success" :disabled="event.free_seats == 0" @click="getUser ? showRegModal(event) : $router.push('/login')">
+            <button
+              class="button btn btn-success"
+              :disabled="event.free_seats == 0"
+              @click="getUser ? showRegModal(event) : $router.push('/login')"
+            >
               Regisztrálás
             </button>
           </div>
@@ -100,6 +109,7 @@ export default {
         eventId: null,
       },
       events: [],
+      orderBy: 'date',
 
       //pagination
       itemPerPage: 10,
@@ -115,7 +125,7 @@ export default {
     async getEvents() {
       const res = await this.callApi(
         "get",
-        `/app/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=date`
+        `/app/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
       );
       if (res.status == 200) {
         this.events = res.data.data;
@@ -143,17 +153,21 @@ export default {
     async register() {
       if (this.data.headcount.length == 0)
         return this.$toast.warning("Létszám megadása kötelező!");
-      if(this.data.headcount > this.regEvent.free_seats) 
+      if (this.data.headcount > this.regEvent.free_seats)
         return this.$toast.warning("Nincs ennyi szabad hely!");
-      if(this.data.headcount > 5)
-        return this.$toast.warning('Legfejebb öt fővel regisztrálhat!')
+      if (this.data.headcount > 5)
+        return this.$toast.warning("Legfejebb öt fővel regisztrálhat!");
 
       this.registrating = true;
 
-      const res = await this.callApi("post", "/app/create_registration", this.data);
+      const res = await this.callApi(
+        "post",
+        "/app/create_registration",
+        this.data
+      );
 
       if (res.status == 201) {
-        this.$store.commit('registrating', res.data)
+        this.$store.commit("registrating", res.data);
         this.$toast.success("Sikeres registráció!");
       } else {
         this.$toast.error(res.data.message);
@@ -162,13 +176,15 @@ export default {
       this.registrating = false;
       this.regModal = false;
     },
-    checkIfRegistered(eventId){
-      if(this.getUser){
-        return this.getUser.registrations.some(reg => reg['event_id'] === eventId)
-      }else{
-        true
+    checkIfRegistered(eventId) {
+      if (this.getUser) {
+        return this.getUser.registrations.some(
+          (reg) => reg["event_id"] === eventId
+        );
+      } else {
+        true;
       }
-    }
+    },
   },
   created() {
     this.getEvents();

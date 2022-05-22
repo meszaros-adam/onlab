@@ -1,14 +1,29 @@
 <template>
   <div>
     <div class="container-fluid bg-dark ms-auto my-5 p-5">
-      <button
-        type="button"
-        class="btn btn-success mb-3"
-        @click="addModal = true"
-      >
-        <i class="bi bi-plus-lg"></i>
-        Esemény létrehozása
-      </button>
+      <div class="d-flex text-light">
+        <button
+          type="button"
+          class="btn btn-success mb-3 me-auto"
+          @click="addModal = true"
+        >
+          <i class="bi bi-plus-lg"></i>
+          Esemény létrehozása
+        </button>
+        <h5 class="mx-3">Rendezés:</h5>
+        <select
+          v-model="orderBy"
+          @change="getEvents"
+          class="form-select mb-4"
+          style="width: auto"
+          aria-label="Default select example"
+        >
+        <option value="id">Azonosító (ID)</option>
+          <option value="date">Dátum</option>
+          <option value="headcount">Létszám</option>
+          <option value="name">Név</option>
+        </select>
+      </div>
       <table class="table table-striped table-light table-hover">
         <thead>
           <tr>
@@ -323,11 +338,11 @@ export default {
         headcount: "",
         location: "",
         googleMaps: "",
-        userId: "",
       },
       events: [],
       addModal: false,
       adding: false,
+      orderBy: 'id',
       //pagination
       itemPerPage: 10,
       currentPage: 1,
@@ -443,7 +458,7 @@ export default {
     async getEvents() {
       const res = await this.callApi(
         "get",
-        `/app/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=id`
+        `/app/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
       );
       if (res.status == 200) {
         this.events = res.data.data;
