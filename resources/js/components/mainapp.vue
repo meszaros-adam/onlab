@@ -25,7 +25,7 @@
                 >Admin Panel</a
               >
               <div class="dropdown-menu dropdown-menu-end">
-                <router-link class="dropdown-item" to="/events-admin"
+                <router-link class="dropdown-item" to="/admin/events"
                   >Események</router-link
                 >
                 <router-link class="dropdown-item" to="/events-admin"

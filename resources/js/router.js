@@ -18,7 +18,7 @@ const routes = [
         component: registration,
     },
     {
-        path:'/events-admin',
+        path:'/admin/events',
         component: eventsAdmin,
     },
     {

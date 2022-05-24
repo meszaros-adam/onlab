@@ -17,8 +17,8 @@ use App\Http\Middleware\LoginCheck;
 */
 
 //Mainapp
-Route::get('/', function () {
-    return view('mainapp');
+Route::prefix('admin')->middleware(AdminCheck::class)->group(function () {
+    Route::get('/events',  [App\Http\Controllers\IndexController::class, 'index']);
 });
 
 //Auth
@@ -32,6 +32,7 @@ Route::prefix('app')->group(function () {
     Route::post('/create_event',  [App\Http\Controllers\EventController::class, 'add'])->middleware(AdminCheck::class);
     Route::get('/get_events',  [App\Http\Controllers\EventController::class, 'getAll']);
     Route::get('/get_actual_events',  [App\Http\Controllers\EventController::class, 'getActual']);
+    Route::get('/get_earlier_events',  [App\Http\Controllers\EventController::class, 'getEarlier']);
     Route::post('/delete_event',  [App\Http\Controllers\EventController::class, 'delete'])->middleware(AdminCheck::class);
     Route::post('/edit_event',  [App\Http\Controllers\EventController::class, 'edit'])->middleware(AdminCheck::class);
 
@@ -43,11 +44,9 @@ Route::prefix('app')->group(function () {
 
 
 
+Route::get('/',  [App\Http\Controllers\IndexController::class, 'index']);
 
-
-Route::any('{slug}', function () {
-    return view('mainapp');
-});
+Route::any('{slug}',  [App\Http\Controllers\IndexController::class, 'index']);
 
 
 /*

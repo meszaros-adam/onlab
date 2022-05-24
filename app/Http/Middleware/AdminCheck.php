@@ -17,6 +17,9 @@ class AdminCheck
      */
     public function handle(Request $request, Closure $next)
     {
+        if(!Auth::check()){
+            return redirect('/login');
+        }
         if(!Auth::user()->is_admin){
             return response()->json([
                 'message' => 'Ehhez az útvonalhoz csak Admin jogosultságú felhasználó férhet hozzá!'
