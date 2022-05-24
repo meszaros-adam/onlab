@@ -40,7 +40,7 @@
           <div class="card-body text-end" v-else>
             <button
               class="button btn btn-success"
-              :disabled="event.free_seats == 0"
+              :disabled="registerButtonDisabler(event)"
               @click="getUser ? showRegModal(event) : $router.push('/login')"
             >
               Regisztrálás
@@ -194,6 +194,13 @@ export default {
         );
       } else {
         true;
+      }
+    },
+    registerButtonDisabler(event){
+      if(event.free_seats != 0 && event.is_actual){
+        return false;
+      }else{
+        return true;
       }
     },
   },

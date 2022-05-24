@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Carbon as SupportCarbon;
 
 class Event extends Model
 {
@@ -13,7 +14,7 @@ class Event extends Model
 
     protected $fillable = ['user_id', 'date', 'name', 'description', 'headcount', 'location', 'google_maps_iframe'];
 
-    protected $appends = ['free_seats'];
+    protected $appends = ['free_seats','is_actual'];
 
     public function registrations()
     {
@@ -33,5 +34,9 @@ class Event extends Model
 
         return $this->headcount-$reservedSeats;
 
+    }
+    public function getIsActualAttribute(){
+        
+        return $this->date > Carbon::now() ?  true :  false;
     }
 }
