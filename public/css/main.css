@@ -58,3 +58,7 @@ i {
 h1, .navbar-brand{
     font-family: monospace;
 }
+.bi-exclamation-circle-fill{
+    color:red;
+    font-size: 300px;
+}

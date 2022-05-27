@@ -4,6 +4,7 @@ import login from './components/pages/login'
 import registration from './components/pages/registration'
 import eventsAdmin from './components/pages/admin/eventsAdmin'
 import events from './components/pages/events'
+import notAuthorized from './components/pages/notAuthorized'
 
 
 Vue.use(Router)
@@ -24,6 +25,10 @@ const routes = [
     {
         path:'/',
         component: events,
+    },
+    {
+        path:'/not-authorized',
+        component: notAuthorized,
     },
 
 ]

@@ -21,9 +21,7 @@ class AdminCheck
             return redirect('/login');
         }
         if(!Auth::user()->is_admin){
-            return response()->json([
-                'message' => 'Ehhez az útvonalhoz csak Admin jogosultságú felhasználó férhet hozzá!'
-            ]);
+            return redirect('/not-authorized');
         }
         return $next($request);
     }
