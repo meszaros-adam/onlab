@@ -58,7 +58,7 @@ i {
 h1, .navbar-brand{
     font-family: monospace;
 }
-.bi-exclamation-circle-fill{
-    color:red;
+.not-authorized-warning{
+    color:#D82148;
     font-size: 300px;
 }

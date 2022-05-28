@@ -5,6 +5,7 @@ import registration from './components/pages/registration'
 import eventsAdmin from './components/pages/admin/eventsAdmin'
 import events from './components/pages/events'
 import notAuthorized from './components/pages/notAuthorized'
+import tagsAdmin from './components/pages/admin/tagsAdmin'
 
 
 Vue.use(Router)
@@ -19,12 +20,16 @@ const routes = [
         component: registration,
     },
     {
+        path:'/',
+        component: events,
+    },
+    {
         path:'/admin/events',
         component: eventsAdmin,
     },
     {
-        path:'/',
-        component: events,
+        path:'/admin/tags',
+        component: tagsAdmin,
     },
     {
         path:'/not-authorized',

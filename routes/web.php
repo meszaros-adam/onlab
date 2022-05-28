@@ -16,9 +16,10 @@ use App\Http\Middleware\LoginCheck;
 |
 */
 
-//Mainapp
+//Admin
 Route::prefix('admin')->middleware(AdminCheck::class)->group(function () {
     Route::get('/events',  [App\Http\Controllers\IndexController::class, 'index']);
+    Route::get('/tags',  [App\Http\Controllers\IndexController::class, 'index']);
 });
 
 //Auth
@@ -35,6 +36,10 @@ Route::prefix('app')->group(function () {
     Route::get('/get_earlier_events',  [App\Http\Controllers\EventController::class, 'getEarlier']);
     Route::post('/delete_event',  [App\Http\Controllers\EventController::class, 'delete'])->middleware(AdminCheck::class);
     Route::post('/edit_event',  [App\Http\Controllers\EventController::class, 'edit'])->middleware(AdminCheck::class);
+
+    //Tags
+    Route::post('/create_tag',  [App\Http\Controllers\TagController::class, 'add'])->middleware(AdminCheck::class);
+    Route::get('/get_tags', [App\Http\Controllers\TagController::class, 'get']);
 
     //Registration
     Route::post('/create_registration',  [App\Http\Controllers\RegistrationController::class, 'add'])->middleware(LoginCheck::class);

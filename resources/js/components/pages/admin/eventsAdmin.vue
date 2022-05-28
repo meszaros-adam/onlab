@@ -146,79 +146,6 @@
       </div>
     </b-modal>
     <!-- Adding Modal -->
-    <b-modal
-      v-model="addModal"
-      size="xl"
-      title="Esemény létrehozása: "
-      hide-header-close
-      hide-footer
-      no-close-on-esc
-      no-close-on-backdrop
-    >
-      <div class="mb-3">
-        <label class="form-label">Név: </label>
-        <input class="form-control" type="text" v-model="data.name" />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Időpont: </label>
-        <input
-          class="form-control"
-          type="datetime-local"
-          v-model="data.dateTime"
-        />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Leírás: </label>
-        <textarea
-          class="form-control"
-          rows="3"
-          v-model="data.description"
-        ></textarea>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Létszám: </label>
-        <input
-          class="form-control"
-          type="number"
-          min="1"
-          v-model="data.headcount"
-        />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Helyszín: </label>
-        <input class="form-control" type="text" v-model="data.location" />
-      </div>
-      <div class="mb-3">
-        <label class="form-label"
-          >Google Maps iframe:
-          <span class="not-required">Nem kötelező!</span></label
-        >
-        <input class="form-control" type="text" v-model="data.googleMaps" />
-      </div>
-      <div class="d-flex justify-content-end">
-        <button
-          type="button"
-          class="btn btn-danger mx-2"
-          @click="addModal = false"
-        >
-          Bezárás
-        </button>
-        <button
-          type="button"
-          :disabled="adding"
-          class="btn btn-success mx-2"
-          @click="add"
-        >
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-            v-show="adding"
-          ></span>
-          <span class="sr-only">Mentés</span>
-        </button>
-      </div>
-    </b-modal>
     <!-- Delete Modal -->
     <b-modal
       v-model="deleteModal"
@@ -373,8 +300,6 @@ export default {
 
       this.adding = true;
 
-      this.data.userId = this.getUser.id;
-
       const res = await this.callApi("post", "/app/create_event", this.data);
 
       if (res.status == 201) {
@@ -440,8 +365,6 @@ export default {
         return this.$toast.warning("Helyszín megadása kötelező!");
 
       this.editing = true;
-
-      this.editData.userId = this.getUser.id;
 
       const res = await this.callApi("post", "/app/edit_event", this.editData);
 

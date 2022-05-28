@@ -1,15 +1,17 @@
 <template>
   <div class="container bg-dark ms-auto my-5 text-light p-5 rounded">
-    <select
-      class="form-select mb-4"
-      style="width: auto"
-      v-model="eventActuality"
-      aria-label="Default select example"
-      @change="getEvents"
-    >
-      <option value="actual">Aktuálisak</option>
-      <option value="earlier">Korábbiak</option>
-    </select>
+    <div class="d-flex justify-content-end">
+      <select
+        class="form-select mb-4"
+        style="width: auto"
+        v-model="eventActuality"
+        aria-label="Default select example"
+        @change="getEvents"
+      >
+        <option value="actual">Aktuálisak</option>
+        <option value="earlier">Korábbiak</option>
+      </select>
+    </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
       <div class="col mb-4" v-for="(event, e) in events" :key="e">
         <div class="card text-dark">
@@ -120,7 +122,7 @@ export default {
       },
       events: [],
       orderBy: "date",
-      eventActuality: 'actual',
+      eventActuality: "actual",
 
       //pagination
       itemPerPage: 10,
@@ -196,10 +198,10 @@ export default {
         true;
       }
     },
-    registerButtonDisabler(event){
-      if(event.free_seats != 0 && event.is_actual){
+    registerButtonDisabler(event) {
+      if (event.free_seats != 0 && event.is_actual) {
         return false;
-      }else{
+      } else {
         return true;
       }
     },

@@ -51,7 +51,6 @@ class EventController extends Controller
         
         $this->validate($request, [
             'id' => 'required',
-            'userId' => 'required',
             'date' => 'required',
             'name' => 'required',
             'description' => 'required',
@@ -60,7 +59,7 @@ class EventController extends Controller
         ]);
 
         return Event::where('id',$request->id)->update([
-            'user_id' => $request->userId,
+            'user_id' =>  Auth::user()->id,
             'date' => $request->date,
             'name' => $request->name,
             'description' => $request->description,
