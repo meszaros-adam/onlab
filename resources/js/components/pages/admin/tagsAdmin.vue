@@ -221,8 +221,8 @@ export default {
       this.getTags();
     },
     showDeleteModal(id) {
-      this.deleteModal = true;
       this.deleteId = id;
+      this.deleteModal = true;
     },
     async deleteTag() {
       this.deleting = true;
@@ -249,8 +249,8 @@ export default {
         name: tag.name,
       };
       this.editData = obj;
-      this.editModal = true;
       this.editIndex = index;
+      this.editModal = true;
     },
     async edit() {
       if (this.editData.name.trim() == "")
@@ -258,7 +258,7 @@ export default {
 
       this.editing = true;
 
-      const res = await this.callApi("post", "/app/edit_tags", this.editData);
+      const res = await this.callApi("post", "/app/edit_tag", this.editData);
 
       if (res.status == 200) {
         this.tags[this.editIndex] = this.editData;

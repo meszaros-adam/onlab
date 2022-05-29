@@ -40,6 +40,9 @@ Route::prefix('app')->group(function () {
     //Tags
     Route::post('/create_tag',  [App\Http\Controllers\TagController::class, 'add'])->middleware(AdminCheck::class);
     Route::get('/get_tags', [App\Http\Controllers\TagController::class, 'get']);
+    Route::post('/delete_tag',  [App\Http\Controllers\TagController::class, 'delete'])->middleware(AdminCheck::class);
+    Route::post('/edit_tag',  [App\Http\Controllers\TagController::class, 'edit'])->middleware(AdminCheck::class);
+
 
     //Registration
     Route::post('/create_registration',  [App\Http\Controllers\RegistrationController::class, 'add'])->middleware(LoginCheck::class);

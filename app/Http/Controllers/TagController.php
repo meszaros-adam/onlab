@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TagController extends Controller
 {
@@ -16,6 +17,22 @@ class TagController extends Controller
         ]);
 
         return Tag::create([
+            'name' => $request->name,
+        ]);
+    }
+    public function delete(Request $request){
+        $this->validate($request,[
+            'id' => 'required',
+        ]);
+
+        return Tag::where('id', $request->id)->delete();
+    }
+    public function edit(Request $request){
+        $this->validate($request,[
+            'name' => 'required',
+        ]);
+
+        return Tag::where(['id' => $request->id,])->update([
             'name' => $request->name,
         ]);
     }

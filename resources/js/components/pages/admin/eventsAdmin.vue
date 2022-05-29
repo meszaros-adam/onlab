@@ -18,7 +18,7 @@
           style="width: auto"
           aria-label="Default select example"
         >
-        <option value="id">Azonosító (ID)</option>
+          <option value="id">Azonosító (ID)</option>
           <option value="date">Dátum</option>
           <option value="headcount">Létszám</option>
           <option value="name">Név</option>
@@ -269,7 +269,7 @@ export default {
       events: [],
       addModal: false,
       adding: false,
-      orderBy: 'id',
+      orderBy: "id",
       //pagination
       itemPerPage: 10,
       currentPage: 1,
@@ -316,8 +316,8 @@ export default {
       this.getEvents();
     },
     showDeleteModal(id) {
-      this.deleteModal = true;
       this.deleteId = id;
+      this.deleteModal = true;
     },
     async deleteEvent() {
       this.deleting = true;
@@ -349,8 +349,8 @@ export default {
         google_maps_iframe: event.google_maps_iframe,
       };
       this.editData = obj;
-      this.editModal = true;
       this.editIndex = index;
+      this.editModal = true;
     },
     async edit() {
       if (this.editData.name.trim() == "")
