@@ -78,7 +78,7 @@
 
     <!-- FOOTER -->
     <footer class="p-3 bg-success text-light text-center mt-auto">
-      Minden Jog Fenntartva
+      Minden Jog Fenntartva!
     </footer>
     <!-- FOOTER -->
   </div>

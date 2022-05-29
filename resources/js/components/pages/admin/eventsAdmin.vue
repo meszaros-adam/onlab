@@ -121,6 +121,11 @@
         >
         <input class="form-control" type="text" v-model="data.googleMaps" />
       </div>
+      <div class="mb-3">
+        <label class="form-label">Címkék: </label>
+        <multiselect v-model="data.tags" :options="tags" label="name" :close-on-select="false" :clear-on-select="false" placeholder="Válasszon címkét/címkéket!" :multiple="true" track-by="id"></multiselect>
+      </div>
+      
       <div class="d-flex justify-content-end">
         <button
           type="button"
@@ -254,8 +259,10 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Multiselect from 'vue-multiselect'
 
 export default {
+  components: { Multiselect },
   data() {
     return {
       data: {
@@ -265,8 +272,10 @@ export default {
         headcount: "",
         location: "",
         googleMaps: "",
+        tags: [],
       },
       events: [],
+      tags: [],
       addModal: false,
       adding: false,
       orderBy: "id",
@@ -309,6 +318,7 @@ export default {
         this.$toast.error("Esemény létrehozása sikertelen!");
       }
       this.addModal = false;
+      this.data = {},
       this.adding = false;
     },
     handlePageChange(value) {
@@ -391,12 +401,27 @@ export default {
         this.$toast.error("Események betöltése sikertelen!");
       }
     },
+    async getTags(){
+      const res = await this.callApi('get', '/app/get_all_tags')
+      if(res.status == 200){
+        for(const tag of res.data){
+          let newTag = {name: tag.name, id:tag.id}
+          this.tags.push(newTag)
+        }
+
+      }else{
+      this.$toast.error('Címkék betöltése sikertelen!')
+      }
+    }
   },
   computed: {
     ...mapGetters(["getUser"]),
   },
   created() {
     this.getEvents();
+    this.getTags();
   },
 };
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

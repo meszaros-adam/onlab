@@ -214,6 +214,7 @@ export default {
         this.$toast.error("Címke létrehozása sikertelen!");
       }
       this.addModal = false;
+      this.data.name = "";
       this.adding = false;
     },
     handlePageChange(value) {

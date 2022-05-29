@@ -11,6 +11,9 @@ class TagController extends Controller
     public function get(Request $request){
        return Tag::orderBy($request->orderBy,'desc')->paginate($request->itemPerPage);
     }
+    public function getAll(){
+        return Tag::orderBy('id','desc')->get();
+     }
     public function add(Request $request){
         $this->validate($request,[
             'name' => 'required',

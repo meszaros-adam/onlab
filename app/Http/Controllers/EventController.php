@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\EventTag;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -20,15 +22,39 @@ class EventController extends Controller
             'location' => 'required',
         ]);
 
-        return Event::create([
-            'user_id' => Auth::user()->id,
-            'date' =>  $request->dateTime,
-            'name' => $request->name,
-            'description' => $request->description,
-            'headcount' => $request->headcount,
-            'location' => $request->location,
-            'google_maps_iframe' => $request->googleMaps,
-        ]);
+        DB::beginTransaction();
+
+        try{
+
+            $event = Event::create([
+                'user_id' => Auth::user()->id,
+                'date' =>  $request->dateTime,
+                'name' => $request->name,
+                'description' => $request->description,
+                'headcount' => $request->headcount,
+                'location' => $request->location,
+                'google_maps_iframe' => $request->googleMaps,
+            ]);
+
+            $event_tags = [];
+
+            foreach($request->tags as $t){
+                array_push($event_tags,[
+                    'event_id' => $event->id,
+                    'tag_id' => $t['id'],
+                ]);
+            }
+            EventTag::insert($event_tags);
+
+            DB::commit();
+            return response ('done', 201);
+
+        }catch(\Throwable $th){
+            DB::rollback();
+            return response ($th, 500);
+        }
+
+        
     }
     public function getAll(Request $request){
         return Event::orderBy($request->orderBy, 'desc')->paginate($request->itemPerPage);
