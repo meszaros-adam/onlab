@@ -123,9 +123,21 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Címkék: </label>
-        <multiselect v-model="data.tags" :options="tags" label="name" :close-on-select="false" :clear-on-select="false" placeholder="Válasszon címkét/címkéket!" :multiple="true" track-by="id"></multiselect>
+        <multiselect
+          v-model="data.tags"
+          :options="tags"
+          label="name"
+          :close-on-select="false"
+          :clear-on-select="false"
+          placeholder="Válasszon címkét/címkéket!"
+          select-label="Kattintson a hozzáadáshoz!"
+          deselectLabel="Kattintson az eltávolításhoz!"
+          selected-label="Kiválasztva"
+          :multiple="true"
+          track-by="id"
+        ></multiselect>
       </div>
-      
+
       <div class="d-flex justify-content-end">
         <button
           type="button"
@@ -229,6 +241,22 @@
         >
         <input class="form-control" type="text" v-model="editData.googleMaps" />
       </div>
+      <div class="mb-3">
+        <label class="form-label">Címkék: </label>
+        <multiselect
+          v-model="editData.tags"
+          :options="tags"
+          label="name"
+          :close-on-select="false"
+          :clear-on-select="false"
+          placeholder="Válasszon címkét/címkéket!"
+          select-label="Kattintson a hozzáadáshoz!"
+          deselectLabel="Kattintson az eltávolításhoz!"
+          selected-label="Kiválasztva"
+          :multiple="true"
+          track-by="id"
+        ></multiselect>
+      </div>
       <div class="d-flex justify-content-end">
         <button
           type="button"
@@ -259,7 +287,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Multiselect from 'vue-multiselect'
+import Multiselect from "vue-multiselect";
 
 export default {
   components: { Multiselect },
@@ -318,8 +346,7 @@ export default {
         this.$toast.error("Esemény létrehozása sikertelen!");
       }
       this.addModal = false;
-      this.data = {},
-      this.adding = false;
+      (this.data = {}), (this.adding = false);
     },
     handlePageChange(value) {
       this.currentPage = value;
@@ -357,6 +384,7 @@ export default {
         headcount: event.headcount,
         location: event.location,
         google_maps_iframe: event.google_maps_iframe,
+        tags: event.tags,
       };
       this.editData = obj;
       this.editIndex = index;
@@ -401,18 +429,17 @@ export default {
         this.$toast.error("Események betöltése sikertelen!");
       }
     },
-    async getTags(){
-      const res = await this.callApi('get', '/app/get_all_tags')
-      if(res.status == 200){
-        for(const tag of res.data){
-          let newTag = {name: tag.name, id:tag.id}
-          this.tags.push(newTag)
+    async getTags() {
+      const res = await this.callApi("get", "/app/get_all_tags");
+      if (res.status == 200) {
+        for (const tag of res.data) {
+          let newTag = { name: tag.name, id: tag.id };
+          this.tags.push(newTag);
         }
-
-      }else{
-      this.$toast.error('Címkék betöltése sikertelen!')
+      } else {
+        this.$toast.error("Címkék betöltése sikertelen!");
       }
-    }
+    },
   },
   computed: {
     ...mapGetters(["getUser"]),

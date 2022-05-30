@@ -84,14 +84,41 @@ class EventController extends Controller
             'location' => 'required',
         ]);
 
-        return Event::where('id',$request->id)->update([
-            'user_id' =>  Auth::user()->id,
-            'date' => $request->date,
-            'name' => $request->name,
-            'description' => $request->description,
-            'headcount' => $request->headcount,
-            'location' => $request->location,
-            'google_maps_iframe' => $request->google_maps_iframe,
-        ]);
+        try{
+            DB::beginTransaction();
+
+            Event::where('id',$request->id)->update([
+                'user_id' =>  Auth::user()->id,
+                'date' => $request->date,
+                'name' => $request->name,
+                'description' => $request->description,
+                'headcount' => $request->headcount,
+                'location' => $request->location,
+                'google_maps_iframe' => $request->google_maps_iframe,
+            ]);
+
+            //delete previous tags
+            EventTag::where('event_id', $request->id)->delete();
+
+            $event_tags = [];
+
+            foreach($request->tags as $t){
+                array_push($event_tags, [
+                    'event_id' => $request->id,
+                    'tag_id' => $t['id'],
+                    ]);
+            }
+
+            EventTag::insert($event_tags);
+
+            DB::commit();
+
+            return response('Esemény sikeresen szerkesztve!', 200);
+
+        }catch(\Throwable $th){
+            DB::rollBack();
+            return response($th, 500);
+        } 
+       
     }
 }
