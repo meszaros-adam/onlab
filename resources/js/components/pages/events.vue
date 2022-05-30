@@ -33,6 +33,11 @@
                 >Szabad helyek: {{ event.free_seats }}</strong
               >
             </li>
+            <li class="list-group-item d-flex" v-if="event.tags.length>0">
+            <div class="mx-1" v-for="(tag, t) in event.tags" :key="t">
+              <div class="btn btn-secondary btn-sm">#{{ tag.name }}</div>
+            </div>
+          </li>
           </ul>
           <div class="card-body text-end" v-if="checkIfRegistered(event.id)">
             <button class="button btn btn-success" disabled>

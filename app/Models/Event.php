@@ -22,7 +22,7 @@ class Event extends Model
     }
     public function tags()
     {
-        return $this->hasMany(Tag::class, 'blogtag');
+        return $this->belongsToMany(Tag::class, 'event_tags');
     }
     public function creator()
     {

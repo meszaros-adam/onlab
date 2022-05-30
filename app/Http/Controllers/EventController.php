@@ -57,13 +57,13 @@ class EventController extends Controller
         
     }
     public function getAll(Request $request){
-        return Event::orderBy($request->orderBy, 'desc')->paginate($request->itemPerPage);
+        return Event::orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
     }
     public function getActual(Request $request){
-        return Event::where('date' ,'>', Carbon::now() )->orderBy($request->orderBy, 'desc')->paginate($request->itemPerPage);
+        return Event::where('date' ,'>', Carbon::now() )->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
     }
     public function getEarlier(Request $request){
-        return Event::where('date' ,'<', Carbon::now() )->orderBy($request->orderBy, 'desc')->paginate($request->itemPerPage);
+        return Event::where('date' ,'<', Carbon::now() )->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
     }
     public function delete(Request $request){
 
