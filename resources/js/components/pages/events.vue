@@ -35,7 +35,7 @@
             </li>
             <li class="list-group-item d-flex" v-if="event.tags.length>0">
             <div class="mx-1" v-for="(tag, t) in event.tags" :key="t">
-              <div class="btn btn-secondary btn-sm">#{{ tag.name }}</div>
+              <a><i class="tag">#{{ tag.name }}</i></a>
             </div>
           </li>
           </ul>

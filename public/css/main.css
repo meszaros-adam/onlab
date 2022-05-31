@@ -62,3 +62,11 @@ h1, .navbar-brand{
     color:#D82148;
     font-size: 300px;
 }
+.tag{
+    border-radius: 5px;
+    padding: 5px;
+}
+.tag:hover{
+    color:white;
+    background-color:#198754;
+}
