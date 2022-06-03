@@ -21,10 +21,14 @@ class RegistrationController extends Controller
             'headcount' => "required|numeric|min:1|max:$event->free_seats|max:5",
         ]);
 
-        return Registration::create([
+        $registration = Registration::create([
             'user_id' =>  Auth::user()->id,
             'event_id' => $request->eventId,	
             'headcount' => $request->headcount,	
         ]);
+
+        Mail::to(Auth::user()->email)->send(new ResponseMail(Auth::user() ,$registration));
+
+        return response($registration, 201);
     }
 }
