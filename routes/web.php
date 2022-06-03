@@ -20,6 +20,7 @@ use App\Http\Middleware\LoginCheck;
 Route::prefix('admin')->middleware(AdminCheck::class)->group(function () {
     Route::get('/events',  [App\Http\Controllers\IndexController::class, 'index']);
     Route::get('/tags',  [App\Http\Controllers\IndexController::class, 'index']);
+    Route::get('/users',  [App\Http\Controllers\IndexController::class, 'index']);
 });
 
 //Auth
@@ -43,6 +44,10 @@ Route::prefix('app')->group(function () {
     Route::get('/get_all_tags', [App\Http\Controllers\TagController::class, 'getAll']);
     Route::post('/delete_tag',  [App\Http\Controllers\TagController::class, 'delete'])->middleware(AdminCheck::class);
     Route::post('/edit_tag',  [App\Http\Controllers\TagController::class, 'edit'])->middleware(AdminCheck::class);
+
+    //Users
+    Route::get('/get_users',  [App\Http\Controllers\UserController::class, 'get']);
+
 
 
     //Registration

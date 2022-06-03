@@ -9,7 +9,6 @@ import "vue-toastification/dist/index.css";
 import router from './router'
 import store from './store'
 import common from './common'
-import Multiselect from 'vue-multiselect'
 
 Vue.use(Toast)
 Vue.use(BootstrapVue)

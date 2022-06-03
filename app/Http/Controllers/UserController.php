@@ -39,4 +39,7 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/login');
     }
+    public function get(Request $request){
+        return User::orderBy('id', 'desc')->paginate($request->itemPerPage);
+    }
 }

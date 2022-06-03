@@ -31,13 +31,13 @@
                 <router-link class="dropdown-item" to="/admin/tags"
                   >Címkék</router-link
                 >
-                <router-link class="dropdown-item" to="/events-admin"
+                <router-link class="dropdown-item" to="/admin/users"
                   >Felhasználók</router-link
                 >
-                <router-link class="dropdown-item" to="/events-admin"
+                <router-link class="dropdown-item" to="/admin/registrations"
                   >Regisztrációk</router-link
                 >
-                <router-link class="dropdown-item" to="/events-admin"
+                <router-link class="dropdown-item" to="/admin/comments"
                   >Kommentek</router-link
                 >
               </div>
