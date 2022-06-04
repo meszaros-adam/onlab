@@ -22,9 +22,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Időpont: {{ event.date }}</li>
             <li class="list-group-item">Helyszín: {{ event.location }}</li>
-            <li class="list-group-item">
-              <strong>Létszám: {{ event.headcount }}</strong>
-            </li>
+            <li class="list-group-item">Létszám: {{ event.headcount }}</li>
             <li class="list-group-item">
               <strong
                 :style="[
@@ -33,17 +31,16 @@
                 >Szabad helyek: {{ event.free_seats }}</strong
               >
             </li>
-            <li class="list-group-item d-flex" v-if="event.tags.length>0">
-            <div class="mx-1" v-for="(tag, t) in event.tags" :key="t">
-              <a><i class="tag">#{{ tag.name }}</i></a>
-            </div>
-          </li>
+            <li class="list-group-item d-flex" v-if="event.tags.length > 0">
+              <div class="mx-1" v-for="(tag, t) in event.tags" :key="t">
+                <a
+                  ><i class="tag">#{{ tag.name }}</i></a
+                >
+              </div>
+            </li>
           </ul>
-          <div class="card-body text-end" v-if="checkIfRegistered(event.id)" >
-            <button
-              class="button btn btn-success"
-              disabled
-            >
+          <div class="card-body text-end" v-if="checkIfRegistered(event.id)">
+            <button class="button btn btn-success" disabled>
               Regisztrálva
             </button>
           </div>
@@ -53,7 +50,7 @@
               :disabled="registerButtonDisabler(event)"
               @click="getUser ? showRegModal(event) : $router.push('/login')"
             >
-             Regisztrálás
+              Regisztrálás
             </button>
           </div>
         </div>
@@ -189,6 +186,7 @@ export default {
 
       if (res.status == 201) {
         this.$store.commit("registrating", res.data);
+        this.getEvents()
         this.$toast.success("Sikeres registráció!");
       } else {
         this.$toast.error(res.data.message);
