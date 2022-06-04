@@ -70,3 +70,7 @@ h1, .navbar-brand{
     color:white;
     background-color:#198754;
 }
+.page-item.active .page-link {  
+    background-color: #198754 !important;  
+    border-color: #198754 !important;  
+}

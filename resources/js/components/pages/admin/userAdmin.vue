@@ -104,8 +104,8 @@
         <input class="form-control" type="text" v-model="editData.email" />
         <label class="form-label">Admin: </label>
         <select class="form-select"  v-model="editData.is_admin" aria-label="Default select example">
-          <option v-bind:value="true">Igen</option>
-          <option v-bind:value="false">Nem</option>
+          <option :value="true">Igen</option>
+          <option :value="false">Nem</option>
         </select>
       </div>
       <div class="d-flex justify-content-end">
