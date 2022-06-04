@@ -90,7 +90,7 @@
         <input
           class="form-control"
           type="datetime-local"
-          v-model="data.dateTime"
+          v-model="data.date"
         />
       </div>
       <div class="mb-3">
@@ -210,7 +210,7 @@
         <input
           class="form-control"
           type="datetime-local"
-          v-model="editData.dateTime"
+          v-model="editData.date"
         />
       </div>
       <div class="mb-3">
@@ -295,7 +295,7 @@ export default {
     return {
       data: {
         name: "",
-        dateTime: "",
+        date: "",
         description: "",
         headcount: "",
         location: "",
@@ -326,7 +326,7 @@ export default {
     async add() {
       if (this.data.name.trim() == "")
         return this.$toast.warning("Név megadása kötelező!");
-      if (this.data.dateTime.trim() == "")
+      if (this.data.date.trim() == "")
         return this.$toast.warning("Időpont megadása kötelező!");
       if (this.data.description.trim() == "")
         return this.$toast.warning("Leírás megadása kötelező!");

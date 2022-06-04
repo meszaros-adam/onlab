@@ -30,7 +30,7 @@
             <th>{{ user.id }}</th>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.is_admin }}</td>
+            <td>{{ user.is_admin ? 'Igen' : 'Nem' }}</td>
             <td>{{ user.created_at }}</td>
             <td>
               <div class="d-flex justify-content-start">
@@ -103,7 +103,10 @@
         <label class="form-label">Email: </label>
         <input class="form-control" type="text" v-model="editData.email" />
         <label class="form-label">Admin: </label>
-        <input class="form-control" type="text" v-model="editData.admin" />
+        <select class="form-select"  v-model="editData.is_admin" aria-label="Default select example">
+          <option v-bind:value="true">Igen</option>
+          <option v-bind:value="false">Nem</option>
+        </select>
       </div>
       <div class="d-flex justify-content-end">
         <button
@@ -189,8 +192,7 @@ export default {
         id: user.id,
         name: user.name,
         email: user.email,
-        admin: user.is_admin
-
+        is_admin: user.is_admin,
       };
       this.editData = obj;
       this.editIndex = index;

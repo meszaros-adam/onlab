@@ -28,7 +28,7 @@ class EventController extends Controller
 
             $event = Event::create([
                 'user_id' => Auth::user()->id,
-                'date' =>  $request->dateTime,
+                'date' =>  $request->date,
                 'name' => $request->name,
                 'description' => $request->description,
                 'headcount' => $request->headcount,
@@ -87,7 +87,7 @@ class EventController extends Controller
         try{
             DB::beginTransaction();
 
-            Event::where('id',$request->id)->update([
+           Event::where('id',$request->id)->update([
                 'user_id' =>  Auth::user()->id,
                 'date' => $request->date,
                 'name' => $request->name,

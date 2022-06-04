@@ -39,8 +39,11 @@
             </div>
           </li>
           </ul>
-          <div class="card-body text-end" v-if="checkIfRegistered(event.id)">
-            <button class="button btn btn-success" disabled>
+          <div class="card-body text-end" v-if="checkIfRegistered(event.id)" >
+            <button
+              class="button btn btn-success"
+              disabled
+            >
               Regisztrálva
             </button>
           </div>
@@ -50,7 +53,7 @@
               :disabled="registerButtonDisabler(event)"
               @click="getUser ? showRegModal(event) : $router.push('/login')"
             >
-              Regisztrálás
+             Regisztrálás
             </button>
           </div>
         </div>
@@ -194,17 +197,18 @@ export default {
       this.registrating = false;
       this.regModal = false;
     },
+    //returns true is the user is registered to the event
     checkIfRegistered(eventId) {
       if (this.getUser) {
         return this.getUser.registrations.some(
           (reg) => reg["event_id"] === eventId
         );
       } else {
-        true;
+        return false;
       }
     },
     registerButtonDisabler(event) {
-      if (event.free_seats != 0 && event.is_actual) {
+      if (event.free_seats > 0 && event.is_actual) {
         return false;
       } else {
         return true;

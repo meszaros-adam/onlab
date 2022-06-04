@@ -42,4 +42,25 @@ class UserController extends Controller
     public function get(Request $request){
         return User::orderBy('id', 'desc')->paginate($request->itemPerPage);
     }
+    public function edit(Request $request){
+        $this->validate($request,[
+            'id' => 'required',
+            'name' => 'required',
+            'email' => 'required|email',
+            'is_admin' => 'required|boolean',
+        ]);
+
+        return User::where('id' , $request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'admin' => $request->is_admin,
+        ]);      
+    }
+    public function delete(Request $request){
+        $this->validate($request,[
+            'id' => 'required',
+        ]);
+
+        return User::where('id', $request->id)->delete();
+    }
 }
