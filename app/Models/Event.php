@@ -39,4 +39,13 @@ class Event extends Model
         
         return $this->date > Carbon::now() ?  true :  false;
     }
+
+    public function getCreatedAtAttribute($value){
+        $date = Carbon::parse($value);
+        return $date->format('Y-m-d H:i');
+    }
+    public function getUpdatedAtAttribute($value){
+        $date = Carbon::parse($value);
+        return $date->format('Y-m-d H:i');
+    }
 }

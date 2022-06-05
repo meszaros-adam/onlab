@@ -21,6 +21,7 @@ Route::prefix('admin')->middleware(AdminCheck::class)->group(function () {
     Route::get('/events',  [App\Http\Controllers\IndexController::class, 'index']);
     Route::get('/tags',  [App\Http\Controllers\IndexController::class, 'index']);
     Route::get('/users',  [App\Http\Controllers\IndexController::class, 'index']);
+    Route::get('/registrations',  [App\Http\Controllers\IndexController::class, 'index']);
 });
 
 //Auth
@@ -47,17 +48,12 @@ Route::prefix('app')->group(function () {
 
     //Users
     Route::get('/get_users',  [App\Http\Controllers\UserController::class, 'get'])->middleware(AdminCheck::class);
-    Route::post('/edit_user',  [App\Http\Controllers\UserController::class, 'edit'])->middleware(AdminCheck::class);
     Route::post('/delete_user',  [App\Http\Controllers\UserController::class, 'delete'])->middleware(AdminCheck::class);
-
-
-
+    Route::post('/edit_user',  [App\Http\Controllers\UserController::class, 'edit'])->middleware(AdminCheck::class);
+   
     //Registration
     Route::post('/create_registration',  [App\Http\Controllers\RegistrationController::class, 'add'])->middleware(LoginCheck::class);
 });
-
-
-
 
 
 Route::get('/',  [App\Http\Controllers\IndexController::class, 'index']);

@@ -32,7 +32,6 @@
             <th scope="col">Név</th>
             <th scope="col">Leírás</th>
             <th scope="col">Létszám</th>
-            <th scope="col">Térkép</th>
             <th scope="col">Funkciók</th>
           </tr>
         </thead>
@@ -43,7 +42,6 @@
             <td>{{ event.name }}</td>
             <td>{{ event.description }}</td>
             <td>{{ event.headcount }}</td>
-            <td>{{ event.google_maps_iframe }}</td>
             <td>
               <div class="d-flex justify-content-start">
                 <i
