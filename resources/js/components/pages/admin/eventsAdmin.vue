@@ -52,7 +52,7 @@
                 <i
                   class="bi bi-trash3-fill delete-icon mx-2"
                   title="Törlés"
-                  @click="showDeleteModal(event.id)"
+                  @click="showDeleteModal(event.id, e)"
                 ></i>
               </div>
             </td>
@@ -85,11 +85,7 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Időpont: </label>
-        <input
-          class="form-control"
-          type="datetime-local"
-          v-model="data.date"
-        />
+        <input class="form-control" type="datetime-local" v-model="data.date" />
       </div>
       <div class="mb-3">
         <label class="form-label">Leírás: </label>
@@ -161,34 +157,6 @@
       </div>
     </b-modal>
     <!-- Adding Modal -->
-    <!-- Delete Modal -->
-    <b-modal
-      v-model="deleteModal"
-      title="Biztosan törölni szeretné ezt az eseményt?"
-      hide-header-close
-      hide-footer
-      no-close-on-esc
-      no-close-on-backdrop
-    >
-      <div class="text-center">
-        <i class="bi bi-exclamation-circle-fill delete-warning"></i>
-      </div>
-      <div class="d-flex my-3 justify-content-end">
-        <button @click="deleteModal = false" class="btn btn-success mx-1">
-          Mégsem
-        </button>
-        <button class="btn btn-danger mx-1" @click="deleteEvent">
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-            v-show="deleting"
-          ></span>
-          <span class="sr-only">Törlés</span>
-        </button>
-      </div>
-    </b-modal>
-    <!-- Delete Modal -->
     <!-- Edit Modal -->
     <b-modal
       v-model="editModal"
@@ -280,15 +248,17 @@
       </div>
     </b-modal>
     <!-- Edit Modal -->
+    <deleteModal></deleteModal>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import Multiselect from "vue-multiselect";
+import deleteModal from "../../partials/deleteModal.vue";
 
 export default {
-  components: { Multiselect },
+  components: { Multiselect, deleteModal },
   data() {
     return {
       data: {
@@ -309,10 +279,6 @@ export default {
       itemPerPage: 10,
       currentPage: 1,
       total: 0,
-
-      deleteId: null,
-      deleteModal: false,
-      deleting: false,
 
       editModal: false,
       editData: {},
@@ -350,28 +316,16 @@ export default {
       this.currentPage = value;
       this.getEvents();
     },
-    showDeleteModal(id) {
-      this.deleteId = id;
-      this.deleteModal = true;
-    },
-    async deleteEvent() {
-      this.deleting = true;
-      const res = await this.callApi("post", "/app/delete_event", {
-        id: this.deleteId,
-      });
-
-      if (res.status == 200) {
-        this.$toast.success("Esemény sikeresen törölve!");
-        this.events.splice(
-          this.events.findIndex((item) => item.id == this.deleteId),
-          1
-        );
-      } else {
-        this.$toast.error(res.data.message);
-      }
-      this.deleteModal = false;
-      this.deleteId = null;
-      this.deleting = false;
+    showDeleteModal(id, index) {
+      const deleteModalObj = {
+        showDeleteModal: true,
+        deleteUrl: "/app/delete_event",
+        data: { id: id },
+        deletingIndex: index,
+        msg: "Biztosan törölni akarja ezt az eseményt?",
+        successMsg: "Esemény sikeresen törölve!",
+      };
+      this.$store.commit("setDeleteModalObj", deleteModalObj);
     },
     showEditModal(event, index) {
       const obj = {
@@ -440,11 +394,18 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getUser"]),
+    ...mapGetters(["getUser", "getDeleteModalObj"]),
   },
   created() {
     this.getEvents();
     this.getTags();
+  },
+  watch: {
+    getDeleteModalObj(obj) {
+      if (obj.isDeleted) {
+        this.events.splice(obj.deletingIndex, 1);
+      }
+    },
   },
 };
 </script>

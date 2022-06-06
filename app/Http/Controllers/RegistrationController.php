@@ -31,4 +31,14 @@ class RegistrationController extends Controller
 
         return response($registration, 201);
     }
+    public function getAll(Request $request){
+        return Registration::orderBy($request->orderBy, 'desc')->paginate($request->itemPerPage);
+    }
+    public function delete(Request $request){
+        $this->validate($request,[
+            'id' => 'required',
+        ]);
+
+        Registration::where('id', $request->id)->delete();
+    }
 }

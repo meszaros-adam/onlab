@@ -1,19 +1,11 @@
 <template>
   <div>
     <div class="container-fluid bg-dark ms-auto my-5 p-5">
-      <div class="d-flex text-light">
-        <button
-          type="button"
-          class="btn btn-success mb-3 me-auto"
-          @click="addModal = true"
-        >
-          <i class="bi bi-plus-lg"></i>
-          Címke létrehozása
-        </button>
+      <div class="d-flex justify-content-end text-light">
         <h5 class="mx-3">Rendezés:</h5>
         <select
           v-model="orderBy"
-          @change="getTags"
+          @change="getRegistrations"
           class="form-select mb-4"
           style="width: auto"
           aria-label="Default select example"
@@ -32,21 +24,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(tag, t) in tags" :key="t">
-            <th>{{ tag.id }}</th>
-            <td>{{ tag.name }}</td>
-            <td>{{ tag.created_at }}</td>
+          <tr v-for="(registration, r) in registrations" :key="r">
+            <th>{{ registration.id }}</th>
+            <td>{{ registration.name }}</td>
+            <td>{{ registration.created_at }}</td>
             <td>
               <div class="d-flex justify-content-start">
                 <i
                   class="bi bi-pencil-fill edit-icon mx-2"
                   title="Szerkesztés"
-                  @click="showEditModal(tag, t)"
+                  @click="showEditModal(registration, t)"
                 ></i>
                 <i
                   class="bi bi-trash3-fill delete-icon mx-2"
                   title="Törlés"
-                  @click="showDeleteModal(tag.id)"
+                  @click="showDeleteModal(registration.id, r)"
                 ></i>
               </div>
             </td>
@@ -63,76 +55,10 @@
       ></b-pagination>
       <!-- Pagination -->
     </div>
-    <!-- Adding Modal -->
-    <b-modal
-      v-model="addModal"
-      title="Címke létrehozása: "
-      hide-header-close
-      hide-footer
-      no-close-on-esc
-      no-close-on-backdrop
-    >
-      <div class="mb-3">
-        <label class="form-label">Név: </label>
-        <input class="form-control" type="text" v-model="data.name" />
-      </div>
-      <div class="d-flex justify-content-end">
-        <button
-          type="button"
-          class="btn btn-danger mx-2"
-          @click="addModal = false"
-        >
-          Bezárás
-        </button>
-        <button
-          type="button"
-          :disabled="adding"
-          class="btn btn-success mx-2"
-          @click="add"
-        >
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-            v-show="adding"
-          ></span>
-          <span class="sr-only">Mentés</span>
-        </button>
-      </div>
-    </b-modal>
-    <!-- Adding Modal -->
-    <!-- Delete Modal -->
-    <b-modal
-      v-model="deleteModal"
-      title="Biztosan törölni szeretné ezt a címkét?"
-      hide-header-close
-      hide-footer
-      no-close-on-esc
-      no-close-on-backdrop
-    >
-      <div class="text-center">
-        <i class="bi bi-exclamation-circle-fill delete-warning"></i>
-      </div>
-      <div class="d-flex my-3 justify-content-end">
-        <button @click="deleteModal = false" class="btn btn-success mx-1">
-          Mégsem
-        </button>
-        <button class="btn btn-danger mx-1" @click="deleteTag">
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-            v-show="deleting"
-          ></span>
-          <span class="sr-only">Törlés</span>
-        </button>
-      </div>
-    </b-modal>
-    <!-- Delete Modal -->
     <!-- Edit Modal -->
     <b-modal
       v-model="editModal"
-      title="Címke szerkesztése: "
+      title="Regisztráció szerkesztése: "
       hide-header-close
       hide-footer
       no-close-on-esc
@@ -167,19 +93,19 @@
       </div>
     </b-modal>
     <!-- Edit Modal -->
+      <deleteModal> </deleteModal>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import deleteModal from '../../partials/deleteModal.vue';
 
 export default {
+  components: { deleteModal },
   data() {
     return {
-      data: {
-        name: "",
-      },
-      tags: [],
+      registrations: [],
       addModal: false,
       adding: false,
       orderBy: "id",
@@ -188,10 +114,6 @@ export default {
       currentPage: 1,
       total: 0,
 
-      deleteId: null,
-      deleteModal: false,
-      deleting: false,
-
       editModal: false,
       editData: {},
       editing: false,
@@ -199,55 +121,25 @@ export default {
     };
   },
   methods: {
-    async add() {
-      if (this.data.name.trim() == "")
-        return this.$toast.warning("Név megadása kötelező!");
-
-      this.adding = true;
-
-      const res = await this.callApi("post", "/app/create_tag", this.data);
-
-      if (res.status == 201) {
-        this.tags.unshift(res.data);
-        this.$toast.success("Címke sikeresen létrehozva!");
-      } else {
-        this.$toast.error("Címke létrehozása sikertelen!");
-      }
-      this.addModal = false;
-      this.data.name = "";
-      this.adding = false;
-    },
     handlePageChange(value) {
       this.currentPage = value;
-      this.getTags();
+      this.getRegistrations();
     },
-    showDeleteModal(id) {
-      this.deleteId = id;
-      this.deleteModal = true;
+    showDeleteModal(id, index) {
+      const deleteModalObj = {
+        showDeleteModal: true,
+        deleteUrl: "/app/delete_registration",
+        data: { id: id },
+        deletingIndex: index,
+        msg: "Biztosan törölni akarja ezt a regisztrációt?",
+        successMsg: "Regisztráció sikeresen törölve!",
+      };
+      this.$store.commit("setDeleteModalObj", deleteModalObj);
     },
-    async deleteTag() {
-      this.deleting = true;
-      const res = await this.callApi("post", "/app/delete_tag", {
-        id: this.deleteId,
-      });
-
-      if (res.status == 200) {
-        this.$toast.success("Címke sikeresen törölve!");
-        this.tags.splice(
-          this.tags.findIndex((item) => item.id == this.deleteId),
-          1
-        );
-      } else {
-        this.$toast.error(res.data.message);
-      }
-      this.deleteModal = false;
-      this.deleteId = null;
-      this.deleting = false;
-    },
-    showEditModal(tag, index) {
+    showEditModal(registration, index) {
       const obj = {
-        id: tag.id,
-        name: tag.name,
+        id: registration.id,
+        name: registration.name,
       };
       this.editData = obj;
       this.editIndex = index;
@@ -259,37 +151,44 @@ export default {
 
       this.editing = true;
 
-      const res = await this.callApi("post", "/app/edit_tag", this.editData);
+      const res = await this.callApi("post", "/app/edit_registration", this.editData);
 
       if (res.status == 200) {
-        this.tags[this.editIndex] = this.editData;
-        this.$toast.success("Címke sikeresen szerkesztve!");
+        this.registrations[this.editIndex] = this.editData;
+        this.$toast.success("Regisztráció sikeresen szerkesztve!");
       } else {
-        this.$toast.error("Címke szerkesztése sikertelen!");
+        this.$toast.error("Regisztráció szerkesztése sikertelen!");
       }
 
       this.editing = false;
       this.editModal = false;
     },
-    async getTags() {
+    async getRegistrations() {
       const res = await this.callApi(
         "get",
-        `/app/get_tags?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
+        `/app/get_registrations?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
       );
       if (res.status == 200) {
-        this.tags = res.data.data;
+        this.registrations = res.data.data;
         this.currentPage = res.data.current_page;
         this.total = res.data.total;
       } else {
-        this.$toast.error("Címke betöltése sikertelen!");
+        this.$toast.error("Regisztráció betöltése sikertelen!");
       }
     },
   },
   computed: {
-    ...mapGetters(["getUser"]),
+    ...mapGetters(["getUser",  "getDeleteModalObj"]),
   },
   created() {
-    this.getTags();
+    this.getRegistrations();
+  },
+   watch: {
+    getDeleteModalObj(obj) {
+      if (obj.isDeleted) {
+        this.registrations.splice(obj.deletingIndex, 1);
+      }
+    },
   },
 };
 </script>

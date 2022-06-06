@@ -26,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, t) in users" :key="t">
+          <tr v-for="(user, u) in users" :key="u">
             <th>{{ user.id }}</th>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
@@ -42,7 +42,7 @@
                 <i
                   class="bi bi-trash3-fill delete-icon mx-2"
                   title="Törlés"
-                  @click="showDeleteModal(user.id)"
+                  @click="showDeleteModal(user.id, u)"
                 ></i>
               </div>
             </td>
@@ -59,34 +59,6 @@
       ></b-pagination>
       <!-- Pagination -->
     </div>
-    <!-- Delete Modal -->
-    <b-modal
-      v-model="deleteModal"
-      title="Biztosan törölni szeretné ezt a felhasználót?"
-      hide-header-close
-      hide-footer
-      no-close-on-esc
-      no-close-on-backdrop
-    >
-      <div class="text-center">
-        <i class="bi bi-exclamation-circle-fill delete-warning"></i>
-      </div>
-      <div class="d-flex my-3 justify-content-end">
-        <button @click="deleteModal = false" class="btn btn-success mx-1">
-          Mégsem
-        </button>
-        <button class="btn btn-danger mx-1" @click="deleteuser">
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-            v-show="deleting"
-          ></span>
-          <span class="sr-only">Törlés</span>
-        </button>
-      </div>
-    </b-modal>
-    <!-- Delete Modal -->
     <!-- Edit Modal -->
     <b-modal
       v-model="editModal"
@@ -133,13 +105,16 @@
       </div>
     </b-modal>
     <!-- Edit Modal -->
+    <deleteModal></deleteModal>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import deleteModal from "../../partials/deleteModal.vue";
 
 export default {
+  components: { deleteModal },
   data() {
     return {
       users: [],
@@ -148,10 +123,6 @@ export default {
       itemPerPage: 10,
       currentPage: 1,
       total: 0,
-
-      deleteId: null,
-      deleteModal: false,
-      deleting: false,
 
       editModal: false,
       editData: {},
@@ -164,28 +135,16 @@ export default {
       this.currentPage = value;
       this.getusers();
     },
-    showDeleteModal(id) {
-      this.deleteId = id;
-      this.deleteModal = true;
-    },
-    async deleteuser() {
-      this.deleting = true;
-      const res = await this.callApi("post", "/app/delete_user", {
-        id: this.deleteId,
-      });
-
-      if (res.status == 200) {
-        this.$toast.success("Felhasználó sikeresen törölve!");
-        this.users.splice(
-          this.users.findIndex((item) => item.id == this.deleteId),
-          1
-        );
-      } else {
-        this.$toast.error(res.data.message);
-      }
-      this.deleteModal = false;
-      this.deleteId = null;
-      this.deleting = false;
+    showDeleteModal(id, index) {
+      const deleteModalObj = {
+        showDeleteModal: true,
+        deleteUrl: "/app/delete_user",
+        data: { id: id },
+        deletingIndex: index,
+        msg: "Biztosan törölni akarja ezt a felhasználót?",
+        successMsg: "Felhasználó sikeresen törölve!",
+      };
+      this.$store.commit("setDeleteModalObj", deleteModalObj);
     },
     showEditModal(user, index) {
       const obj = {
@@ -231,10 +190,17 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getUser"]),
+    ...mapGetters(["getUser", "getDeleteModalObj"]),
   },
   created() {
     this.getusers();
+  },
+   watch: {
+    getDeleteModalObj(obj) {
+      if (obj.isDeleted) {
+        this.users.splice(obj.deletingIndex, 1);
+      }
+    },
   },
 };
 </script>

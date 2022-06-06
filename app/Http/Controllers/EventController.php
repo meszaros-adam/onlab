@@ -15,7 +15,7 @@ class EventController extends Controller
     public function add(Request $request){
         
         $this->validate($request,[
-            'dateTime' => 'required',
+            'date' => 'required',
             'name' => 'required',
             'description' => 'required',
             'headcount' => 'required|integer|min:1',
@@ -47,7 +47,7 @@ class EventController extends Controller
             EventTag::insert($event_tags);
 
             DB::commit();
-            return response ('done', 201);
+            return response ($event, 201);
 
         }catch(\Throwable $th){
             DB::rollback();
