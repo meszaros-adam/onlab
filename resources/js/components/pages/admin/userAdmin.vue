@@ -5,7 +5,7 @@
         <h5 class="mx-3">Rendezés:</h5>
         <select
           v-model="orderBy"
-          @change="getusers"
+          @change="getUsers"
           class="form-select mb-4"
           style="width: auto"
           aria-label="Default select example"
@@ -133,7 +133,7 @@ export default {
   methods: {
     handlePageChange(value) {
       this.currentPage = value;
-      this.getusers();
+      this.getUsers();
     },
     showDeleteModal(id, index) {
       const deleteModalObj = {
@@ -158,8 +158,8 @@ export default {
       this.editModal = true;
     },
     async edit() {
-      if (this.editData.name.trim() == "")
-        return this.$toast.warning("Név megadása kötelező!");
+      if (this.editData.name.trim() == "") return this.$toast.warning("Név megadása kötelező!");
+      if (this.editData.name.trim() == "") return this.$toast.warning("Email cím megadása kötelező!");
 
       this.editing = true;
 
@@ -175,7 +175,7 @@ export default {
       this.editing = false;
       this.editModal = false;
     },
-    async getusers() {
+    async getUsers() {
       const res = await this.callApi(
         "get",
         `/app/get_users?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
@@ -193,12 +193,12 @@ export default {
     ...mapGetters(["getUser", "getDeleteModalObj"]),
   },
   created() {
-    this.getusers();
+    this.getUsers();
   },
    watch: {
     getDeleteModalObj(obj) {
       if (obj.isDeleted) {
-        this.users.splice(obj.deletingIndex, 1);
+        this.users.splice(obj.deletingIndex, 1); 
       }
     },
   },

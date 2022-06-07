@@ -65,6 +65,7 @@ h1, .navbar-brand{
 .tag{
     border-radius: 5px;
     padding: 5px;
+    color:#198754;
 }
 .tag:hover{
     color:white;
@@ -73,4 +74,7 @@ h1, .navbar-brand{
 .page-item.active .page-link {  
     background-color: #198754 !important;  
     border-color: #198754 !important;  
+}
+.navbar-icon{
+    font-size: larger;
 }

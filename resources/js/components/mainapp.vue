@@ -22,7 +22,8 @@
                 class="nav-link dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
-                >Admin Panel</a
+              >
+                <i class="bi bi-speedometer2 navbar-icon mx-1"></i>Admin Panel</a
               >
               <div class="dropdown-menu dropdown-menu-end">
                 <router-link class="dropdown-item" to="/admin/events"
@@ -57,7 +58,7 @@
                 class="nav-link dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
-                >{{ getUser.name }}</a
+                ><i class="bi bi-person-fill navbar-icon mx-1"></i>{{ getUser.name }}</a
               >
               <div class="dropdown-menu dropdown-menu-end">
                 <a class="dropdown-item" href="">Példa</a>

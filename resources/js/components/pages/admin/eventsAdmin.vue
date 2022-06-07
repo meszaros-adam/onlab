@@ -310,7 +310,8 @@ export default {
         this.$toast.error("Esemény létrehozása sikertelen!");
       }
       this.addModal = false;
-      (this.data = {}), (this.adding = false);
+      this.data = {};
+      this.adding = false;
     },
     handlePageChange(value) {
       this.currentPage = value;

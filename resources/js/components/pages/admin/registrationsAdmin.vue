@@ -11,23 +11,24 @@
           aria-label="Default select example"
         >
           <option value="id">Azonosító (ID)</option>
-          <option value="name">Név</option>
         </select>
       </div>
       <table class="table table-striped table-light table-hover">
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Név</th>
-            <th scope="col">Létrehozva</th>
+            <th scope="col">Felhasználó</th>
+            <th scope="col">Esemény ID</th>
+            <th scope="col">Létszám</th>
             <th scope="col">Funkciók</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(registration, r) in registrations" :key="r">
             <th>{{ registration.id }}</th>
-            <td>{{ registration.name }}</td>
-            <td>{{ registration.created_at }}</td>
+            <td>{{ registration.user.email }}</td>
+            <td>{{ registration.event.id}}</td>
+            <td>{{ registration.headcount}}</td>
             <td>
               <div class="d-flex justify-content-start">
                 <i
@@ -65,8 +66,8 @@
       no-close-on-backdrop
     >
       <div class="mb-3">
-        <label class="form-label">Név: </label>
-        <input class="form-control" type="text" v-model="editData.name" />
+        <label class="form-label">Létszám: </label>
+        <input class="form-control" min="1" type="number" v-model="editData.headcount" />
       </div>
       <div class="d-flex justify-content-end">
         <button
