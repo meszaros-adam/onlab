@@ -23,7 +23,7 @@
                 type="button"
                 data-bs-toggle="dropdown"
               >
-                <i class="bi bi-speedometer2 navbar-icon mx-1"></i>Admin Panel</a
+                <i class="bi bi-table navbar-icon mx-1"></i>Admin Panel</a
               >
               <div class="dropdown-menu dropdown-menu-end">
                 <router-link class="dropdown-item" to="/admin/events"

@@ -39,6 +39,19 @@ class RegistrationController extends Controller
             'id' => 'required',
         ]);
 
-        Registration::where('id', $request->id)->delete();
+        return Registration::where('id', $request->id)->delete();
+    }
+    public function edit(Request $request){
+
+        $event = Registration::where('id', $request->id)->first()->event;
+
+        $this->validate($request,[
+            'id' => 'required',
+            'headcount' => "required|numeric|min:1|max:$event->free_seats|max:5",
+        ]);
+
+        return Registration::where('id', $request->id)->update([
+            'headcount' => $request->headcount,
+        ]); 
     }
 }

@@ -34,7 +34,7 @@
                 <i
                   class="bi bi-pencil-fill edit-icon mx-2"
                   title="Szerkesztés"
-                  @click="showEditModal(registration, t)"
+                  @click="showEditModal(registration, r)"
                 ></i>
                 <i
                   class="bi bi-trash3-fill delete-icon mx-2"
@@ -140,22 +140,24 @@ export default {
     showEditModal(registration, index) {
       const obj = {
         id: registration.id,
-        name: registration.name,
+        headcount: registration.headcount,
       };
       this.editData = obj;
       this.editIndex = index;
       this.editModal = true;
     },
     async edit() {
-      if (this.editData.name.trim() == "")
-        return this.$toast.warning("Név megadása kötelező!");
+       if (this.editData.headcount.length == 0)
+        return this.$toast.warning("Létszám megadása kötelező!");
+        if (this.editData.headcount > 5)
+        return this.$toast.warning("Legfejebb öt fővel regisztrálhat!");
 
       this.editing = true;
 
       const res = await this.callApi("post", "/app/edit_registration", this.editData);
 
       if (res.status == 200) {
-        this.registrations[this.editIndex] = this.editData;
+        this.registrations[this.editIndex].headcount = this.editData.headcount;
         this.$toast.success("Regisztráció sikeresen szerkesztve!");
       } else {
         this.$toast.error("Regisztráció szerkesztése sikertelen!");
