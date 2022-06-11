@@ -30,7 +30,7 @@
             <th>{{ user.id }}</th>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.is_admin ? 'Igen' : 'Nem' }}</td>
+            <td>{{ user.is_admin ? "Igen" : "Nem" }}</td>
             <td>{{ user.created_at }}</td>
             <td>
               <div class="d-flex justify-content-start">
@@ -72,13 +72,24 @@
       <div class="mb-3">
         <label class="form-label">Név: </label>
         <input class="form-control" type="text" v-model="editData.name" />
+      </div>
+      <div class="mb-3">
         <label class="form-label">Email: </label>
         <input class="form-control" type="text" v-model="editData.email" />
-        <label class="form-label">Admin: </label>
-        <select class="form-select"  v-model="editData.is_admin" aria-label="Default select example">
-          <option :value="true">Igen</option>
-          <option :value="false">Nem</option>
-        </select>
+      </div>
+      <div class="mb-3">
+        <div class="form-check form-switch">
+          <input
+            class="form-check-input me-2"
+            type="checkbox"
+            role="switch"
+            id="flexSwitchCheckDefault"
+            v-model="editData.is_admin"
+          />
+          <label class="form-check-label" for="flexSwitchCheckDefault"
+            >Admin jogosultság</label
+          >
+        </div>
       </div>
       <div class="d-flex justify-content-end">
         <button
@@ -158,8 +169,10 @@ export default {
       this.editModal = true;
     },
     async edit() {
-      if (this.editData.name.trim() == "") return this.$toast.warning("Név megadása kötelező!");
-      if (this.editData.name.trim() == "") return this.$toast.warning("Email cím megadása kötelező!");
+      if (this.editData.name.trim() == "")
+        return this.$toast.warning("Név megadása kötelező!");
+      if (this.editData.name.trim() == "")
+        return this.$toast.warning("Email cím megadása kötelező!");
 
       this.editing = true;
 
@@ -195,10 +208,10 @@ export default {
   created() {
     this.getUsers();
   },
-   watch: {
+  watch: {
     getDeleteModalObj(obj) {
       if (obj.isDeleted) {
-        this.users.splice(obj.deletingIndex, 1); 
+        this.users.splice(obj.deletingIndex, 1);
       }
     },
   },
