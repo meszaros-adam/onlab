@@ -60,10 +60,26 @@ class EventController extends Controller
         return Event::orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
     }
     public function getActual(Request $request){
-        return Event::where('date' ,'>', Carbon::now() )->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
+
+        if($request->tagFilter){
+            $tag = $request->tagFilter;
+            return Event::where('date' ,'>', Carbon::now())->whereHas('tags', function($q) use($tag){
+                $q->where('name', $tag);
+            })->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
+        }
+
+        return Event::where('date' ,'>', Carbon::now())->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
     }
     public function getEarlier(Request $request){
-        return Event::where('date' ,'<', Carbon::now() )->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
+
+        if($request->tagFilter){
+            $tag = $request->tagFilter;
+            return Event::where('date' ,'<', Carbon::now())->whereHas('tags', function($q) use($tag){
+                $q->where('name', $tag);
+            })->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
+        }
+
+        return Event::where('date' ,'<', Carbon::now())->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
     }
     public function delete(Request $request){
 

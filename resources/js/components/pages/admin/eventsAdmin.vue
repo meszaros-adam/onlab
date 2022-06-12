@@ -275,11 +275,13 @@ export default {
       addModal: false,
       adding: false,
       orderBy: "id",
+
       //pagination
       itemPerPage: 10,
       currentPage: 1,
       total: 0,
 
+      //edit
       editModal: false,
       editData: {},
       editing: false,

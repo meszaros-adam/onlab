@@ -12,6 +12,10 @@
         <option value="earlier">Korábbiak</option>
       </select>
     </div>
+    <div class="d-flex" v-if="tagFilter">
+       <h1>#{{tagFilter}}</h1> 
+       <a title="Címke szűrő törlése" @click="handleTagFilter(null)"><i class="bi bi-x-circle"></i></a>
+    </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
       <div class="col mb-4" v-for="(event, e) in events" :key="e">
         <div class="card text-dark">
@@ -33,8 +37,16 @@
             </li>
             <li class="list-group-item d-flex" v-if="event.tags.length > 0">
               <div class="mx-1" v-for="(tag, t) in event.tags" :key="t">
-                <a
-                  ><i class="tag">#{{ tag.name }}</i></a
+                <a @click="handleTagFilter(tag.name)"
+                  ><i
+                    class="tag"
+                    :style="[
+                      tagFilter == tag.name
+                        ? { color: 'red' }
+                        : {} ,
+                    ]"
+                    >#{{ tag.name }}</i
+                  ></a
                 >
               </div>
             </li>
@@ -128,6 +140,7 @@ export default {
       events: [],
       orderBy: "date",
       eventActuality: "actual",
+      tagFilter: null,
 
       //pagination
       itemPerPage: 10,
@@ -143,7 +156,9 @@ export default {
     async getEvents() {
       const res = await this.callApi(
         "get",
-        `/app/get_${this.eventActuality}_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
+        this.tagFilter
+          ? `/app/get_${this.eventActuality}_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}&tagFilter=${this.tagFilter}`
+          : `/app/get_${this.eventActuality}_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
       );
       if (res.status == 200) {
         this.events = res.data.data;
@@ -186,7 +201,7 @@ export default {
 
       if (res.status == 201) {
         this.$store.commit("registrating", res.data);
-        this.getEvents()
+        this.getEvents();
         this.$toast.success("Sikeres registráció!");
       } else {
         this.$toast.error(res.data.message);
@@ -211,6 +226,10 @@ export default {
       } else {
         return true;
       }
+    },
+    handleTagFilter(tagName) {
+      this.tagFilter = tagName;
+      this.getEvents();
     },
   },
   created() {
