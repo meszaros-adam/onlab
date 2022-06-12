@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Auth;
 class TagController extends Controller
 {
     public function get(Request $request){
-       return Tag::orderBy($request->orderBy,'desc')->paginate($request->itemPerPage);
+
+        //if $request has itemPerPage property, it return with pageinate, else it return without paginate
+        return $request->itemPerPage ? Tag::orderBy($request->orderBy,'desc')->paginate($request->itemPerPage) : Tag::orderBy('id','desc')->get();
+
     }
-    public function getAll(){
-        return Tag::orderBy('id','desc')->get();
-     }
     public function add(Request $request){
         $this->validate($request,[
             'name' => 'required',

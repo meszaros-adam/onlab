@@ -80,7 +80,7 @@
       <div class="mb-3">
         <div class="form-check form-switch">
           <input
-            class="form-check-input me-2"
+            class="form-check-input user-admin me-2"
             type="checkbox"
             role="switch"
             id="flexSwitchCheckDefault"

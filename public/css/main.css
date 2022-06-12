@@ -78,6 +78,6 @@ h1, .navbar-brand{
 .navbar-icon{
     font-size: larger;
 }
-.form-check-input{
+.form-check-input.user-admin{
     width: 40px !important;
 }

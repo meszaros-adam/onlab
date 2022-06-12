@@ -383,7 +383,7 @@ export default {
       }
     },
     async getTags() {
-      const res = await this.callApi("get", "/app/get_all_tags");
+      const res = await this.callApi("get", "/app/get_tags");
       if (res.status == 200) {
         for (const tag of res.data) {
           let newTag = { name: tag.name, id: tag.id };
