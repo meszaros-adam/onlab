@@ -60,7 +60,9 @@ Route::prefix('app')->group(function () {
 
 Route::get('/',  [App\Http\Controllers\IndexController::class, 'index']);
 
-Route::any('{slug}',  [App\Http\Controllers\IndexController::class, 'index']);
+//catching all routes
+Route::any('{catchall}', [App\Http\Controllers\IndexController::class, 'index'])->where('catchall', '.*');
+
 
 
 /*
