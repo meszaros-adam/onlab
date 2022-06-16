@@ -30,7 +30,7 @@
             <li class="list-group-item">
               <strong
                 :style="[
-                  event.free_seats == 0 ? { color: 'red' } : { color: 'black' },
+                  event.free_seats == 0 ? { color: 'red' } : {},
                 ]"
                 >Szabad helyek: {{ event.free_seats }}</strong
               >

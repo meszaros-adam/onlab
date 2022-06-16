@@ -36,6 +36,7 @@ Route::prefix('app')->group(function () {
     Route::get('/get_events',  [App\Http\Controllers\EventController::class, 'getAll']);
     Route::get('/get_actual_events',  [App\Http\Controllers\EventController::class, 'getActual']);
     Route::get('/get_earlier_events',  [App\Http\Controllers\EventController::class, 'getEarlier']);
+    Route::get('/get_single_event',  [App\Http\Controllers\EventController::class, 'getSingle']);
     Route::post('/delete_event',  [App\Http\Controllers\EventController::class, 'delete'])->middleware(AdminCheck::class);
     Route::post('/edit_event',  [App\Http\Controllers\EventController::class, 'edit'])->middleware(AdminCheck::class);
 

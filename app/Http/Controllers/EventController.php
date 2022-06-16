@@ -81,6 +81,12 @@ class EventController extends Controller
 
         return Event::where('date' ,'<', Carbon::now())->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
     }
+    public function getSingle(Request $request){
+        $event = Event::where('id', $request->id)->with('tags')->first();
+
+        //if event is found return with it, else return with 404
+        return $event ? $event : response('Not Found', 404);
+    }
     public function delete(Request $request){
 
         $this->validate($request,[
