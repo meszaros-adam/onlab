@@ -15,6 +15,7 @@ export default new vuex.Store({
             msg: '',
             successMsg: '',
         },
+        tagFilter: null,
     },
     getters: {
         getUser(state) {
@@ -22,6 +23,9 @@ export default new vuex.Store({
         },
         getDeleteModalObj(state) {
             return state.deleteModalObj
+        },
+        getTagFilter(state){
+            return state.tagFilter
         }
     },
     mutations: {
@@ -33,6 +37,9 @@ export default new vuex.Store({
         },
         setDeleteModalObj(state, data){
             state.deleteModalObj = data
-        }
+        },
+        setTagFilter(state, data){
+            state.tagFilter = data
+        },
     },
 })

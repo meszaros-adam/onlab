@@ -12,8 +12,8 @@
         <option value="earlier">Korábbiak</option>
       </select>
     </div>
-    <div class="d-flex" v-if="tagFilter">
-      <h1>#{{ tagFilter }}</h1>
+    <div class="d-flex" v-if="getTagFilter">
+      <h1>#{{ getTagFilter }}</h1>
       <a title="Címke szűrő törlése" @click="handleTagFilter(null)"
         ><i class="bi bi-x-circle"></i
       ></a>
@@ -42,7 +42,7 @@
               <a @click="handleTagFilter(tag.name)"
                 ><i
                   class="tag"
-                  :style="[tagFilter == tag.name ? { color: 'red' } : {}]"
+                  :style="[getTagFilter == tag.name ? { color: 'red' } : {}]"
                   >#{{ tag.name }}</i
                 ></a
               >
@@ -76,7 +76,6 @@ export default {
       events: [],
       orderBy: "date",
       eventActuality: "actual",
-      tagFilter: null,
 
       //pagination
       itemPerPage: 10,
@@ -88,8 +87,8 @@ export default {
     async getEvents() {
       const res = await this.callApi(
         "get",
-        this.tagFilter
-          ? `/app/get_${this.eventActuality}_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}&tagFilter=${this.tagFilter}`
+        this.getTagFilter
+          ? `/app/get_${this.eventActuality}_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}&tagFilter=${this.getTagFilter}`
           : `/app/get_${this.eventActuality}_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
       );
       if (res.status == 200) {
@@ -106,7 +105,7 @@ export default {
       this.getEvents();
     },
     handleTagFilter(tagName) {
-      this.tagFilter = tagName;
+      this.$store.commit('setTagFilter', tagName);
       this.getEvents();
     },
   },
@@ -114,7 +113,7 @@ export default {
     this.getEvents();
   },
   computed: {
-    ...mapGetters(["getUser"]),
+    ...mapGetters(["getUser", "getTagFilter"]),
   },
 };
 </script>

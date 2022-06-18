@@ -38,7 +38,7 @@
     </div>
     <div class="my-3 d-flex">
       <div v-for="(tag, t) in event.tags" :key="t">
-        <a
+        <a @click="handleTagFilter(tag.name)"
           ><i class="tag"> #{{ tag.name }} </i>
         </a>
       </div>
@@ -103,7 +103,7 @@ export default {
         headcount: 1,
         eventId: null,
       },
-      event: null,
+      event: '',
       regModal: false,
       registrating: false,
     };
@@ -118,7 +118,7 @@ export default {
         this.event = res.data;
         this.data.eventId = this.event.id;
       } else {
-        this.$toast.error("Esemény betöltése siekrtelen!");
+        this.$toast.error("Esemény betöltése sikertelen!");
       }
     },
     showRegModal() {
@@ -172,6 +172,10 @@ export default {
       } else {
         return true;
       }
+    },
+    handleTagFilter(tagName) {
+      this.$store.commit("setTagFilter", tagName);
+      this.$router.push("/");
     },
   },
   created() {
