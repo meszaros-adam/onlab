@@ -148,7 +148,6 @@ export default {
 
       if (res.status == 201) {
         this.$store.commit("registrating", res.data);
-        this.getEvents();
         this.$toast.success("Sikeres registráció!");
       } else {
         this.$toast.error(res.data.message);

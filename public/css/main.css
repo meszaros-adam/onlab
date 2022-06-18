@@ -43,41 +43,63 @@ i {
 /*scrollbar*/
 ::-webkit-scrollbar {
     width: 10px;
-  }
+}
+
 ::-webkit-scrollbar-track {
     background: black;
 }
+
 ::-webkit-scrollbar-thumb {
-    background: grey; 
+    background: grey;
     border-radius: 15px;
-    
+
 }
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
 }
-h1, .navbar-brand{
+
+h1,
+.navbar-brand {
     font-family: monospace;
 }
-.not-authorized-warning{
-    color:#D82148;
+
+.not-authorized-warning {
+    color: #D82148;
     font-size: 300px;
 }
-.tag{
+
+.tag {
     border-radius: 5px;
     padding: 5px;
-    color:#198754;
+    color: #198754;
 }
-.tag:hover{
-    color:white;
-    background-color:#198754;
+
+.tag:hover {
+    color: white;
+    background-color: #198754;
 }
-.page-item.active .page-link {  
-    background-color: #198754 !important;  
-    border-color: #198754 !important;  
+
+.page-item.active .page-link {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
 }
-.navbar-icon{
+
+.navbar-icon {
     font-size: larger;
 }
-.form-check-input.user-admin{
+
+.form-check-input.user-admin {
     width: 40px !important;
+}
+
+.card {
+    position: relative;
+    top: 0;
+    transition: all 0.4s ease;
+}
+
+.card:hover {
+    top: -10px;
+    cursor: pointer;
 }
