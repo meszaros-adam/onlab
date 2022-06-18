@@ -45,6 +45,7 @@ const routes = [
     {
         path:'/event/:id',
         component: eventSingle,
+        name: 'event'
     },
     {
         path:'/not-authorized',
