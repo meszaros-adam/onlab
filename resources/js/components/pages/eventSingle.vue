@@ -1,5 +1,5 @@
 <template>
-  <div class="container bg-dark ms-auto my-5 text-light p-5 rounded">
+  <div v-if="event" class="container bg-dark ms-auto my-5 text-light p-5 rounded">
     <div class="row">
       <div class="col-md-6">
         <h4>{{ event.name }}</h4>
@@ -43,6 +43,12 @@
         </a>
       </div>
     </div>
+
+    <div>
+      <h1 class="comments-headline">Kommentek</h1>
+    </div>
+
+    
 
     <!-- Registration model-->
     <b-modal
@@ -103,7 +109,7 @@ export default {
         headcount: 1,
         eventId: null,
       },
-      event: '',
+      event: null,
       regModal: false,
       registrating: false,
     };

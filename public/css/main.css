@@ -103,3 +103,17 @@ h1,
     top: -10px;
     cursor: pointer;
 }
+
+.page-spinner {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.comments-headline{
+    border-color: #D0C9C0;
+    border-style: dashed;
+    border-width: 0 0 4px 0;
+}

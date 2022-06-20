@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Comment;
 use Carbon\Carbon;
 use Illuminate\Support\Carbon as SupportCarbon;
 
@@ -23,6 +24,9 @@ class Event extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'event_tags');
+    }
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
     public function creator()
     {
