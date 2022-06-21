@@ -44,10 +44,7 @@
       </div>
     </div>
 
-    <div>
-      <h1 class="comments-headline">Kommentek</h1>
-    </div>
-
+    <comment-system></comment-system>
     
 
     <!-- Registration model-->
@@ -101,8 +98,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import commentSystem from '../partials/commentSystem.vue'
 
 export default {
+  components:{
+    commentSystem,
+  },
   data() {
     return {
       data: {

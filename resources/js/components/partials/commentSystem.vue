@@ -1,10 +1,36 @@
-<template></template>
+<template>
+  <div>
+    <h1 class="comments-headline">Kommentek</h1>
+    <div>
+      <div v-if="commentsFlatArray.length > 0">
+        <comment
+          @newComment="newComment"
+          v-for="comment in this.commentTree"
+          :key="comment.id"
+          :comment="comment"
+        ></comment>
+      </div>
+      <div v-else>
+        <h4>Légy az első hozzászóló!</h4>
+      </div>
+    </div>
+    <comment-writer @newComment="newComment"></comment-writer>
+  </div>
+</template>
 
 <script>
+import comment from "./comment.vue";
+import commentWriter from "./commentWriter.vue";
+
 export default {
   props: ["comments"],
+  components: {
+    comment,
+    commentWriter,
+  },
   data() {
     return {
+      commentsFlatArray: [],
       commentTree: [],
     };
   },
@@ -19,9 +45,14 @@ export default {
 
       this.commentTree = nest(this.comments);
     },
+    newComment(comment) {
+      this.commentsFlatArray.push(comment);
+      this.createTree();
+    },
   },
-  created: {
-    createTree();
-  }
+  created() {
+    this.commentsFlatArray = this.comments;
+    this.createTree();
+  },
 };
 </script>
