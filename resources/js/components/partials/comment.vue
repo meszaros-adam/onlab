@@ -4,7 +4,7 @@
     <button type="button" class="btn btn-success">
       Válasz <i class="bi bi-reply"></i>
     </button>
-    <comment-writer v-if(showReply) @newComment="newComment"></comment-writer>
+    <comment-writer :event_id="comment.event_id" v-if(showReply) @newComment="newComment"></comment-writer>
   </div>
 </template>
 

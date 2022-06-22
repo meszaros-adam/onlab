@@ -11,10 +11,10 @@
         ></comment>
       </div>
       <div v-else>
-        <h4>Légy az első hozzászóló!</h4>
+        <h4>Légy te az első hozzászóló!</h4>
       </div>
     </div>
-    <comment-writer @newComment="newComment"></comment-writer>
+    <comment-writer :event_id="event_id" @newComment="newComment"></comment-writer>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ import comment from "./comment.vue";
 import commentWriter from "./commentWriter.vue";
 
 export default {
-  props: ["comments"],
+  props: ["comments", 'event_id'],
   components: {
     comment,
     commentWriter,

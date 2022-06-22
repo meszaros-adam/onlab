@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <comment-system></comment-system>
+    <comment-system :comments="event.comments" :event_id="data.eventId"></comment-system>
     
 
     <!-- Registration model-->
