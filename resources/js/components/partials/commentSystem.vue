@@ -5,7 +5,7 @@
       <div v-if="commentsFlatArray.length > 0">
         <comment
           @newComment="newComment"
-          v-for="comment in this.commentTree"
+          v-for="comment in commentTree"
           :key="comment.id"
           :comment="comment"
         ></comment>
@@ -43,7 +43,10 @@ export default {
           .map((item) => ({ ...item, children: nest(items, item.id) }));
       //this function creates a tree
 
-      this.commentTree = nest(this.comments);
+      this.commentTree = nest(this.commentsFlatArray);
+
+      
+
     },
     newComment(comment) {
       this.commentsFlatArray.push(comment);

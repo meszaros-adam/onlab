@@ -1,10 +1,10 @@
 <template>
   <div>
-    <p></p>
-    <button type="button" class="btn btn-success">
+    <p>{{comment.comment}}</p>
+    <button type="button" @click="showReply=!showReply" class="btn btn-success">
       Válasz <i class="bi bi-reply"></i>
     </button>
-    <comment-writer :event_id="comment.event_id" v-if(showReply) @newComment="newComment"></comment-writer>
+    <comment-writer :event_id="comment.event_id" v-if="showReply" @newComment="newComment"></comment-writer>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
     },
     methods:{
         newComment(comment){
-            this.$emmit('newComment', comment)
+            this.$emit('newComment', comment)
         }
     }
 }

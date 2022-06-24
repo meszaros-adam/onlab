@@ -22,6 +22,7 @@ export default {
       data: {
         comment: "",
         eventId: null,
+        parent_comment_id: null,
       },
     };
   },
@@ -30,7 +31,7 @@ export default {
       const res = await this.callApi("post", "/app/create_comment", this.data);
       if (res.status == 201) {
         this.$toast.success("Komment sikeresen elküldve");
-        this.$emit("newComment", this.comment);
+        this.$emit("newComment", res.data);
       } else {
         this.$toast.error("Komment elküldése sikertelen");
       }
