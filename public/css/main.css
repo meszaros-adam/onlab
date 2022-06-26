@@ -117,3 +117,13 @@ h1,
     border-style: dashed;
     border-width: 4px 4px 0px 0px;
 }
+.comment{
+    background-color:#181818;
+}
+.comment-info{
+    border-top: solid 2px grey;
+    border-bottom: dashed 1px grey;
+}
+.comment-item{
+    min-width: 200px;
+}

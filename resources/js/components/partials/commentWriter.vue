@@ -1,44 +1,55 @@
 <template>
   <div>
-    <textarea
-      v-model="data.comment"
-      class="form-control my-3"
-      id="exampleFormControlTextarea1"
-      rows="3"
-    ></textarea>
-    <div class="text-end">
-      <button @click="sendComment" type="button" class="btn btn-success">
-        Küldés <i class="bi bi-send-fill"></i>
-      </button>
+    <div v-if="getUser">
+      <textarea
+        v-model="comment"
+        class="form-control my-3"
+        id="exampleFormControlTextarea1"
+        rows="3"
+      ></textarea>
+      <div class="text-end">
+        <button @click="sendComment" type="button" class="btn btn-success btn-sm">
+          Küldés <i class="bi bi-send-fill"></i>
+        </button>
+      </div>
+    </div>
+    <div v-else>
+      <router-link to="/login">
+        <button type="button" class="btn btn-warning my-4">
+          Jelentkezz be a hozzászóláshoz!
+        </button></router-link
+      >
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  props: ["event_id"],
+  props: ["event_id", "parent_comment_id"],
   data() {
     return {
-      data: {
-        comment: "",
-        eventId: null,
-        parent_comment_id: null,
-      },
+      comment: "",
     };
   },
   methods: {
     async sendComment() {
-      const res = await this.callApi("post", "/app/create_comment", this.data);
+      const res = await this.callApi("post", "/app/create_comment", {
+        comment: this.comment,
+        event_id: this.event_id,
+        parent_comment_id: this.parent_comment_id,
+      });
       if (res.status == 201) {
+        this.comment = "";
         this.$toast.success("Komment sikeresen elküldve");
-        this.$emit("newComment", res.data);
+        this.$emit("newComment");
       } else {
         this.$toast.error("Komment elküldése sikertelen");
       }
     },
   },
-  created() {
-    this.data.eventId = this.event_id;
+  computed: {
+    ...mapGetters(["getUser"]),
   },
 };
 </script>

@@ -37,6 +37,7 @@
       </div>
     </div>
     <div class="my-3 d-flex">
+      <span class="me-2">Címkék:</span>
       <div v-for="(tag, t) in event.tags" :key="t">
         <a @click="handleTagFilter(tag.name)"
           ><i class="tag"> #{{ tag.name }} </i>
@@ -44,7 +45,7 @@
       </div>
     </div>
 
-    <comment-system :comments="event.comments" :event_id="data.eventId"></comment-system>
+    <comment-system :event_id="data.eventId"></comment-system>
     
 
     <!-- Registration model-->

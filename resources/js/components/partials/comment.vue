@@ -1,29 +1,59 @@
 <template>
-  <div>
-    <p>{{comment.comment}}</p>
-    <button type="button" @click="showReply=!showReply" class="btn btn-success">
-      Válasz <i class="bi bi-reply"></i>
-    </button>
-    <comment-writer :event_id="comment.event_id" v-if="showReply" @newComment="newComment"></comment-writer>
+  <div class="ms-1">
+    <div class="mb-2 comment-item">
+      <div class="d-flex justify-content-between comment-info mb-3">
+        <div>
+          {{ comment.user.name }}
+        </div>
+        <div>
+          {{ comment.created_at }}
+        </div>
+      </div>
+      <p>{{ comment.comment }}</p>
+      <div class="text-end">
+        <button
+          type="button"
+          @click="showReply = !showReply"
+          class="btn btn-success btn-sm"
+        >
+          Válasz <i class="bi bi-reply"></i>
+        </button>
+      </div>
+      <comment-writer
+        :event_id="comment.event_id"
+        :parent_comment_id="comment.id"
+        v-if="showReply"
+        @newComment="newComment"
+      ></comment-writer>
+    </div>
+    <div v-if="comment.children.length > 0">
+      <comment
+        @newComment="newComment"
+        v-for="c in comment.children"
+        :key="c.id"
+        :comment="c"
+      ></comment>
+    </div>
   </div>
 </template>
 
 <script>
-import commentWriter from "./commentWriter.vue"
+import commentWriter from "./commentWriter.vue";
 export default {
-    props: ['comment'],
-    components:{
-        commentWriter,
+  name: "comment",
+  props: ["comment"],
+  components: {
+    commentWriter,
+  },
+  data() {
+    return {
+      showReply: false,
+    };
+  },
+  methods: {
+    newComment() {
+      (this.showReply = false), this.$emit("newComment");
     },
-    data(){
-        return{
-            showReply: false,
-        }
-    },
-    methods:{
-        newComment(comment){
-            this.$emit('newComment', comment)
-        }
-    }
-}
+  },
+};
 </script>

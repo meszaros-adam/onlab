@@ -12,11 +12,11 @@ class Comment extends Model
 
     protected $fillable=['comment', 'user_id', 'event_id', 'parent_comment_id'];
 
-    public function users(){
+    public function user(){
        return $this->belongsTo(User::class);
     }
-    public function parent(){
-        return $this->belongsTo(Comment::class, 'parent_comment_id');
+    public function children(){
+        return $this->hasMany(Comment::class, 'parent_comment_id');
     }
 
     public function getCreatedAtAttribute($value){

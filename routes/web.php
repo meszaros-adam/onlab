@@ -57,8 +57,9 @@ Route::prefix('app')->group(function () {
     Route::post('/delete_registration',  [App\Http\Controllers\RegistrationController::class, 'delete'])->middleware(AdminCheck::class);
     Route::post('/edit_registration',  [App\Http\Controllers\RegistrationController::class, 'edit'])->middleware(AdminCheck::class);
 
-    //Registration
+    //Comment
     Route::post('/create_comment',  [App\Http\Controllers\CommentController::class, 'add'])->middleware(LoginCheck::class);
+    Route::get('/get_comment_by_event',  [App\Http\Controllers\CommentController::class, 'getByEvent']);
 });
 
 
