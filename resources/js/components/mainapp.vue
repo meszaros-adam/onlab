@@ -58,10 +58,13 @@
                 class="nav-link dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
-                ><i class="bi bi-person-fill navbar-icon mx-1"></i>{{ getUser.name }}</a
+                ><i class="bi bi-person-fill navbar-icon mx-1"></i
+                >{{ getUser.name }}</a
               >
               <div class="dropdown-menu dropdown-menu-end">
-                <a class="dropdown-item" href="">Példa</a>
+                <router-link class="dropdown-item" to="/user-registrations"
+                  >Regisztrációim</router-link
+                >
                 <a class="dropdown-item" href="">Példa</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/logout">Kijelentkezés</a>

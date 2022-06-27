@@ -34,6 +34,9 @@ class RegistrationController extends Controller
     public function getAll(Request $request){
         return Registration::orderBy($request->orderBy, 'desc')->with('user', 'event')->paginate($request->itemPerPage);
     }
+    public function getByUser(Request $request) {
+        return Registration::where('user_id', Auth::user()->id)->orderBy($request->orderBy, 'desc')->with('user', 'event')->paginate($request->itemPerPage);
+    }
     public function delete(Request $request){
         $this->validate($request,[
             'id' => 'required',
