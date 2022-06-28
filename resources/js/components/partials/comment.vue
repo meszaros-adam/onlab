@@ -1,5 +1,5 @@
 <template>
-  <div class="ms-1">
+  <div class="ms-3">
     <div class="mb-2 comment-item">
       <div class="d-flex justify-content-between comment-info mb-3">
         <div>
@@ -13,7 +13,7 @@
       <div class="text-end">
         <button
           type="button"
-          @click="showReply = !showReply"
+          @click="showReplyWriter = !showReplyWriter"
           class="btn btn-success btn-sm"
         >
           Válasz <i class="bi bi-reply"></i>
@@ -22,13 +22,12 @@
       <comment-writer
         :event_id="comment.event_id"
         :parent_comment_id="comment.id"
-        v-if="showReply"
-        @newComment="newComment"
+        v-if="showReplyWriter"
+        @newComment="handleReply"
       ></comment-writer>
     </div>
     <div v-if="comment.children.length > 0">
       <comment
-        @newComment="newComment"
         v-for="c in comment.children"
         :key="c.id"
         :comment="c"
@@ -47,12 +46,13 @@ export default {
   },
   data() {
     return {
-      showReply: false,
+      showReplyWriter: false,
     };
   },
   methods: {
-    newComment() {
-      (this.showReply = false), this.$emit("newComment");
+    handleReply(reply) {
+      this.showReplyWriter = false;
+      this.comment.children.unshift(reply)
     },
   },
 };

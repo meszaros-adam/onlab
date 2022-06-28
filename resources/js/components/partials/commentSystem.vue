@@ -48,7 +48,6 @@ export default {
 
       if ((res.status = 200)) {
         this.commentsFlatArray = res.data;
-        console.log(this.commentsFlatArray);
         this.createTree();
       } else {
         this.$toast.error("Kommentek betöltése sikertelen");
@@ -64,8 +63,9 @@ export default {
 
       this.commentTree = nest(this.commentsFlatArray);
     },
-    newComment() {
-      this.getComments();
+    newComment(newComment) {
+      this.commentsFlatArray.push(newComment);
+      this.createTree();
     },
   },
   created() {

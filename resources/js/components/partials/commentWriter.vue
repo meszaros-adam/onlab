@@ -8,7 +8,11 @@
         rows="3"
       ></textarea>
       <div class="text-end">
-        <button @click="sendComment" type="button" class="btn btn-success btn-sm">
+        <button
+          @click="sendComment"
+          type="button"
+          class="btn btn-success btn-sm"
+        >
           Küldés <i class="bi bi-send-fill"></i>
         </button>
       </div>
@@ -42,7 +46,11 @@ export default {
       if (res.status == 201) {
         this.comment = "";
         this.$toast.success("Komment sikeresen elküldve");
-        this.$emit("newComment");
+        let newComment = res.data;
+        newComment.user = this.getUser;
+        newComment.children = [];
+
+        this.$emit("newComment", newComment);
       } else {
         this.$toast.error("Komment elküldése sikertelen");
       }
