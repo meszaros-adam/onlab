@@ -64,8 +64,7 @@ export default {
       this.commentTree = nest(this.commentsFlatArray);
     },
     newComment(newComment) {
-      this.commentsFlatArray.push(newComment);
-      this.createTree();
+      this.commentTree.push(newComment);
     },
   },
   created() {
