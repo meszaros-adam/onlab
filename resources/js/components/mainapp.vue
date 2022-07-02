@@ -62,10 +62,12 @@
                 >{{ getUser.name }}</a
               >
               <div class="dropdown-menu dropdown-menu-end">
-                <router-link class="dropdown-item" to="/user-registrations"
-                  >Regisztrációim</router-link
+                <router-link class="dropdown-item" to="/user/registrations"
+                  >Regisztrációk</router-link
                 >
-                <a class="dropdown-item" href="">Példa</a>
+                <router-link class="dropdown-item" to="/user/comments"
+                  >Kommentek</router-link
+                >
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/logout">Kijelentkezés</a>
               </div>

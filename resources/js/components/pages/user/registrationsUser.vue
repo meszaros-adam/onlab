@@ -1,9 +1,9 @@
 <template>
-  <registrations getUrl="app/get_user_registrations"></registrations>
+  <registrations getUrl="/app/get_user_registrations"></registrations>
 </template>
 
 <script>
-import registrations from "../../partials/registrations.vue";
+import registrations from "../../partials/registrationsTable.vue";
 export default {
   components: { registrations },
 };

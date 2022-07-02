@@ -10,6 +10,8 @@ import userAdmin from './components/pages/admin/userAdmin'
 import registrationsAdmin from './components/pages/admin/registrationsAdmin'
 import eventSingle from './components/pages/eventSingle'
 import registrationsUser from './components/pages/user/registrationsUser'
+import commentsUser from './components/pages/user/commentsUser'
+import commentsAdmin from './components/pages/admin/commentsAdmin'
 
 
 Vue.use(Router)
@@ -53,9 +55,18 @@ const routes = [
         component: notAuthorized,
     },
     {
-        path:'/user-registrations',
+        path:'/user/registrations',
         component: registrationsUser,
     },
+    {
+        path:'/user/comments',
+        component: commentsUser,
+    },
+    {
+        path:'/admin/comments',
+        component: commentsAdmin,
+    },
+
 
 ]
 

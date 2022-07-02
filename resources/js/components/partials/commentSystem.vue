@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="comments-headline my-5">Kommentek</h1>
-    <div v-if="isLoaded">
+    <div v-if="commentsFlatArray">
       <div v-if="commentTree.length > 0">
         <comment
           class="mb-3 comment p-2 rounded"
@@ -40,8 +40,7 @@ export default {
   },
   data() {
     return {
-      isLoaded: false,
-      commentsFlatArray: [],
+      commentsFlatArray: null,
       commentTree: [],
     };
   },
@@ -55,7 +54,6 @@ export default {
       if ((res.status = 200)) {
         this.commentsFlatArray = res.data;
         this.createTree();
-        this.isLoaded = true;
       } else {
         this.$toast.error("Kommentek betöltése sikertelen");
       }

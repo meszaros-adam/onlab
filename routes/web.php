@@ -60,7 +60,11 @@ Route::prefix('app')->group(function () {
 
     //Comment
     Route::post('/create_comment',  [App\Http\Controllers\CommentController::class, 'add'])->middleware(LoginCheck::class);
-    Route::get('/get_comment_by_event',  [App\Http\Controllers\CommentController::class, 'getByEvent']);
+    Route::get('/get_comment_by_event', [App\Http\Controllers\CommentController::class, 'getByEvent']);
+    Route::get('/get_comments',  [App\Http\Controllers\CommentController::class, 'getAll'])->middleware(AdminCheck::class);
+    Route::get('/get_user_comments',  [App\Http\Controllers\CommentController::class, 'getByUser'])->middleware(LoginCheck::class);
+    Route::post('/edit_comment',  [App\Http\Controllers\CommentController::class, 'edit'])->middleware(LoginCheck::class);
+    Route::post('/delete_comment',  [App\Http\Controllers\CommentController::class, 'delete'])->middleware(LoginCheck::class);
 });
 
 
