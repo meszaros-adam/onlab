@@ -2,6 +2,7 @@
   <div>
     <div v-if="getUser">
       <textarea
+        placeholder="Ide írd a kommented!"
         v-model="comment"
         class="form-control my-3"
         id="exampleFormControlTextarea1"
