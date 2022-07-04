@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="container-fluid bg-dark ms-auto my-5 p-5">
+    <div class="container-fluid bg-dark text-light ms-auto my-5 p-5">
+      <h1>Események</h1>
       <div class="d-flex text-light">
         <button
           type="button"

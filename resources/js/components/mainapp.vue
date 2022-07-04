@@ -17,6 +17,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <div class="nav-link pointer">Keresés <i class="bi bi-search"></i></div>
+            </li>
             <li class="nav-item dropdown" v-if="getUser.is_admin">
               <a
                 class="nav-link dropdown-toggle"
@@ -67,6 +70,9 @@
                 >
                 <router-link class="dropdown-item" to="/user/comments"
                   >Kommentek</router-link
+                >
+                <router-link class="dropdown-item" to="/user/profile"
+                  >Profil</router-link
                 >
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/logout">Kijelentkezés</a>

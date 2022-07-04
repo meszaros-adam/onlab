@@ -12,6 +12,7 @@ import eventSingle from './components/pages/eventSingle'
 import registrationsUser from './components/pages/user/registrationsUser'
 import commentsUser from './components/pages/user/commentsUser'
 import commentsAdmin from './components/pages/admin/commentsAdmin'
+import profile from './components/pages/user/profile'
 
 
 Vue.use(Router)
@@ -61,6 +62,10 @@ const routes = [
     {
         path:'/user/comments',
         component: commentsUser,
+    },
+    {
+        path:'/user/profile',
+        component: profile,
     },
     {
         path:'/admin/comments',

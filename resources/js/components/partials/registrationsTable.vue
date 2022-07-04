@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="container-fluid bg-dark ms-auto my-5 p-5">
+    <div class="container-fluid text-light bg-dark ms-auto my-5 p-5">
+      <h1>Regisztrációk</h1>
       <div class="d-flex justify-content-end text-light">
         <h5 class="mx-3">Rendezés:</h5>
         <select

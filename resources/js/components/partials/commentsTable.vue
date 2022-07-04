@@ -1,5 +1,6 @@
 <template>
-  <div class="container-fluid bg-dark ms-auto my-5 p-5">
+  <div class="container-fluid bg-dark text-light ms-auto my-5 p-5">
+    <h1>Kommentek</h1>
     <table class="table table-striped table-light table-hover">
       <thead>
         <tr>

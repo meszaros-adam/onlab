@@ -127,3 +127,6 @@ h1,
 .comment-item{
     min-width: 200px;
 }
+.pointer:hover{
+    cursor: pointer;
+}
