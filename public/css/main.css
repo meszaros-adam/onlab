@@ -93,13 +93,13 @@ h1,
     width: 40px !important;
 }
 
-.card {
+.card.event{
     position: relative;
     top: 0;
     transition: all 0.4s ease;
 }
 
-.card:hover {
+.card.event:hover {
     top: -10px;
     cursor: pointer;
 }
@@ -129,4 +129,7 @@ h1,
 }
 .pointer:hover{
     cursor: pointer;
+}
+.dashed-border-top{
+    border-top:  2px  dashed black;
 }

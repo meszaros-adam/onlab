@@ -20,7 +20,7 @@
     </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
       <div class="col mb-4" v-for="(event, e) in events" :key="e">
-        <div class="card text-dark">
+        <div class="card event text-dark">
           <router-link  tag="div" :to="{ name: 'event', params: { id: event.id } }">
             <div class="card-body">
               <h5 class="card-title">{{ event.name }}</h5>

@@ -49,7 +49,9 @@ Route::prefix('app')->group(function () {
     //Users
     Route::get('/get_users',  [App\Http\Controllers\UserController::class, 'get'])->middleware(AdminCheck::class);
     Route::post('/delete_user',  [App\Http\Controllers\UserController::class, 'delete'])->middleware(AdminCheck::class);
-    Route::post('/edit_user',  [App\Http\Controllers\UserController::class, 'edit'])->middleware(AdminCheck::class);
+    Route::post('/edit_user',  [App\Http\Controllers\UserController::class, 'editByAdmin'])->middleware(AdminCheck::class);
+    Route::post('/edit_user_by_user',  [App\Http\Controllers\UserController::class, 'editByUser'])->middleware(LoginCheck::class);
+    Route::post('/change_password',  [App\Http\Controllers\UserController::class, 'changePassword'])->middleware(LoginCheck::class);
    
     //Registration
     Route::post('/create_registration',  [App\Http\Controllers\RegistrationController::class, 'add'])->middleware(LoginCheck::class);

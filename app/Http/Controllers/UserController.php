@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,12 +16,12 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:6',
         ]);
 
-        $password = bcrypt($request->password);
+        
 
         return User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $password,
+            'password' => bcrypt($request->password),
         ]);
     }
     public function login(Request $request){
@@ -42,7 +43,7 @@ class UserController extends Controller
     public function get(Request $request){
         return User::orderBy('id', 'desc')->paginate($request->itemPerPage);
     }
-    public function edit(Request $request){
+    public function editByAdmin(Request $request){
         $this->validate($request,[
             'id' => 'required',
             'name' => 'required',
@@ -56,11 +57,43 @@ class UserController extends Controller
             'admin' => $request->is_admin,
         ]);      
     }
+    public function editByUser(Request $request){
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if(!Hash::check( $request->password, Auth::user()->password)){
+            return response('A jelszó nem egyezik!', 401);
+        }
+
+        return User::where('id' , Auth::user()->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);      
+    }
     public function delete(Request $request){
         $this->validate($request,[
             'id' => 'required',
         ]);
 
         return User::where('id', $request->id)->delete();
+    }
+    public function changePassword(Request $request){
+        $this->validate($request,[
+            'newPassword' => 'required|confirmed|min:6',
+            'currentPassword'=> 'required',
+        ]);
+
+        if(!Hash::check($request->currentPassword, Auth::user()->password)){
+            return response('A jelszó nem egyezik!', 401);
+        }
+
+        return User::where('id' , Auth::user()->id)->update([
+            'password' =>  bcrypt($request->newPassword),
+        ]);      
+
+
     }
 }

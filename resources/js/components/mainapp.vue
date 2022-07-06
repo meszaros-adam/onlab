@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <div class="nav-link pointer">Keresés <i class="bi bi-search"></i></div>
+              <div class="nav-link pointer"> <i class="bi bi-search navbar-icon mx-1"></i> Keresés</div>
             </li>
             <li class="nav-item dropdown" v-if="getUser.is_admin">
               <a
