@@ -52,6 +52,7 @@ Route::prefix('app')->group(function () {
     Route::post('/edit_user',  [App\Http\Controllers\UserController::class, 'editByAdmin'])->middleware(AdminCheck::class);
     Route::post('/edit_user_by_user',  [App\Http\Controllers\UserController::class, 'editByUser'])->middleware(LoginCheck::class);
     Route::post('/change_password',  [App\Http\Controllers\UserController::class, 'changePassword'])->middleware(LoginCheck::class);
+    Route::post('/delete_user_by_user',  [App\Http\Controllers\UserController::class, 'deleteByUser'])->middleware(LoginCheck::class);
    
     //Registration
     Route::post('/create_registration',  [App\Http\Controllers\RegistrationController::class, 'add'])->middleware(LoginCheck::class);

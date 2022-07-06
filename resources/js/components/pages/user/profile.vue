@@ -156,10 +156,13 @@ export default {
       this.saving = false;
     },
     showDeleteModal() {
+       if (this.data.password.trim() == "")
+        return this.$toast.warning("Jelszó megadása kötelező!");
+
       const deleteModalObj = {
         showDeleteModal: true,
-        deleteUrl: "/app/delete_user",
-        data: { id: this.getUser.id },
+        deleteUrl: "/app/delete_user_by_user",
+        data: { id: this.getUser.id, password: this.data.password},
         msg: "Biztosan törölni akarja a fiókját?",
         successMsg: "Fiók sikeresen törölve!",
       };

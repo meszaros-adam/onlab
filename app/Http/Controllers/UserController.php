@@ -93,7 +93,17 @@ class UserController extends Controller
         return User::where('id' , Auth::user()->id)->update([
             'password' =>  bcrypt($request->newPassword),
         ]);      
+    }
+    public function deleteByUser(Request $request){
+        $this->validate($request,[
+            'id' => 'required',
+            'password'=> 'required',
+        ]);
 
+        if(!Hash::check($request->password, Auth::user()->password)){
+            return response('A jelszó nem egyezik!', 401);
+        }
 
+        return User::where('id', $request->id)->delete();
     }
 }
