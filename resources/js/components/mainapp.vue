@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <div class="nav-link pointer"> <i class="bi bi-search navbar-icon mx-1"></i> Keresés</div>
+              <div class="nav-link pointer"> <i class="bi bi-search mx-1"></i> Keresés</div>
             </li>
             <li class="nav-item dropdown" v-if="getUser.is_admin">
               <a
@@ -26,7 +26,7 @@
                 type="button"
                 data-bs-toggle="dropdown"
               >
-                <i class="bi bi-table navbar-icon mx-1"></i>Admin Panel</a
+                <i class="bi bi-table mx-1"></i>Admin Panel</a
               >
               <div class="dropdown-menu dropdown-menu-end">
                 <router-link class="dropdown-item" to="/admin/events"
@@ -46,7 +46,7 @@
                 >
               </div>
             </li>
-            <li class="nav-item" v-if="getUser == false">
+            <li class="nav-item  mx-1" v-if="getUser == false">
               <router-link to="/registration" class="nav-link"
                 >Regisztráció</router-link
               >
@@ -61,7 +61,7 @@
                 class="nav-link dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
-                ><i class="bi bi-person-fill navbar-icon mx-1"></i
+                ><i class="bi bi-person-fill mx-1"></i
                 >{{ getUser.name }}</a
               >
               <div class="dropdown-menu dropdown-menu-end">

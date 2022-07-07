@@ -50,10 +50,13 @@ export default {
         this.getDeleteModalObj.data
       );
 
-      if (res.status == 200) {
+      if(res.status == 200 && this.getDeleteModalObj.deleteUrl == '/app/delete_user_by_user' ){
+        window.location.href = '/'
+      }
+      else if (res.status == 200 ) {
         this.$toast.success(this.getDeleteModalObj.successMsg);
         this.$store.commit("setDeleteModalObj", deletingModalObj);
-      } else {
+      }else {
         this.$toast.error("Törlés sikertelen");
       }
       this.isDeleting = false;
