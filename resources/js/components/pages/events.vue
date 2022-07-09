@@ -4,6 +4,7 @@
       <select
         class="form-select mb-4"
         style="width: auto"
+        v-show="actualityChanger"
         v-model="eventActuality"
         aria-label="Default select example"
         @change="getEvents"
@@ -21,7 +22,10 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
       <div class="col mb-4" v-for="(event, e) in events" :key="e">
         <div class="card event text-dark">
-          <router-link  tag="div" :to="{ name: 'event', params: { id: event.id } }">
+          <router-link
+            tag="div"
+            :to="{ name: 'event', params: { id: event.id } }"
+          >
             <div class="card-body">
               <h5 class="card-title">{{ event.name }}</h5>
               <p class="card-text">{{ event.description }}</p>
@@ -75,6 +79,7 @@ export default {
       },
       events: [],
       orderBy: "date",
+      actualityChanger: true,
       eventActuality: "actual",
 
       //pagination
@@ -88,8 +93,8 @@ export default {
       const res = await this.callApi(
         "get",
         this.getTagFilter
-          ? `/app/get_${this.eventActuality}_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}&tagFilter=${this.getTagFilter}`
-          : `/app/get_${this.eventActuality}_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
+          ? `/app/get_events_paginated?actuality=${this.eventActuality}&?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}&tagFilter=${this.getTagFilter}`
+          : `/app/get_events_paginated?actuality=${this.eventActuality}&?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
       );
       if (res.status == 200) {
         this.events = res.data.data;
@@ -105,7 +110,7 @@ export default {
       this.getEvents();
     },
     handleTagFilter(tagName) {
-      this.$store.commit('setTagFilter', tagName);
+      this.$store.commit("setTagFilter", tagName);
       this.getEvents();
     },
   },
@@ -113,7 +118,37 @@ export default {
     this.getEvents();
   },
   computed: {
-    ...mapGetters(["getUser", "getTagFilter"]),
+    ...mapGetters(["getUser", "getTagFilter", "getSearchEvent"]),
+  },
+  watch: {
+    async getSearchEvent(search) {
+      //delete tag filter
+      this.$store.commit("setTagFilter", null);
+
+      //reset pagination variables
+      this.itemPerPage = 10;
+      this.currentPage = 1;
+      this.total = 0;
+
+      if (search == "") {
+        this.actualityChanger = true;
+      } else {
+        this.actualityChanger = false;
+      }
+
+      const res = await this.callApi(
+        "get",
+        `/app/search_event?search=${search}&page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
+      );
+
+      if (res.status == 200) {
+        this.events = res.data.data;
+        this.currentPage = res.data.current_page;
+        this.total = res.data.total;
+      } else {
+        this.$toast.error("Keresés sikertelen!");
+      }
+    },
   },
 };
 </script>

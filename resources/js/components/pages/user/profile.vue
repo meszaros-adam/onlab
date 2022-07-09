@@ -149,6 +149,7 @@ export default {
 
       if (res.status == 200) {
         this.$toast.success("Profil sikeresen szerkesztve!");
+        this.$router.go() 
       } else {
         this.$toast.error("Profil szerkesztése sikertelen!");
       }

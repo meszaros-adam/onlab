@@ -38,7 +38,7 @@
                 <i
                   class="bi bi-pencil-fill edit-icon mx-2"
                   title="Szerkesztés"
-                  @click="showEditModal(user, t)"
+                  @click="showEditModal(user, u)"
                 ></i>
                 <i
                   class="bi bi-trash3-fill delete-icon mx-2"

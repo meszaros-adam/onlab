@@ -17,8 +17,22 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <div class="nav-link pointer"> <i class="bi bi-search mx-1"></i> Keresés</div>
+            <li class="nav-item mx-3">
+              <div class="d-flex">
+                <input
+                @input="handleClearSearchBar"
+                  v-model="search"
+                  class="form-control"
+                  type="search"
+                  placeholder="Keresés"
+                  v-on:keyup.enter="searchEvent"
+                /><i
+                  @click="searchEvent"
+                  class="bi bi-search mx-1 nav-link"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#search-bar"
+                ></i>
+              </div>
             </li>
             <li class="nav-item dropdown" v-if="getUser.is_admin">
               <a
@@ -46,7 +60,7 @@
                 >
               </div>
             </li>
-            <li class="nav-item  mx-1" v-if="getUser == false">
+            <li class="nav-item mx-1" v-if="getUser == false">
               <router-link to="/registration" class="nav-link"
                 >Regisztráció</router-link
               >
@@ -61,8 +75,7 @@
                 class="nav-link dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
-                ><i class="bi bi-person-fill mx-1"></i
-                >{{ getUser.name }}</a
+                ><i class="bi bi-person-fill mx-1"></i>{{ getUser.name }}</a
               >
               <div class="dropdown-menu dropdown-menu-end">
                 <router-link class="dropdown-item" to="/user/registrations"
@@ -102,13 +115,30 @@ import { mapGetters } from "vuex";
 export default {
   props: ["user"],
   data() {
-    return {};
+    return {
+      search: "",
+    };
   },
   created() {
     this.$store.commit("setUser", this.user);
   },
   computed: {
     ...mapGetters(["getUser"]),
+  },
+  methods: {
+    handleClearSearchBar() {
+      console.log(this.search);
+      if (this.search == "") {
+        this.searchEvent();
+      }
+    },
+    searchEvent() {
+      if (this.$router.history.current.path != "/") {
+        this.$router.push("/");
+      }
+
+      this.$store.commit("setSearchEvent", this.search);
+    },
   },
 };
 </script>

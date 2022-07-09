@@ -16,6 +16,7 @@ export default new vuex.Store({
             successMsg: '',
         },
         tagFilter: null,
+        searchEvent: null,
     },
     getters: {
         getUser(state) {
@@ -26,7 +27,10 @@ export default new vuex.Store({
         },
         getTagFilter(state){
             return state.tagFilter
-        }
+        },
+        getSearchEvent(state){
+            return state.searchEvent
+        },
     },
     mutations: {
         setUser(state, data) {
@@ -41,5 +45,8 @@ export default new vuex.Store({
         setTagFilter(state, data){
             state.tagFilter = data
         },
+        setSearchEvent(state, data){
+            state.searchEvent = data
+        }
     },
 })

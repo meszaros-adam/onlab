@@ -34,9 +34,9 @@ Route::prefix('app')->group(function () {
     //Events
     Route::post('/create_event',  [App\Http\Controllers\EventController::class, 'add'])->middleware(AdminCheck::class);
     Route::get('/get_events',  [App\Http\Controllers\EventController::class, 'getAll']);
-    Route::get('/get_actual_events',  [App\Http\Controllers\EventController::class, 'getActual']);
-    Route::get('/get_earlier_events',  [App\Http\Controllers\EventController::class, 'getEarlier']);
+    Route::get('/get_events_paginated',  [App\Http\Controllers\EventController::class, 'getPaginated']);
     Route::get('/get_single_event',  [App\Http\Controllers\EventController::class, 'getSingle']);
+    Route::get('/search_event',  [App\Http\Controllers\EventController::class, 'search']);
     Route::post('/delete_event',  [App\Http\Controllers\EventController::class, 'delete'])->middleware(AdminCheck::class);
     Route::post('/edit_event',  [App\Http\Controllers\EventController::class, 'edit'])->middleware(AdminCheck::class);
 
@@ -72,9 +72,6 @@ Route::prefix('app')->group(function () {
 
 
 Route::get('/',  [App\Http\Controllers\IndexController::class, 'index']);
-
-//catching all routes
-Route::any('{catchall}', [App\Http\Controllers\IndexController::class, 'index'])->where('catchall', '.*');
 
 
 

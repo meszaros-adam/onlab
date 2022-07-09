@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\DB;
 class EventController extends Controller
 {
 
-    public function add(Request $request){
-        
-        $this->validate($request,[
+    public function add(Request $request)
+    {
+
+        $this->validate($request, [
             'date' => 'required',
             'name' => 'required',
             'description' => 'required',
@@ -24,7 +25,7 @@ class EventController extends Controller
 
         DB::beginTransaction();
 
-        try{
+        try {
 
             $event = Event::create([
                 'user_id' => Auth::user()->id,
@@ -38,8 +39,8 @@ class EventController extends Controller
 
             $event_tags = [];
 
-            foreach($request->tags as $t){
-                array_push($event_tags,[
+            foreach ($request->tags as $t) {
+                array_push($event_tags, [
                     'event_id' => $event->id,
                     'tag_id' => $t['id'],
                 ]);
@@ -47,56 +48,47 @@ class EventController extends Controller
             EventTag::insert($event_tags);
 
             DB::commit();
-            return response ($event, 201);
-
-        }catch(\Throwable $th){
+            return response($event, 201);
+        } catch (\Throwable $th) {
             DB::rollback();
-            return response ($th, 500);
+            return response($th, 500);
         }
-
-        
     }
-    public function getAll(Request $request){
+    public function getAll(Request $request)
+    {
         return Event::orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
     }
-    public function getActual(Request $request){
+    public function getPaginated(Request $request)
+    {
 
-        if($request->tagFilter){
+        if ($request->tagFilter) {
             $tag = $request->tagFilter;
-            return Event::where('date' ,'>', Carbon::now())->whereHas('tags', function($q) use($tag){
+            return Event::where('date', $request->actuality == 'actual' ? '>' : '<', Carbon::now())->whereHas('tags', function ($q) use ($tag) {
                 $q->where('name', $tag);
             })->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
         }
 
-        return Event::where('date' ,'>', Carbon::now())->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
+        return Event::where('date', $request->actuality == 'actual' ? '>' : '<', Carbon::now())->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
     }
-    public function getEarlier(Request $request){
-
-        if($request->tagFilter){
-            $tag = $request->tagFilter;
-            return Event::where('date' ,'<', Carbon::now())->whereHas('tags', function($q) use($tag){
-                $q->where('name', $tag);
-            })->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
-        }
-
-        return Event::where('date' ,'<', Carbon::now())->orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
-    }
-    public function getSingle(Request $request){
+    public function getSingle(Request $request)
+    {
         $event = Event::where('id', $request->id)->with('tags')->first();
 
         //if event is found return with it, else return with 404
         return $event ? $event : response('Not Found', 404);
     }
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
 
-        $this->validate($request,[
+        $this->validate($request, [
             'id' => 'required',
         ]);
 
         return Event::where('id', $request->id)->delete();
     }
-    public function edit(Request $request){
-        
+    public function edit(Request $request)
+    {
+
         $this->validate($request, [
             'id' => 'required',
             'date' => 'required',
@@ -106,10 +98,10 @@ class EventController extends Controller
             'location' => 'required',
         ]);
 
-        try{
+        try {
             DB::beginTransaction();
 
-           Event::where('id',$request->id)->update([
+            Event::where('id', $request->id)->update([
                 'user_id' =>  Auth::user()->id,
                 'date' => $request->date,
                 'name' => $request->name,
@@ -124,11 +116,11 @@ class EventController extends Controller
 
             $event_tags = [];
 
-            foreach($request->tags as $t){
+            foreach ($request->tags as $t) {
                 array_push($event_tags, [
                     'event_id' => $request->id,
                     'tag_id' => $t['id'],
-                    ]);
+                ]);
             }
 
             EventTag::insert($event_tags);
@@ -136,11 +128,29 @@ class EventController extends Controller
             DB::commit();
 
             return response('Esemény sikeresen szerkesztve!', 200);
-
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             DB::rollBack();
             return response($th, 500);
-        } 
-       
+        }
+    }
+    public function search(Request $request)
+    {
+
+        $search = $request->search;
+
+        $events = Event::orderBy($request->orderBy, 'desc')->with('tags');
+
+        $events->when($search != '', function ($q) use ($search) {
+            $q->where('name', 'LIKE', "%${search}%")
+                ->orWhere('description', 'LIKE', "%${search}%")
+                ->orWhereHas('tags', function ($q) use ($search) {
+                    $q->where('name', 'LIKE', "%${search}%");
+                });
+        });
+
+
+        $events = $events->paginate($request->itemPerPage);
+
+        return $events;
     }
 }
