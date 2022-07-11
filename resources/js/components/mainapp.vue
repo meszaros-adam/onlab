@@ -127,7 +127,6 @@ export default {
   },
   methods: {
     handleClearSearchBar() {
-      console.log(this.search);
       if (this.search == "") {
         this.searchEvent();
       }

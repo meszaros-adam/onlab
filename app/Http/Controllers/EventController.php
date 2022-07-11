@@ -135,7 +135,6 @@ class EventController extends Controller
     }
     public function search(Request $request)
     {
-
         $search = $request->search;
 
         $events = Event::orderBy($request->orderBy, 'desc')->with('tags');
@@ -143,14 +142,15 @@ class EventController extends Controller
         $events->when($search != '', function ($q) use ($search) {
             $q->where('name', 'LIKE', "%${search}%")
                 ->orWhere('description', 'LIKE', "%${search}%")
+                ->orWhere('location', 'LIKE', "%${search}%")
                 ->orWhereHas('tags', function ($q) use ($search) {
                     $q->where('name', 'LIKE', "%${search}%");
                 });
         });
-
 
         $events = $events->paginate($request->itemPerPage);
 
         return $events;
     }
 }
+ 

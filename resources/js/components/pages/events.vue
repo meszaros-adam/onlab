@@ -7,7 +7,7 @@
         v-show="actualityChanger"
         v-model="eventActuality"
         aria-label="Default select example"
-        @change="getEvents"
+        @change="handleActualityChange()"
       >
         <option value="actual">Aktuálisak</option>
         <option value="earlier">Korábbiak</option>
@@ -86,6 +86,8 @@ export default {
       itemPerPage: 10,
       currentPage: 1,
       total: 0,
+
+      searching: false,
     };
   },
   methods: {
@@ -107,11 +109,41 @@ export default {
     },
     handlePageChange(value) {
       this.currentPage = value;
-      this.getEvents();
+
+      if(this.searching){
+        this.searchEvents
+      }else{
+        this.getEvents();
+      }
+      
     },
     handleTagFilter(tagName) {
       this.$store.commit("setTagFilter", tagName);
       this.getEvents();
+    },
+    handleActualityChange() {
+      this.resetPagination();
+      this.getEvents();
+    },
+    resetPagination() {
+      //reset pagination variables
+      this.itemPerPage = 10;
+      this.currentPage = 1;
+      this.total = 0;
+    },
+    async searchEvents(q) {
+      const res = await this.callApi(
+        "get",
+        `/app/search_event?search=${q}&page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
+      );
+
+      if (res.status == 200) {
+        this.events = res.data.data;
+        this.currentPage = res.data.current_page;
+        this.total = res.data.total;
+      } else {
+        this.$toast.error("Keresés sikertelen!");
+      }
     },
   },
   created() {
@@ -121,32 +153,20 @@ export default {
     ...mapGetters(["getUser", "getTagFilter", "getSearchEvent"]),
   },
   watch: {
-    async getSearchEvent(search) {
+    getSearchEvent(q) {
       //delete tag filter
       this.$store.commit("setTagFilter", null);
 
-      //reset pagination variables
-      this.itemPerPage = 10;
-      this.currentPage = 1;
-      this.total = 0;
+      this.resetPagination();
 
-      if (search == "") {
+      if (q == "") {
+        this.searching = false;
         this.actualityChanger = true;
+        this.getEvents();
       } else {
+        this.searching = true;
         this.actualityChanger = false;
-      }
-
-      const res = await this.callApi(
-        "get",
-        `/app/search_event?search=${search}&page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
-      );
-
-      if (res.status == 200) {
-        this.events = res.data.data;
-        this.currentPage = res.data.current_page;
-        this.total = res.data.total;
-      } else {
-        this.$toast.error("Keresés sikertelen!");
+        this.searchEvents(q);
       }
     },
   },
