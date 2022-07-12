@@ -41,7 +41,7 @@ class UserController extends Controller
         return redirect('/login');
     }
     public function get(Request $request){
-        return User::orderBy('id', 'desc')->paginate($request->itemPerPage);
+        return User::orderBy($request->orderBy, 'desc')->paginate($request->itemPerPage);
     }
     public function editByAdmin(Request $request){
         $this->validate($request,[

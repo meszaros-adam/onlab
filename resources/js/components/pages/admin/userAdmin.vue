@@ -13,6 +13,7 @@
         >
           <option value="id">Azonosító (ID)</option>
           <option value="name">Név</option>
+          <option value="email">Email cím</option>
         </select>
       </div>
       <table class="table table-striped table-light table-hover">

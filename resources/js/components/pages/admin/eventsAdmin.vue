@@ -20,7 +20,7 @@
           aria-label="Default select example"
         >
           <option value="id">Azonosító (ID)</option>
-          <option value="date">Dátum</option>
+          <option value="date">Időpont</option>
           <option value="headcount">Létszám</option>
           <option value="name">Név</option>
         </select>
