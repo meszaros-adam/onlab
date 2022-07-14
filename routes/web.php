@@ -20,6 +20,10 @@ use App\Http\Middleware\LoginCheck;
 Route::post('/registration', [App\Http\Controllers\UserController::class, 'registration']);
 Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
 Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout']);
+//Social Auth
+Route::get('/social-auth/{provider}', [App\Http\Controllers\SocialController::class, 'redirect']);
+Route::get('/social-auth/{provider}/callback', [App\Http\Controllers\SocialController::class, 'callback']);
+
 
 Route::prefix('app')->group(function () {
 

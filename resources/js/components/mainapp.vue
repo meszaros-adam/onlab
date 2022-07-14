@@ -24,7 +24,7 @@
                   v-model="search"
                   class="form-control"
                   type="search"
-                  placeholder="Keresés"
+                  placeholder="Esemény keresése"
                   v-on:keyup.enter="searchEvent"
                 /><i
                   @click="searchEvent"

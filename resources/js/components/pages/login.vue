@@ -42,8 +42,8 @@
     <div class="text-center">
       <div>Bejelentkezés egyéb fiókkal:</div>
       <div>
-        <i class="bi bi-facebook social-login-button facebook-color"></i>
-        <i class="bi bi-google social-login-button google-color"></i>
+        <a href="/social-auth/facebook"><i class="bi bi-facebook social-login-button facebook-color"></i></a>
+        <a href="/social-auth/google"><i class="bi bi-google social-login-button google-color"></i></a>
       </div>
     </div>
     <div class="text-center mt-4">

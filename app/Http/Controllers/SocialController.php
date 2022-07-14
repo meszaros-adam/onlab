@@ -17,7 +17,7 @@ class SocialController extends Controller
   }
 
   public function callback($provider){
-    $userSocial =   Socialite::driver($provider)->user();
+    $userSocial =   Socialite::driver($provider)->stateless()->user();
     $find_user       =   User::where(['email' => $userSocial->getEmail()])->first();
     if($find_user){
         Auth::login($find_user);
@@ -28,7 +28,7 @@ class SocialController extends Controller
             'email'         => $userSocial->getEmail(),
             'provider_id'   => $userSocial->getId(),
             'provider'      => $provider,
-            'password'      => bcrypt('1234567'),
+            'password'      => bcrypt('jJlki867hjn'),
         ]);
         Auth::login($user);
      return redirect('/');
