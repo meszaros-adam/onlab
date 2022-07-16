@@ -84,11 +84,12 @@ h1,
     background-color: #198754 !important;
     border-color: #198754 !important;
 }
+
 .form-check-input.user-admin {
     width: 40px !important;
 }
 
-.card.event{
+.card.event {
     position: relative;
     top: 0;
     transition: all 0.4s ease;
@@ -107,24 +108,38 @@ h1,
     left: 0;
     right: 0;
 }
-.comments-headline{
+
+.comments-headline {
     border-color: #D0C9C0;
     border-style: dashed;
     border-width: 4px 4px 0px 0px;
 }
-.comment{
-    background-color:#181818;
+
+.comment {
+    background-color: #181818;
 }
-.comment-info{
+
+.comment-info {
     border-top: solid 2px grey;
     border-bottom: dashed 1px grey;
 }
-.comment-item{
+
+.comment-item {
     min-width: 200px;
 }
-.pointer:hover{
+
+.pointer:hover {
     cursor: pointer;
 }
-.dashed-border-top{
-    border-top:  2px  dashed black;
+
+.dashed-border-top {
+    border-top: 2px dashed black;
+}
+
+.selector-for-some-widget {
+    box-sizing: content-box;
+}
+
+.ordering-icon{
+    font-size: 30px;
 }

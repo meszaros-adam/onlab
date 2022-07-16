@@ -2,20 +2,20 @@
   <div>
     <div class="container-fluid bg-dark text-light ms-auto my-5 p-5">
       <h1>Események</h1>
-      <div class="d-flex text-light">
+      <div class="d-flex text-light align-center my-3">
         <button
           type="button"
-          class="btn btn-success mb-3 me-auto"
+          class="btn btn-success me-auto"
           @click="addModal = true"
         >
           <i class="bi bi-plus-lg"></i>
           Esemény létrehozása
         </button>
-        <h5 class="mx-3">Rendezés:</h5>
+        <h5 class="mx-3 align-self-center">Rendezés:</h5>
         <select
           v-model="orderBy"
           @change="getEvents"
-          class="form-select mb-4"
+          class="form-select"
           style="width: auto"
           aria-label="Default select example"
         >
@@ -24,6 +24,7 @@
           <option value="headcount">Létszám</option>
           <option value="name">Név</option>
         </select>
+         <ordering v-model="ordering" @click.native="getEvents"> </ordering>
       </div>
       <table class="table table-striped table-light table-hover">
         <thead>
@@ -257,9 +258,10 @@
 import { mapGetters } from "vuex";
 import Multiselect from "vue-multiselect";
 import deleteModal from "../../partials/deleteModal.vue";
+import ordering from "../../partials/ordering.vue"
 
 export default {
-  components: { Multiselect, deleteModal },
+  components: { Multiselect, deleteModal, ordering },
   data() {
     return {
       data: {
@@ -276,6 +278,7 @@ export default {
       addModal: false,
       adding: false,
       orderBy: "id",
+      ordering: 'desc',
 
       //pagination
       itemPerPage: 10,
@@ -375,7 +378,7 @@ export default {
     async getEvents() {
       const res = await this.callApi(
         "get",
-        `/app/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
+        `/app/get_events?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}&ordering=${this.ordering}`
       );
       if (res.status == 200) {
         this.events = res.data.data;

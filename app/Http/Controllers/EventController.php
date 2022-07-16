@@ -56,7 +56,7 @@ class EventController extends Controller
     }
     public function getAll(Request $request)
     {
-        return Event::orderBy($request->orderBy, 'desc')->with('tags')->paginate($request->itemPerPage);
+        return Event::orderBy($request->orderBy, $request->ordering)->with('tags')->paginate($request->itemPerPage);
     }
     public function getPaginated(Request $request)
     {
