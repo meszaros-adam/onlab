@@ -2,12 +2,12 @@
   <div>
     <div class="container-fluid bg-dark text-light ms-auto my-5 p-5">
       <h1>Felhasználók</h1>
-      <div class="d-flex justify-content-end text-light">
+      <div class="d-flex justify-content-end align-items-center text-light my-3">
         <h5 class="mx-3">Rendezés:</h5>
         <select
           v-model="orderBy"
           @change="getUsers"
-          class="form-select mb-4"
+          class="form-select"
           style="width: auto"
           aria-label="Default select example"
         >
@@ -15,6 +15,7 @@
           <option value="name">Név</option>
           <option value="email">Email cím</option>
         </select>
+        <ordering v-model="ordering" @click.native="getUsers"> </ordering>
       </div>
       <table class="table table-striped table-light table-hover">
         <thead>
@@ -125,13 +126,16 @@
 <script>
 import { mapGetters } from "vuex";
 import deleteModal from "../../partials/deleteModal.vue";
+import ordering from "../../partials/ordering.vue"
 
 export default {
-  components: { deleteModal },
+  components: { deleteModal, ordering },
   data() {
     return {
       users: [],
       orderBy: "id",
+      ordering: 'desc',
+
       //pagination
       itemPerPage: 10,
       currentPage: 1,
@@ -193,7 +197,7 @@ export default {
     async getUsers() {
       const res = await this.callApi(
         "get",
-        `/app/get_users?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
+        `/app/get_users?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}&ordering=${this.ordering}`
       );
       if (res.status == 200) {
         this.users = res.data.data;

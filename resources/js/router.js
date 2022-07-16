@@ -6,7 +6,7 @@ import eventsAdmin from './components/pages/admin/eventsAdmin'
 import events from './components/pages/events'
 import notAuthorized from './components/pages/notAuthorized'
 import tagsAdmin from './components/pages/admin/tagsAdmin'
-import userAdmin from './components/pages/admin/userAdmin'
+import usersAdmin from './components/pages/admin/usersAdmin'
 import registrationsAdmin from './components/pages/admin/registrationsAdmin'
 import eventSingle from './components/pages/eventSingle'
 import registrationsUser from './components/pages/user/registrationsUser'
@@ -40,7 +40,7 @@ const routes = [
     },
     {
         path:'/admin/users',
-        component: userAdmin,
+        component: usersAdmin,
     },
     {
         path:'/admin/registrations',

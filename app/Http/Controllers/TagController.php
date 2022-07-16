@@ -10,8 +10,8 @@ class TagController extends Controller
 {
     public function get(Request $request){
 
-        //if $request has itemPerPage property, it return with pageinate, else it return without paginate
-        return $request->itemPerPage ? Tag::orderBy($request->orderBy,'desc')->paginate($request->itemPerPage) : Tag::orderBy('id','desc')->get();
+        //if $request has itemPerPage property, it return with paginate, else it return without paginate
+        return $request->itemPerPage ? Tag::orderBy($request->orderBy, $request->ordering)->paginate($request->itemPerPage) : Tag::orderBy('id','desc')->get();
 
     }
     public function add(Request $request){

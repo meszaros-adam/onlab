@@ -1,12 +1,27 @@
 <template>
   <div class="container-fluid bg-dark text-light ms-auto my-5 p-5">
     <h1>Kommentek</h1>
+    <div class="d-flex justify-content-end text-light align-items-center my-3">
+      <h5 class="mx-3">Rendezés:</h5>
+      <select
+        v-model="orderBy"
+        @change="getComments"
+        class="form-select"
+        style="width: auto"
+        aria-label="Default select example"
+      >
+        <option value="id">Azonosító (ID)</option>
+        <option value="user_id">Felhasználó</option>
+        <option value="event_id">Esemény (ID)</option>
+      </select>
+      <ordering v-model="ordering" @click.native="getComments"> </ordering>
+    </div>
     <table class="table table-striped table-light table-hover">
       <thead>
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Felhasználó</th>
-          <th scope="col">Esemény</th>
+          <th scope="col">Esemény (ID)</th>
           <th scope="col">Komment</th>
           <th scope="col">Létrehozva</th>
           <th scope="col">Funkciók</th>
@@ -16,7 +31,7 @@
         <tr v-for="(comment, c) in comments" :key="c">
           <th>{{ comment.id }}</th>
           <th>{{ comment.user.email }}</th>
-          <td>{{ comment.event.name }}</td>
+          <td>{{ comment.event.name }}  ({{ comment.event.id}})</td>
           <td>{{ comment.comment }}</td>
           <td>{{ comment.created_at }}</td>
           <td>
@@ -91,15 +106,18 @@
 <script>
 import { mapGetters } from "vuex";
 import deleteModal from "./deleteModal.vue";
+import ordering from "./ordering.vue";
 
 export default {
-  components: { deleteModal },
+  components: { deleteModal, ordering },
   props: ["getUrl"],
   data() {
     return {
       comments: [],
 
       orderBy: "id",
+      ordering: 'desc',
+
       //pagination
       itemPerPage: 10,
       currentPage: 1,
@@ -161,7 +179,7 @@ export default {
     async getComments() {
       const res = await this.callApi(
         "get",
-        `${this.getUrl}?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
+        `${this.getUrl}?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}&ordering=${this.ordering}`
       );
       if (res.status == 200) {
         this.comments = res.data.data;

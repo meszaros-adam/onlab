@@ -2,10 +2,10 @@
   <div>
     <div class="container-fluid bg-dark text-light ms-auto my-5 p-5">
       <h1>Címkék</h1>
-      <div class="d-flex text-light">
+      <div class="d-flex text-light  align-items-center my-3">
         <button
           type="button"
-          class="btn btn-success mb-3 me-auto"
+          class="btn btn-success me-auto"
           @click="addModal = true"
         >
           <i class="bi bi-plus-lg"></i>
@@ -15,13 +15,14 @@
         <select
           v-model="orderBy"
           @change="getTags"
-          class="form-select mb-4"
+          class="form-select"
           style="width: auto"
           aria-label="Default select example"
         >
           <option value="id">Azonosító (ID)</option>
           <option value="name">Név</option>
         </select>
+        <ordering v-model="ordering" @click.native="getTags"> </ordering>
       </div>
       <table class="table table-striped table-light table-hover">
         <thead>
@@ -147,9 +148,10 @@
 <script>
 import { mapGetters } from "vuex";
 import deleteModal from "../../partials/deleteModal.vue";
+import ordering from "../../partials/ordering.vue";
 
 export default {
-  components: { deleteModal },
+  components: { deleteModal, ordering },
   data() {
     return {
       data: {
@@ -159,6 +161,8 @@ export default {
       addModal: false,
       adding: false,
       orderBy: "id",
+      ordering: 'desc',
+
       //pagination
       itemPerPage: 10,
       currentPage: 1,
@@ -234,7 +238,7 @@ export default {
     async getTags() {
       const res = await this.callApi(
         "get",
-        `/app/get_tags?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}`
+        `/app/get_tags?page=${this.currentPage}&itemPerPage=${this.itemPerPage}&orderBy=${this.orderBy}&ordering=${this.ordering}`
       );
       if (res.status == 200) {
         this.tags = res.data.data;
@@ -246,12 +250,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getUser",  "getDeleteModalObj"]),
+    ...mapGetters(["getUser", "getDeleteModalObj"]),
   },
   created() {
     this.getTags();
   },
-   watch: {
+  watch: {
     getDeleteModalObj(obj) {
       if (obj.isDeleted) {
         this.tags.splice(obj.deletingIndex, 1);

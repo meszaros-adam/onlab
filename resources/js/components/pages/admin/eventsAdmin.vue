@@ -2,7 +2,7 @@
   <div>
     <div class="container-fluid bg-dark text-light ms-auto my-5 p-5">
       <h1>Események</h1>
-      <div class="d-flex text-light align-center my-3">
+      <div class="d-flex text-light align-items-center my-3">
         <button
           type="button"
           class="btn btn-success me-auto"
@@ -11,7 +11,7 @@
           <i class="bi bi-plus-lg"></i>
           Esemény létrehozása
         </button>
-        <h5 class="mx-3 align-self-center">Rendezés:</h5>
+        <h5 class="mx-3">Rendezés:</h5>
         <select
           v-model="orderBy"
           @change="getEvents"
@@ -24,7 +24,7 @@
           <option value="headcount">Létszám</option>
           <option value="name">Név</option>
         </select>
-         <ordering v-model="ordering" @click.native="getEvents"> </ordering>
+        <ordering v-model="ordering" @click.native="getEvents"> </ordering>
       </div>
       <table class="table table-striped table-light table-hover">
         <thead>
@@ -258,7 +258,7 @@
 import { mapGetters } from "vuex";
 import Multiselect from "vue-multiselect";
 import deleteModal from "../../partials/deleteModal.vue";
-import ordering from "../../partials/ordering.vue"
+import ordering from "../../partials/ordering.vue";
 
 export default {
   components: { Multiselect, deleteModal, ordering },
@@ -278,7 +278,7 @@ export default {
       addModal: false,
       adding: false,
       orderBy: "id",
-      ordering: 'desc',
+      ordering: "desc",
 
       //pagination
       itemPerPage: 10,

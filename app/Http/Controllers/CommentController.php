@@ -27,10 +27,10 @@ class CommentController extends Controller
         return Comment::where('event_id', $request->event_id)->with('user', 'children')->get();
     }
     public function getAll(Request $request){
-        return Comment::orderBy($request->orderBy, 'desc')->with('user', 'event')->paginate($request->itemPerPage);
+        return Comment::orderBy($request->orderBy, $request->ordering)->with('user', 'event')->paginate($request->itemPerPage);
     }
     public function getByUser(Request $request) {
-        return Comment::where('user_id', Auth::user()->id)->orderBy($request->orderBy, 'desc')->with('user', 'event')->paginate($request->itemPerPage);
+        return Comment::where('user_id', Auth::user()->id)->orderBy($request->orderBy,  $request->ordering)->with('user', 'event')->paginate($request->itemPerPage);
     }
     public function edit(Request $request){
         $this->validate($request,[
